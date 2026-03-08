@@ -1,25 +1,25 @@
-# Hi there 👋, I'm Shubham
-<img src="https://iam-weijie.github.io/wave/hand-emoji.svg" alt="Waving Hand" width="30" height="30" />
+# Hi there <img src="https://iam-weijie.github.io/wave/hand-emoji.svg" alt="Waving Hand" width="30" height="30" />, I'm Shubham
+
 💡 Curious mind exploring code, games, and ideas! 
 ♟ Chess enthusiast | 🎮 Love unique games | 🧠 Always Thinking 
 
 ---
 
-## 🛠 Tech & Tools
+<h3>🛠 Tech & Tools</h3>
 - **Languages:** Python, C++, Javascript  
 - **Frameworks:** Scratch, Pygame 
 - **Other:** Git, GitHub, VS Code  
 
 ---
 
-## 🚀 Projects
+<h3>🚀 Projects</h3>
 - **Infinite Backdrop Game:** A Scratch project that feels endless 🌌  
 - **Smart Chess Bot:** A chess AI experimenting with strategy ♟  
 - **Creative Game Mechanics:** Fun concepts inspired by games like Among Us 👀  
 
 ---
 
-## ⚡ Fun Facts
+<h3>⚡ Fun Facts</h3>
 - I enjoy experimenting with small, clever ideas over generic ones.  
 - Always curious about how things work and how to make them better!  
 - I love making projects that surprise people with simplicity and creativity.  
