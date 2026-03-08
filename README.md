@@ -1,16 +1,29 @@
-## Hi there 👋
+# Hi there 👋, I'm Shubham
+<img src="https://iam-weijie.github.io/wave/hand-emoji.svg" alt="Waving Hand" width="30" height="30" />
+💡 Curious mind exploring code, games, and ideas! 
+♟ Chess enthusiast | 🎮 Love unique games | 🧠 Always Thinking 
 
-<!--
-**Quillpy/Quillpy** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+---
 
-Here are some ideas to get you started:
+## 🛠 Tech & Tools
+- **Languages:** Python, C++, Javascript  
+- **Frameworks:** Scratch, Pygame 
+- **Other:** Git, GitHub, VS Code  
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+---
+
+## 🚀 Projects
+- **Infinite Backdrop Game:** A Scratch project that feels endless 🌌  
+- **Smart Chess Bot:** A chess AI experimenting with strategy ♟  
+- **Creative Game Mechanics:** Fun concepts inspired by games like Among Us 👀  
+
+---
+
+## ⚡ Fun Facts
+- I enjoy experimenting with small, clever ideas over generic ones.  
+- Always curious about how things work and how to make them better!  
+- I love making projects that surprise people with simplicity and creativity.  
+
+---
+
+Let's connect! 🤝  
