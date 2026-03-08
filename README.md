@@ -4,7 +4,7 @@
 ♟ Chess enthusiast | 🎮 Love unique games | 🧠 Always Thinking 
 
 <h3>🛠 Tech & Tools</h3>
-- **Languages:** Python, C++, Javascript  
+- <b></b>Languages:</b> Python, C++, Javascript  
 - **Frameworks:** Scratch, Pygame 
 - **Other:** Git, GitHub, VS Code  
 
