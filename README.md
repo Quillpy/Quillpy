@@ -1,45 +1,76 @@
-Hey, i'm shubham 👋
+<!-- Header --><h1 align="center">Hi 👋 I'm Shubham</h1>
+<p align="center">
+Curious mind exploring <b>code, systems, and creative ideas</b><br>
+♟ Chess • 🎮 Game mechanics • 🐧 Linux tinkering
+</p><p align="center">
+<img src="https://img.shields.io/badge/Age-16-blue"/>
+<img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white"/>
+<img src="https://img.shields.io/badge/Focus-Programming-brightgreen"/>
+<img src="https://img.shields.io/badge/Mindset-Always%20Learning-orange"/>
+</p>---
 
-16 y/o curious human exploring code, systems, and weird ideas
+🧠 About Me
 
-OS: Arch Linux (btw)
-Editor: VS Code
-Languages: Python • C++ • JavaScript
-Interests: Systems • Game mechanics • Chess • Creative tools
-Status: building things and breaking them
+- Curious developer exploring the vast tech world
+- Enjoy building small clever tools and creative projects
+- Interested in math, systems, and human progress
+- Love discovering unexpected ideas while building
 
-⚡ things i like
-
-- writing small tools that make life easier
-- experimenting with game mechanics
-- thinking about math, systems and human progress
-- chess (still blundering pieces)
-
-🧪 projects
-
-FastCR
-
-«compile & run 11 languages with a single command»
-
-Infinite Backdrop Game
-
-«a Scratch experiment that feels endless»
-
-Smart Chess Bot
-
-«teaching a machine how to blunder like me ♟»
-
-🧠 current quests
-
-- getting better at C++
-- learning more about linux & systems
-- improving at chess
-- building weird useful tools
-
-fun fact
-
-sometimes i spend 3 hours automating something that takes 10 seconds
+«Currently waiting for Class 10 results while diving deeper into programming and technology.»
 
 ---
 
-«“stay curious.”»
+🛠 Tech & Tools
+
+Languages
+
+"Python" (https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+"C++" (https://img.shields.io/badge/C++-00599C?logo=cplusplus&logoColor=white)
+"JavaScript" (https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+
+Tools & Environment
+
+"Linux" (https://img.shields.io/badge/Linux-Arch-black?logo=linux)
+"Git" (https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+"GitHub" (https://img.shields.io/badge/GitHub-181717?logo=github)
+"VSCode" (https://img.shields.io/badge/VSCode-007ACC?logo=visualstudiocode)
+
+---
+
+🚀 Projects
+
+FastCR
+Compile and run 11 programming languages with a single command
+
+Infinite Backdrop Game
+A creative Scratch experiment that feels endless 🌌
+
+Smart Chess Bot
+Exploring chess AI and strategy ♟
+
+Game Mechanics Experiments
+Inspired by unique games like Among Us
+
+---
+
+⚡ Things I Enjoy
+
+- Transforming my Arch Linux + KDE Plasma setup
+- Playing chess and thinking about strategy
+- Building tools that simplify things
+- Exploring new concepts in programming
+
+---
+
+🎯 Current Focus
+
+- Improving C++ and systems knowledge
+- Learning more about Linux internals
+- Building interesting small tools
+- Getting better at chess
+
+---
+
+<p align="center">
+<i>"Stay curious. Build things. Break things. Learn everything."</i>
+</p>
