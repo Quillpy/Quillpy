@@ -1,21 +1,45 @@
-# Hi there 👋, I'm Shubham
+Hey, i'm shubham 👋
 
-💡 Curious mind exploring code, games, and ideas! 
-♟ Chess enthusiast | 🎮 Love unique games | 🧠 Always Thinking 
+16 y/o curious human exploring code, systems, and weird ideas
 
-<h3>🛠 Tech & Tools</h3>
-- <b>Languages:</b> Python, C++, Javascript  
-- <b>Frameworks:</b> Scratch, Pygame 
-- <b>Other</b> Git, GitHub, VS Code  
+OS: Arch Linux (btw)
+Editor: VS Code
+Languages: Python • C++ • JavaScript
+Interests: Systems • Game mechanics • Chess • Creative tools
+Status: building things and breaking them
 
-<h3>🚀 Projects</h3>
-- <b>Infinite Backdrop Game:</b> A Scratch project that feels endless 🌌  
-- <b>Smart Chess Bot:</b> A chess AI experimenting with strategy ♟  
-- <b>Creative Game Mechanics:</b> Fun concepts inspired by games like Among Us 👀  
+⚡ things i like
 
-<h3>⚡ Fun Facts</h3>
-- I enjoy experimenting with small, clever ideas over generic ones.  
-- Always curious about how things work and how to make them better!  
-- I love making projects that surprise people with simplicity and creativity.  
+- writing small tools that make life easier
+- experimenting with game mechanics
+- thinking about math, systems and human progress
+- chess (still blundering pieces)
 
-<b>Let's connect! 🤝</b>
+🧪 projects
+
+FastCR
+
+«compile & run 11 languages with a single command»
+
+Infinite Backdrop Game
+
+«a Scratch experiment that feels endless»
+
+Smart Chess Bot
+
+«teaching a machine how to blunder like me ♟»
+
+🧠 current quests
+
+- getting better at C++
+- learning more about linux & systems
+- improving at chess
+- building weird useful tools
+
+fun fact
+
+sometimes i spend 3 hours automating something that takes 10 seconds
+
+---
+
+«“stay curious.”»
