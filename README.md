@@ -7,7 +7,9 @@ Curious mind exploring <b>code, systems, and creative ideas</b><br>
 <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white"/>
 <img src="https://img.shields.io/badge/Focus-Programming-brightgreen"/>
 <img src="https://img.shields.io/badge/Mindset-Always%20Learning-orange"/>
-</p>---
+</p>
+
+---
 
 🧠 About Me
 
@@ -16,7 +18,7 @@ Curious mind exploring <b>code, systems, and creative ideas</b><br>
 - Interested in math, systems, and human progress
 - Love discovering unexpected ideas while building
 
-«Currently waiting for Class 10 results while diving deeper into programming and technology.»
+Currently waiting for Class 10 results while diving deeper into programming and technology.
 
 ---
 
@@ -24,16 +26,16 @@ Curious mind exploring <b>code, systems, and creative ideas</b><br>
 
 Languages
 
-"Python" (https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
-"C++" (https://img.shields.io/badge/C++-00599C?logo=cplusplus&logoColor=white)
-"JavaScript" (https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Python] (https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![C++] (https://img.shields.io/badge/C++-00599C?logo=cplusplus&logoColor=white)
+![JavaScript] (https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
 
 Tools & Environment
 
-"Linux" (https://img.shields.io/badge/Linux-Arch-black?logo=linux)
-"Git" (https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
-"GitHub" (https://img.shields.io/badge/GitHub-181717?logo=github)
-"VSCode" (https://img.shields.io/badge/VSCode-007ACC?logo=visualstudiocode)
+![Linux] (https://img.shields.io/badge/Linux-Arch-black?logo=linux)
+![Git] (https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+![GitHub] (https://img.shields.io/badge/GitHub-181717?logo=github)
+![VSCode] (https://img.shields.io/badge/VSCode-007ACC?logo=visualstudiocode)
 
 ---
 
