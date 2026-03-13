@@ -64,6 +64,7 @@ Inspired by unique games like Among Us
 
 ---
 
+[![Shubham's GitHub stats](https://github-readme-stats.vercel.app/api?username=quillpy)](https://github.com/anuraghazra/github-readme-stats)
 🎯 Current Focus
 
 - Improving C++ and systems knowledge
