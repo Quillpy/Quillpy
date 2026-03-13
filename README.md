@@ -63,14 +63,17 @@ Inspired by unique games like Among Us
 - Exploring new concepts in programming
 
 ---
-
-[![Shubham's GitHub stats](https://github-readme-stats.vercel.app/api?username=quillpy)](https://github.com/anuraghazra/github-readme-stats)
 🎯 Current Focus
 
 - Improving C++ and systems knowledge
 - Learning more about Linux internals
 - Building interesting small tools
 - Getting better at chess
+
+---
+[![Shubham's GitHub stats](https://github-readme-stats.vercel.app/api?username=quillpy)](https://github.com/anuraghazra/github-readme-stats)
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Quillpy&theme=algolia&show_icons=true)](https://github.com/Quillpy)  
 
 ---
 
