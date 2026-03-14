@@ -1,85 +1,34 @@
-<!-- HERO -->
-<h1 align="center">Hi 👋 I'm Shubham</h1>
+# Hi, I'm Shubham 👋
 
-<p align="center">
-  <i>curious mind building tiny things that sometimes work</i>
-</p>
+> Curious mind building tiny things that sometimes work.
 
-<p align="center">
-  👨‍💻 programming • 🎮 game mechanics • 🐧 linux tinkering
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Age-16-blue">
-  <img src="https://img.shields.io/badge/OS-Arch_Linux-1793D1?logo=arch-linux&logoColor=white">
-  <img src="https://img.shields.io/badge/Mindset-curious-orange">
-</p>
+16yo • Arch Linux • C++ & Python
 
 ---
-
-<div align="center">
 
 ### 🧠 About
+I'm currently focused on learning how computers *actually* work.
+* 🐧 **Linux:** Breaking things and exploring internals.
+* ♟️ **Chess:** Playing, improving, and building AI experiments.
+* 🛠️ **Dev:** Writing code that turns into useful tools.
 
-learning how computers *actually* work  
+### 🚀 Featured Projects
+* **FastCR:** Run 11 languages with a single command.
+* **Smart Chess Bot:** Experiments in chess engines and logic.
+* **Game Mechanics:** Exploring weird physics and systems.
 
-Currently:
-
-breaking things in **linux**,
-playing and improving **Chess** and
-writing code that becomes tools
-
-</div>
-
----
-
-<div align="center">
-
-### ⚒️ Tools I Use
-
-<img src="https://skillicons.dev/icons?i=python,cpp,js,linux,github,vscode,bash"/>
-
-</div>
+### 🛠️ Tech Stack
+`Python` `C++` `JavaScript` `Linux` `Bash` `Git`
 
 ---
 
-<div align="center">
+### 📈 Stats
+![Shubham's Stats](https://github-readme-stats.vercel.app/api?username=Quillpy&show_icons=true&theme=transparent&hide_border=true)
 
-### 🚀 Things I've Built
-
-| project | what it does |
-|-------|-------------|
-| **FastCR** | run 11 languages with one command |
-| **Smart Chess Bot** | experiments with chess AI |
-| **Game Experiments** | weird mechanics inspired by games |
-
-</div>
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Quillpy&layout=compact&theme=transparent&hide_border=true)
 
 ---
 
-<div align="center">
+**For extra info, visit [quillpy.vercel.app](https://quillpy.vercel.app)**
 
-### ⚡ Currently
-
-improving **C++**,
-exploring **linux internals**,
-thinking about **game mechanics** and
-trying not to blunder in **chess**
-
-</div>
-
----
-
-<p align="center">
-<img src="https://github-readme-stats.vercel.app/api?username=Quillpy&show_icons=true&theme=transparent&hide_border=true"/>
-</p>
-
-<p align="center">
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Quillpy&layout=compact&langs_count=8&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)   
-</p>
-
----
-
-<p align="center">
-<i>build • break • learn • repeat</i>
-</p>
+*build • break • learn • repeat*
