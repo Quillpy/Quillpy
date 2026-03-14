@@ -21,7 +21,7 @@ export function WelcomeTab() {
           lineHeight: '1.2'
         }}
       >
-        Hi, I'm Quillpy
+        Hi, I'm Quillpy 👋
         <span 
           style={{ 
             color: '#7fbf9a',
@@ -41,7 +41,7 @@ export function WelcomeTab() {
           fontWeight: '300'
         }}
       >
-        Curious mind exploring code, systems, and ideas.
+        A curious mind exploring code 💻, systems 🐧, and ideas.
       </p>
       
       <p 
@@ -52,8 +52,19 @@ export function WelcomeTab() {
           lineHeight: '1.8'
         }}
       >
-        I enjoy programming, Linux systems, and thinking about how things work.
-        Currently learning and building small projects while exploring engineering and creative technology.
+        I enjoy programming, Linux systems, and understanding how things work.
+        This site is a small corner of the internet where I share projects,
+        experiments, and things I'm learning along the way 🚀
+      </p>
+
+      <p 
+        style={{ 
+          color: '#7b8f86',
+          marginTop: '1.5rem',
+          fontSize: '0.9rem'
+        }}
+      >
+        Open a tab above to explore.
       </p>
     </div>
   );

@@ -8,22 +8,22 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: 'FastCR',
+    title: 'FastCR ⚡',
     description: 'A lightweight fast code runner.',
     url: 'https://github.com',
   },
   {
-    title: 'Linux Setup',
+    title: 'Linux Setup 🐧',
     description: 'Custom Arch Linux KDE environment with minimal design.',
     url: 'https://github.com',
   },
   {
-    title: 'Dotfiles',
+    title: 'Dotfiles ⚙️',
     description: 'Minimal configs for my Linux setup.',
     url: 'https://github.com',
   },
   {
-    title: 'Experimental Ideas',
+    title: 'Experimental Ideas 🧪',
     description: 'Small coding experiments and tools.',
     url: 'https://github.com',
   },
@@ -32,11 +32,44 @@ const projects: Project[] = [
 export function ProjectsTab() {
   return (
     <div className="max-w-4xl mx-auto py-6 sm:py-12">
+
+      <h1
+        className="mb-4"
+        style={{
+          fontSize: 'clamp(1.8rem, 4vw, 2.3rem)',
+          fontWeight: '300',
+          color: '#e6f0ea'
+        }}
+      >
+        Projects 🚀
+      </h1>
+
+      <p
+        className="mb-8"
+        style={{
+          color: '#a6b8ad',
+          fontSize: 'clamp(1rem, 2vw, 1.1rem)'
+        }}
+      >
+        A few things I've built or experimented with.
+      </p>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
       </div>
+
+      <p
+        style={{
+          color: '#7b8f86',
+          marginTop: '1.8rem',
+          fontSize: '0.9rem'
+        }}
+      >
+        More projects coming soon.
+      </p>
+
     </div>
   );
 }
@@ -57,9 +90,9 @@ function ProjectCard({ project }: { project: Project }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <h3 
+      <h3
         className="mb-2"
-        style={{ 
+        style={{
           fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)',
           color: isHovered ? '#7fbf9a' : '#e6f0ea',
           fontWeight: '500',
@@ -68,6 +101,7 @@ function ProjectCard({ project }: { project: Project }) {
       >
         {project.title}
       </h3>
+
       <p style={{ color: '#a6b8ad', fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
         {project.description}
       </p>

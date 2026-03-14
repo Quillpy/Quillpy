@@ -12,7 +12,7 @@ const socialLinks: SocialLink[] = [
   {
     name: 'GitHub',
     icon: Github,
-    url: 'https://github.com',
+    url: 'https://github.com/Quillpy',
     label: '@quillpy',
   },
   {
@@ -23,14 +23,48 @@ const socialLinks: SocialLink[] = [
         <circle cx="12" cy="12" r="3" />
       </svg>
     ),
-    url: 'https://chess.com',
-    label: 'quillpy',
+    url: 'https://www.chess.com/member/quillpy',
+    label: 'quillpy ♟',
+  },
+  {
+    name: 'Codeforces',
+    icon: () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="4" y="8" width="4" height="10" />
+        <rect x="10" y="5" width="4" height="13" />
+        <rect x="16" y="3" width="4" height="15" />
+      </svg>
+    ),
+    url: 'https://codeforces.com/profile/quillpy',
+    label: 'quillpy 💻',
+  },
+  {
+    name: 'Instagram',
+    icon: () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="2" y="2" width="20" height="20" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" />
+      </svg>
+    ),
+    url: 'https://instagram.com/quillpy',
+    label: '@quillpy',
+  },
+  {
+    name: 'X',
+    icon: () => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 4L20 20M20 4L4 20" stroke="currentColor" strokeWidth="2"/>
+      </svg>
+    ),
+    url: 'https://x.com/quillpy',
+    label: '@quillpy',
   },
   {
     name: 'Email',
     icon: Mail,
     url: 'mailto:hello@example.com',
-    label: 'hello@example.com',
+    label: 'hello@example.com ✉️',
   },
 ];
 
@@ -38,10 +72,11 @@ export function ConnectTab() {
   return (
     <div className="max-w-4xl mx-auto py-6 sm:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
         {/* Social Links */}
         <div>
           <h2 
-            className="mb-4"
+            className="mb-2"
             style={{ 
               fontSize: '1.5rem',
               color: '#e6f0ea',
@@ -50,6 +85,17 @@ export function ConnectTab() {
           >
             Connect
           </h2>
+
+          <p
+            style={{
+              color: '#a6b8ad',
+              fontSize: '0.95rem',
+              marginBottom: '1rem'
+            }}
+          >
+            You can find me around the internet here.
+          </p>
+
           <div className="space-y-3">
             {socialLinks.map((link) => (
               <SocialLinkItem key={link.name} link={link} />
@@ -71,6 +117,7 @@ export function ConnectTab() {
           </h2>
           <ContactForm />
         </div>
+
       </div>
     </div>
   );
@@ -96,6 +143,7 @@ function SocialLinkItem({ link }: { link: SocialLink }) {
       <div style={{ color: isHovered ? '#7fbf9a' : '#6f9f84' }}>
         <Icon size={24} />
       </div>
+
       <div className="flex-1">
         <div 
           style={{ 
@@ -106,6 +154,7 @@ function SocialLinkItem({ link }: { link: SocialLink }) {
         >
           {link.name}
         </div>
+
         <div 
           style={{ 
             fontSize: '0.875rem',
@@ -125,12 +174,13 @@ function ContactForm() {
     email: '',
     message: '',
   });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
     setIsSubmitted(true);
+
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: '', email: '', message: '' });
@@ -154,7 +204,7 @@ function ContactForm() {
         }}
       >
         <p style={{ color: '#7fbf9a', fontSize: '1.125rem' }}>
-          Message sent! I'll get back to you soon.
+          Message sent! I'll get back to you soon 🚀
         </p>
       </div>
     );
@@ -162,6 +212,7 @@ function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+
       <div>
         <label 
           htmlFor="name"
@@ -170,6 +221,7 @@ function ContactForm() {
         >
           Name
         </label>
+
         <input
           type="text"
           id="name"
@@ -196,6 +248,7 @@ function ContactForm() {
         >
           Email
         </label>
+
         <input
           type="email"
           id="email"
@@ -222,13 +275,14 @@ function ContactForm() {
         >
           Message
         </label>
+
         <textarea
           id="message"
           name="message"
+          rows={4}
           value={formData.message}
           onChange={handleChange}
           required
-          rows={4}
           className="w-full px-4 py-2 rounded-lg outline-none transition-all duration-200 resize-none"
           style={{
             backgroundColor: '#1b2a24',
@@ -253,6 +307,7 @@ function ContactForm() {
       >
         Send Message
       </button>
+
     </form>
   );
 }
