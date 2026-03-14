@@ -75,7 +75,7 @@ trying not to blunder in **chess**
 </p>
 
 <p align="center">
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Quillpy&layout=compact&theme=transparent&hide_border=true"/>
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Quillpy&layout=compact&langs_count=8&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)   
 </p>
 
 ---
