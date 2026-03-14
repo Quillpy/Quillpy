@@ -1,0 +1,60 @@
+import { useEffect, useState } from 'react';
+
+export function WelcomeTab() {
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="max-w-3xl mx-auto py-6 sm:py-12">
+      <h1 
+        className="mb-4 sm:mb-6"
+        style={{ 
+          fontSize: 'clamp(2rem, 5vw, 3rem)',
+          fontWeight: '300',
+          color: '#e6f0ea',
+          lineHeight: '1.2'
+        }}
+      >
+        Hi, I'm Quillpy
+        <span 
+          style={{ 
+            color: '#7fbf9a',
+            opacity: showCursor ? 1 : 0,
+            transition: 'opacity 0.1s'
+          }}
+        >
+          _
+        </span>
+      </h1>
+      
+      <p 
+        className="mb-6 sm:mb-8"
+        style={{ 
+          fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
+          color: '#a6b8ad',
+          fontWeight: '300'
+        }}
+      >
+        Curious mind exploring code, systems, and ideas.
+      </p>
+      
+      <p 
+        className="leading-relaxed"
+        style={{ 
+          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+          color: '#a6b8ad',
+          lineHeight: '1.8'
+        }}
+      >
+        I enjoy programming, Linux systems, and thinking about how things work.
+        Currently learning and building small projects while exploring engineering and creative technology.
+      </p>
+    </div>
+  );
+}
