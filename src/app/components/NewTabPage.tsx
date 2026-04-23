@@ -78,12 +78,13 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
           Search the web or navigate to: welcome, about, projects, philosophy, connect
         </p>
 
-        {/* Quick Links */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8">
+{/* Quick Links */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-8">
           {[
             { name: 'Welcome', path: 'welcome' },
             { name: 'About', path: 'about' },
             { name: 'Projects', path: 'projects' },
+            { name: 'Terminal', path: 'terminal' },
             { name: 'Connect', path: 'connect' }
           ].map((link) => (
             <button
@@ -100,14 +101,21 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
                 e.currentTarget.style.borderColor = '#6f9f84';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#16221d';
-                e.currentTarget.style.borderColor = '#1b2a24';
+                e.currentTarget.style.backgroundColor = "#16221d";
+                e.currentTarget.style.borderColor = "#1b2a24";
               }}
             >
               <div style={{ fontSize: '0.875rem' }}>{link.name}</div>
             </button>
           ))}
         </div>
+
+        <p 
+          className="text-center text-sm mt-4"
+          style={{ color: '#7a8f82' }}
+        >
+          Search the web or navigate to: welcome, about, projects, philosophy, terminal, connect
+        </p>
       </div>
     </div>
   );

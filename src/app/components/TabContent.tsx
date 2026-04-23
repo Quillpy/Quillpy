@@ -4,8 +4,10 @@ import { AboutTab } from './tabs/AboutTab';
 import { ProjectsTab } from './tabs/ProjectsTab';
 import { PhilosophyTab } from './tabs/PhilosophyTab';
 import { ConnectTab } from './tabs/ConnectTab';
+import { TerminalTab } from './tabs/TerminalTab';
 import { NewTabPage } from './NewTabPage';
 import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
 
 interface TabContentProps {
   activeTab: TabType;
@@ -13,27 +15,54 @@ interface TabContentProps {
 }
 
 export function TabContent({ activeTab, onSearch }: TabContentProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 200);
+    return () => clearTimeout(timer);
+  }, [activeTab]);
+
   return (
     <div 
       className="overflow-hidden"
       style={{ backgroundColor: '#16221d' }}
     >
       <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="p-4 sm:p-8 min-h-[400px] sm:min-h-[500px]"
-        >
-          {activeTab === 'welcome' && <WelcomeTab />}
-          {activeTab === 'about' && <AboutTab />}
-          {activeTab === 'projects' && <ProjectsTab />}
-          {activeTab === 'philosophy' && <PhilosophyTab />}
-          {activeTab === 'connect' && <ConnectTab />}
-          {activeTab === 'newtab' && <NewTabPage onSearch={onSearch} />}
-        </motion.div>
+        {isLoading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="p-4 sm:p-8 min-h-[400px] sm:min-h-[500px] flex items-center justify-center"
+          >
+            <p 
+              className="font-mono text-sm"
+              style={{ color: '#6f9f84' }}
+            >
+              Loading {activeTab}...
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="p-4 sm:p-8 min-h-[400px] sm:min-h-[500px]"
+          >
+            {activeTab === 'welcome' && <WelcomeTab />}
+            {activeTab === 'about' && <AboutTab />}
+            {activeTab === 'projects' && <ProjectsTab />}
+            {activeTab === 'philosophy' && <PhilosophyTab />}
+            {activeTab === 'connect' && <ConnectTab />}
+            {activeTab === 'terminal' && <TerminalTab onNavigate={onSearch} />}
+            {activeTab === 'newtab' && <NewTabPage onSearch={onSearch} />}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );

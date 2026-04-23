@@ -18,54 +18,51 @@ export function WelcomeTab() {
           fontSize: 'clamp(2rem, 5vw, 3rem)',
           fontWeight: '300',
           color: '#e6f0ea',
-          lineHeight: '1.2'
+          lineHeight: '1.2',
+          fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
         }}
       >
-        Hi, I'm Quillpy 👋
+        <span style={{ color: '#7fbf9a' }}>quillpy@dev</span>
+        <span style={{ color: '#a6b8ad' }}>:~$</span>
         <span 
           style={{ 
             color: '#7fbf9a',
             opacity: showCursor ? 1 : 0,
-            transition: 'opacity 0.1s'
+            transition: 'opacity 0.1s',
+            marginLeft: '2px'
           }}
         >
           _
         </span>
       </h1>
       
-      <p 
-        className="mb-6 sm:mb-8"
-        style={{ 
-          fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
-          color: '#a6b8ad',
-          fontWeight: '300'
-        }}
-      >
-        A curious mind exploring code 💻, systems 🐧, and ideas.
-      </p>
-      
-      <p 
-        className="leading-relaxed"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        I enjoy programming, Linux systems, and understanding how things work.
-        This site is a small corner of the internet where I share projects,
-        experiments, and things I'm learning along the way 🚀
-      </p>
-
-      <p 
-        style={{ 
-          color: '#7b8f86',
-          marginTop: '1.5rem',
-          fontSize: '0.9rem'
-        }}
-      >
-        Open a tab above to explore.
-      </p>
+      <div className="mt-8 sm:mt-12 space-y-4 sm:space-y-6" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>
+        <div>
+          <p style={{ color: '#7fbf9a', fontSize: 'clamp(1rem, 2vw, 1.125rem)' }}>
+            Hi, I'm Quillpy
+          </p>
+        </div>
+        
+        <div className="pl-4 border-l-2" style={{ borderColor: '#1b2a24' }}>
+          <p style={{ color: '#a6b8ad', fontSize: 'clamp(0.875rem, 2vw, 1rem)', lineHeight: '1.8' }}>
+            A curious mind exploring code, systems, and ideas.
+          </p>
+        </div>
+        
+        <div className="pl-4 border-l-2" style={{ borderColor: '#1b2a24' }}>
+          <p style={{ color: '#a6b8ad', fontSize: 'clamp(0.875rem, 2vw, 1rem)', lineHeight: '1.8' }}>
+            I enjoy programming, Linux systems, and understanding how things work.
+            This site is a small corner of the internet where I share projects,
+            experiments, and things I'm learning along the way.
+          </p>
+        </div>
+        
+        <div className="mt-6">
+          <p style={{ color: '#7b8f86', fontSize: '0.9rem' }}>
+            <span style={{ color: '#7fbf9a' }}>→</span> Open a tab above to explore.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

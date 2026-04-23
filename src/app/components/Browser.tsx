@@ -4,11 +4,17 @@ import { TabBar } from './TabBar';
 import { TabContent } from './TabContent';
 import { DevControlOverlay, ControlMode } from './DevControlOverlay';
 import { motion } from 'motion/react';
+import { useClickSound } from '../../hooks/useClickSound';
 
-export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'newtab';
+export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'newtab';
 
 export interface Tab {
   id: string;
+  type: TabType;
+  title: string;
+}
+
+interface TabHistory {
   type: TabType;
   title: string;
 }
@@ -19,6 +25,7 @@ const DEFAULT_TAB_TITLES: Record<TabType, string> = {
   projects: 'Projects',
   philosophy: 'Philosophy',
   connect: 'Connect',
+  terminal: 'Terminal',
   newtab: 'New Tab'
 };
 
@@ -29,6 +36,15 @@ export function Browser() {
   const [activeTabId, setActiveTabId] = useState('1');
   const [controlMode, setControlMode] = useState<ControlMode>(null);
   const [showContent, setShowContent] = useState(true);
+  const [tabHistory, setTabHistory] = useState<TabHistory[]>([{ type: 'welcome', title: 'Welcome' }]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const playClick = useClickSound();
+
+  useEffect(() => {
+    const handleClick = () => playClick();
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [playClick]);
 
   useEffect(() => {
     if (controlMode === 'kill') {
@@ -87,19 +103,16 @@ export function Browser() {
   };
 
   const handleSearch = (query: string) => {
-    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect'];
-    const lowerQuery = query.toLowerCase().replace('quillpy.dev/', '');
+    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal'];
+    const lowerQuery = query.toLowerCase().replace('quillpy.com/', '');
     
-    // Check if it's a valid internal page
     if (validTabs.includes(lowerQuery as TabType)) {
-      // Update current tab to that page
       setTabs(tabs.map(tab => 
         tab.id === activeTabId 
           ? { ...tab, type: lowerQuery as TabType, title: DEFAULT_TAB_TITLES[lowerQuery as TabType] }
           : tab
       ));
     } else {
-      // Open Google search in new window
       window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     }
   };
@@ -110,6 +123,32 @@ export function Browser() {
         ? { ...tab, type, title: DEFAULT_TAB_TITLES[type] }
         : tab
     ));
+    setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type, title: DEFAULT_TAB_TITLES[type] }]);
+    setHistoryIndex(prev => prev + 1);
+  };
+
+  const handleBack = () => {
+    if (historyIndex > 0) {
+      const prevState = tabHistory[historyIndex - 1];
+      setTabs(tabs.map(tab => 
+        tab.id === activeTabId 
+          ? { ...tab, type: prevState.type, title: prevState.title }
+          : tab
+      ));
+      setHistoryIndex(prev => prev - 1);
+    }
+  };
+
+  const handleForward = () => {
+    if (historyIndex < tabHistory.length - 1) {
+      const nextState = tabHistory[historyIndex + 1];
+      setTabs(tabs.map(tab => 
+        tab.id === activeTabId 
+          ? { ...tab, type: nextState.type, title: nextState.title }
+          : tab
+      ));
+      setHistoryIndex(prev => prev + 1);
+    }
   };
 
   const activeTab = tabs.find(t => t.id === activeTabId);
@@ -124,6 +163,10 @@ export function Browser() {
         onNavigate={handleNavigate}
         onControlClick={handleControlClick}
         onSearch={handleSearch}
+        onBack={handleBack}
+        onForward={handleForward}
+        canGoBack={historyIndex > 0}
+        canGoForward={historyIndex < tabHistory.length - 1}
       />
       
       <motion.div
@@ -144,6 +187,29 @@ export function Browser() {
       </motion.div>
 
       <DevControlOverlay mode={controlMode} onResume={handleResume} />
+      
+      <div 
+        className="px-4 py-2 border-t flex items-center justify-between text-xs font-mono"
+        style={{ 
+          backgroundColor: '#0f1a16',
+          borderColor: '#1b2a24',
+          color: '#6f9f84'
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-1">
+            <span style={{ color: '#7fbf9a' }}>●</span>
+            Connected
+          </span>
+          <span style={{ color: '#3a4d42' }}>|</span>
+          <span>Linux</span>
+          <span style={{ color: '#3a4d42' }}>|</span>
+          <span>Building things since 2024</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>quillpy.dev</span>
+        </div>
+      </div>
     </div>
   );
 }
