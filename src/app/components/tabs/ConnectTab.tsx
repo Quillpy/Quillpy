@@ -1,5 +1,11 @@
 import { Github, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+const TIPS = [
+  { text: 'Click the address bar to type commands directly' },
+  { text: 'The colored buttons work - try them!' },
+];
 
 interface SocialLink {
   name: string;
@@ -69,6 +75,15 @@ const socialLinks: SocialLink[] = [
 ];
 
 export function ConnectTab() {
+  const [currentTip, setCurrentTip] = useState(0);
+
+  useEffect(() => {
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 5000);
+    return () => clearInterval(tipInterval);
+  }, []);
+
   return (
     <div className="max-w-4xl mx-auto py-6 sm:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -119,6 +134,21 @@ export function ConnectTab() {
         </div>
 
       </div>
+
+      <div className="mt-8 pt-4 border-t" style={{ borderColor: '#1b2a24' }}>
+        <AnimatePresence mode="wait">
+          <motion.p 
+            key={currentTip}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.3 }}
+            style={{ color: '#6f9f84', fontSize: '0.8rem' }}
+          >
+            <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
+          </motion.p>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -134,13 +164,14 @@ function SocialLinkItem({ link }: { link: SocialLink }) {
       rel="noopener noreferrer"
       className="flex items-center gap-4 p-4 rounded-lg transition-all duration-200"
       style={{
-        backgroundColor: isHovered ? '#1b2a24' : 'transparent',
-        border: `1px solid ${isHovered ? '#6f9f84' : '#1b2a24'}`,
+        backgroundColor: isHovered ? '#1a1824' : 'transparent',
+        border: `1px solid ${isHovered ? '#8a5ca8' : '#1b2a24'}`,
+        boxShadow: isHovered ? '0 0 20px rgba(138, 92, 168, 0.1)' : 'none',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div style={{ color: isHovered ? '#7fbf9a' : '#6f9f84' }}>
+      <div style={{ color: isHovered ? '#a78bda' : '#6f9f84' }}>
         <Icon size={24} />
       </div>
 
@@ -235,7 +266,7 @@ function ContactForm() {
             border: '1px solid #1b2a24',
             color: '#e6f0ea',
           }}
-          onFocus={(e) => e.target.style.borderColor = '#6f9f84'}
+          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
           onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
@@ -262,7 +293,7 @@ function ContactForm() {
             border: '1px solid #1b2a24',
             color: '#e6f0ea',
           }}
-          onFocus={(e) => e.target.style.borderColor = '#6f9f84'}
+          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
           onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
@@ -289,7 +320,7 @@ function ContactForm() {
             border: '1px solid #1b2a24',
             color: '#e6f0ea',
           }}
-          onFocus={(e) => e.target.style.borderColor = '#6f9f84'}
+          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
           onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
@@ -302,8 +333,14 @@ function ContactForm() {
           color: '#0f1a16',
           fontWeight: '500',
         }}
-        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7fbf9a'}
-        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6f9f84'}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = '#8a5ca8';
+          e.currentTarget.style.boxShadow = '0 0 20px rgba(138, 92, 168, 0.3)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = '#6f9f84';
+          e.currentTarget.style.boxShadow = 'none';
+        }}
       >
         Send Message
       </button>

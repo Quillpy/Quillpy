@@ -3,6 +3,12 @@ import { TabType } from './Browser';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Package, User, Folder, Link, Heart, BookOpen, Sparkles } from 'lucide-react';
 
+const TIPS = [
+  { text: 'Try typing "neofetch" to see system info' },
+  { text: 'Use Tab for auto-completion' },
+  { text: 'Arrow keys navigate command history' },
+];
+
 interface TerminalTabProps {
   onNavigate: (tab: TabType) => void;
 }
@@ -36,6 +42,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [localHistory, setLocalHistory] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [currentTip, setCurrentTip] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +53,13 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   useEffect(() => {
     outputRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [commandHistory]);
+
+  useEffect(() => {
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 5000);
+    return () => clearInterval(tipInterval);
+  }, []);
 
   const processCommand = (cmd: string) => {
     const lowerCmd = cmd.toLowerCase().trim();
@@ -251,6 +265,22 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
               placeholder="Type a command..."
             />
           </div>
+        </div>
+        
+        <div className="mt-4 pt-4 border-t flex items-center gap-2" style={{ borderColor: '#1b2a24' }}>
+          <AnimatePresence mode="wait">
+            <motion.p 
+              key={currentTip}
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 5 }}
+              transition={{ duration: 0.25 }}
+              style={{ color: '#6f9f84', fontSize: '0.75rem' }}
+            >
+              <span style={{ color: '#8a5ca8', marginRight: '0.5rem' }}>▸</span>
+              {TIPS[currentTip].text}
+            </motion.p>
+          </AnimatePresence>
         </div>
       </div>
       

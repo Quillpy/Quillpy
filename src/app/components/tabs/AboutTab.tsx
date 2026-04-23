@@ -1,6 +1,21 @@
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
+
+const TIPS = [
+  { text: 'Try the address bar - type "projects" to navigate' },
+  { text: 'Use the purple icons for quick navigation' },
+];
 
 export function AboutTab() {
+  const [currentTip, setCurrentTip] = useState(0);
+
+  useEffect(() => {
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 5000);
+    return () => clearInterval(tipInterval);
+  }, []);
   return (
     <div className="max-w-2xl mx-auto py-6 sm:py-12">
       <div className="flex justify-center mb-8">
@@ -132,6 +147,21 @@ export function AboutTab() {
         whether through programming, systems thinking, or ideas that help people
         understand and build better technology.
       </p>
+
+      <div className="mt-8 pt-4 border-t" style={{ borderColor: '#1b2a24' }}>
+        <AnimatePresence mode="wait">
+          <motion.p 
+            key={currentTip}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.3 }}
+            style={{ color: '#6f9f84', fontSize: '0.8rem' }}
+          >
+            <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
+          </motion.p>
+        </AnimatePresence>
+      </div>
 
     </div>
   );

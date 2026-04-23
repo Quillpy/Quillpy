@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Folder, Terminal, User, Link, Heart, BookOpen, Sparkles } from 'lucide-react';
+
+const TIPS = [
+  { icon: Link, text: 'Address bar works - try typing "about" or "google.com"' },
+  { icon: Sparkles, text: 'Windows buttons actually work - try clicking them' },
+  { icon: Terminal, text: 'Use terminal commands: help, ls, cd projects' },
+];
 
 interface WelcomeTabProps {
   onNavigate?: (path: string) => void;
@@ -8,12 +14,20 @@ interface WelcomeTabProps {
 
 export function WelcomeTab({ onNavigate }: WelcomeTabProps) {
   const [showCursor, setShowCursor] = useState(true);
+  const [currentTip, setCurrentTip] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 530);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const tipInterval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 4000);
+    return () => clearInterval(tipInterval);
   }, []);
 
   const handleNavigate = (path: string) => {
@@ -97,9 +111,18 @@ export function WelcomeTab({ onNavigate }: WelcomeTabProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          <p style={{ color: '#3a4d42', fontSize: '0.8rem' }}>
-            <span style={{ color: '#7fbf9a' }}>💡</span> Tip: Use the terminal (cd projects, ls, help)
-          </p>
+          <AnimatePresence mode="wait">
+            <motion.p 
+              key={currentTip}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.3 }}
+              style={{ color: '#6f9f84', fontSize: '0.8rem' }}
+            >
+              <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
+            </motion.p>
+          </AnimatePresence>
         </motion.div>
       </div>
     </div>

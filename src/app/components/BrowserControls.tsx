@@ -1,9 +1,18 @@
 import { TabType } from './Browser';
-import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Sparkles, Folder, User, Link, Heart, BookOpen } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { ControlMode } from './DevControlOverlay';
 import { useClickSound } from '../../hooks/useClickSound';
 import { motion } from 'motion/react';
+
+const QUICK_NAV_ICONS = [
+  { tab: 'welcome' as TabType, icon: Sparkles, hint: 'Welcome' },
+  { tab: 'projects' as TabType, icon: Folder, hint: 'Projects' },
+  { tab: 'about' as TabType, icon: User, hint: 'About' },
+  { tab: 'connect' as TabType, icon: Link, hint: 'Connect' },
+  { tab: 'support' as TabType, icon: Heart, hint: 'Support' },
+  { tab: 'logs' as TabType, icon: BookOpen, hint: 'Logs' },
+];
 
 interface BrowserControlsProps {
   activeTab: TabType;
@@ -211,7 +220,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           </motion.button>
         </div>
 
-        <div className="flex-1 mx-2">
+        <div className="flex-1 mx-2 flex items-center gap-2">
           {isEditing ? (
             <input
               ref={inputRef}
@@ -220,7 +229,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               onChange={(e) => setUrlValue(e.target.value)}
               onKeyDown={handleKeyDown}
               onBlur={handleBlur}
-              className="w-full px-3 py-1.5 rounded-md font-mono text-xs sm:text-sm outline-none"
+              className="flex-1 px-3 py-1.5 rounded-md font-mono text-xs sm:text-sm outline-none"
               style={{ 
                 backgroundColor: '#1b2a24',
                 color: '#e6f0ea',
@@ -230,7 +239,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           ) : (
             <div 
               onClick={handleUrlClick}
-              className="px-3 py-1.5 rounded-md font-mono text-xs sm:text-sm cursor-text"
+              className="flex-1 px-3 py-1.5 rounded-md font-mono text-xs sm:text-sm cursor-text"
               style={{ 
                 backgroundColor: '#1b2a24',
                 color: '#a6b8ad',
@@ -240,13 +249,45 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 e.currentTarget.style.borderColor = '#3a4d42';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'transparent';
+                e.currentTarget.style.borderColor = '#transparent';
               }}
             >
               {displayUrl || getUrl()}
               {isTyping && <span style={{ color: '#7fbf9a' }}>_</span>}
             </div>
           )}
+
+          <div className="flex gap-1 px-2 border-l" style={{ borderColor: '#1b2a24' }}>
+            {QUICK_NAV_ICONS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.button
+                  key={item.tab}
+                  onClick={() => { playClick(); onNavigate(item.tab); }}
+                  className="p-1.5 rounded transition-all duration-200 cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ 
+                    backgroundColor: 'transparent',
+                    color: '#6f9f84',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#1a1824';
+                    e.currentTarget.style.color = '#a78bda';
+                    e.currentTarget.style.boxShadow = '0 0 15px rgba(138, 92, 168, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#6f9f84';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                  title={item.hint}
+                >
+                  <Icon size={14} />
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
