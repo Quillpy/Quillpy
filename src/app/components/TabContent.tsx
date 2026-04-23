@@ -5,6 +5,8 @@ import { ProjectsTab } from './tabs/ProjectsTab';
 import { PhilosophyTab } from './tabs/PhilosophyTab';
 import { ConnectTab } from './tabs/ConnectTab';
 import { TerminalTab } from './tabs/TerminalTab';
+import { SupportTab } from './tabs/SupportTab';
+import { LogsTab } from './tabs/LogsTab';
 import { NewTabPage } from './NewTabPage';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
@@ -60,6 +62,8 @@ export function TabContent({ activeTab, onSearch }: TabContentProps) {
             {activeTab === 'philosophy' && <PhilosophyTab />}
             {activeTab === 'connect' && <ConnectTab />}
             {activeTab === 'terminal' && <TerminalTab onNavigate={onSearch} />}
+            {activeTab === 'support' && <SupportTab />}
+            {activeTab === 'logs' && <LogsTab />}
             {activeTab === 'newtab' && <NewTabPage onSearch={onSearch} />}
           </motion.div>
         )}

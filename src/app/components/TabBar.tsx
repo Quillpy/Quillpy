@@ -1,6 +1,7 @@
 import { Tab } from './Browser';
-import { X, Plus } from 'lucide-react';
+import { Terminal, X } from 'lucide-react';
 import { useClickSound } from '../../hooks/useClickSound';
+import { motion } from 'motion/react';
 
 interface TabBarProps {
   tabs: Tab[];
@@ -14,30 +15,37 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
   const playClick = useClickSound();
 
   return (
-    <div 
+    <motion.div 
       className="flex items-center overflow-x-auto border-b scrollbar-hide"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
       style={{ 
         borderColor: '#1b2a24',
         backgroundColor: '#0f1a16',
-        paddingLeft: '0.5rem',
-        paddingRight: '0.5rem'
+        paddingLeft: '0.75rem',
+        paddingRight: '0.75rem',
+        paddingTop: '0.5rem',
+        paddingBottom: '0.25rem',
+        gap: '0.5rem'
       }}
     >
       {tabs.map((tab) => (
-        <div
+        <motion.div
           key={tab.id}
           onClick={() => { playClick(); onTabChange(tab.id); }}
-          className="group relative flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm transition-all duration-200 whitespace-nowrap flex-shrink-0 cursor-pointer"
+          className="group relative flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm transition-all duration-200 whitespace-nowrap flex-shrink-0 cursor-pointer"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           style={{
-            color: activeTabId === tab.id ? '#e6f0ea' : '#a6b8ad',
+            color: activeTabId === tab.id ? '#e6f0ea' : '#6f9f84',
             backgroundColor: activeTabId === tab.id ? '#16221d' : 'transparent',
             borderTopLeftRadius: '0.5rem',
             borderTopRightRadius: '0.5rem',
-            marginRight: '0.125rem',
-            border: activeTabId === tab.id ? '1px solid #1b2a24' : '1px solid transparent',
-            borderBottom: 'none',
-            minWidth: '100px',
-            maxWidth: '160px'
+            border: activeTabId === tab.id ? '1px solid #2a3d34' : '1px solid transparent',
+            borderBottom: activeTabId === tab.id ? '2px solid #7fbf9a' : '1px solid transparent',
+            minWidth: '120px',
+            maxWidth: '180px'
           }}
           onMouseEnter={(e) => {
             if (activeTabId !== tab.id) {
@@ -48,10 +56,13 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
           onMouseLeave={(e) => {
             if (activeTabId !== tab.id) {
               e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.color = '#a6b8ad';
+              e.currentTarget.style.color = '#6f9f84';
             }
           }}
         >
+          {activeTabId === tab.id && (
+            <Terminal size={14} style={{ color: '#7fbf9a' }} />
+          )}
           <span className="flex-1 truncate">{tab.title}</span>
           {tabs.length > 1 && (
             <button
@@ -60,45 +71,48 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
                 playClick();
                 onCloseTab(tab.id);
               }}
-              className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-0.5 rounded"
+              className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1 rounded-md"
               style={{ 
-                color: '#a6b8ad',
+                color: '#6f9f84',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(166, 184, 173, 0.2)';
+                e.currentTarget.style.backgroundColor = 'rgba(111, 159, 132, 0.2)';
                 e.currentTarget.style.color = '#ff6b6b';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#a6b8ad';
+                e.currentTarget.style.color = '#6f9f84';
               }}
+              title="Close tab"
             >
-              <X size={12} />
+              <X size={14} />
             </button>
           )}
-        </div>
+        </motion.div>
       ))}
       
-      <button
+      <motion.button
         onClick={() => { playClick(); onAddTab(); }}
-        className="flex items-center justify-center p-2 transition-all duration-200 flex-shrink-0 rounded"
+        className="flex items-center justify-center p-2.5 transition-all duration-200 flex-shrink-0 rounded"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         style={{
-          color: '#a6b8ad',
+          color: '#6f9f84',
           backgroundColor: 'transparent',
-          marginLeft: '0.125rem'
+          marginLeft: '0.25rem'
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.color = '#7fbf9a';
-          e.currentTarget.style.backgroundColor = 'rgba(111, 159, 132, 0.1)';
+          e.currentTarget.style.backgroundColor = 'rgba(111, 159, 132, 0.15)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.color = '#a6b8ad';
+          e.currentTarget.style.color = '#6f9f84';
           e.currentTarget.style.backgroundColor = 'transparent';
         }}
-        title="New Tab"
+        title="New Terminal Tab"
       >
-        <Plus size={14} />
-      </button>
-    </div>
+        <Terminal size={16} />
+      </motion.button>
+    </motion.div>
   );
 }

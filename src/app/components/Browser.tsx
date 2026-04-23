@@ -6,7 +6,7 @@ import { DevControlOverlay, ControlMode } from './DevControlOverlay';
 import { motion } from 'motion/react';
 import { useClickSound } from '../../hooks/useClickSound';
 
-export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'newtab';
+export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'support' | 'logs';
 
 export interface Tab {
   id: string;
@@ -26,7 +26,8 @@ const DEFAULT_TAB_TITLES: Record<TabType, string> = {
   philosophy: 'Philosophy',
   connect: 'Connect',
   terminal: 'Terminal',
-  newtab: 'New Tab'
+  support: 'Support',
+  logs: 'Logs'
 };
 
 export function Browser() {
@@ -81,11 +82,13 @@ export function Browser() {
   const handleAddTab = () => {
     const newTab: Tab = {
       id: Date.now().toString(),
-      type: 'newtab',
-      title: 'New Tab'
+      type: 'terminal',
+      title: 'Terminal'
     };
     setTabs([...tabs, newTab]);
     setActiveTabId(newTab.id);
+    setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type: 'terminal', title: 'Terminal' }]);
+    setHistoryIndex(prev => prev + 1);
   };
 
   const handleCloseTab = (tabId: string) => {
@@ -103,7 +106,7 @@ export function Browser() {
   };
 
   const handleSearch = (query: string) => {
-    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal'];
+    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal', 'support', 'logs'];
     const lowerQuery = query.toLowerCase().replace('quillpy.com/', '');
     
     if (validTabs.includes(lowerQuery as TabType)) {
@@ -112,6 +115,8 @@ export function Browser() {
           ? { ...tab, type: lowerQuery as TabType, title: DEFAULT_TAB_TITLES[lowerQuery as TabType] }
           : tab
       ));
+      setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type: lowerQuery as TabType, title: DEFAULT_TAB_TITLES[lowerQuery as TabType] }]);
+      setHistoryIndex(prev => prev + 1);
     } else {
       window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     }
