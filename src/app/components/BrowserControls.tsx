@@ -1,5 +1,5 @@
 import { TabType } from './Browser';
-import { ChevronLeft, ChevronRight, Home, Folder, Terminal, User, Link, Heart, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { ControlMode } from './DevControlOverlay';
 import { useClickSound } from '../../hooks/useClickSound';
@@ -15,16 +15,6 @@ interface BrowserControlsProps {
   canGoBack: boolean;
   canGoForward: boolean;
 }
-
-const NAV_ICONS = [
-  { name: 'Welcome', path: 'welcome', icon: Home, hint: 'Go to home page' },
-  { name: 'Projects', path: 'projects', icon: Folder, hint: 'View my projects' },
-  { name: 'Terminal', path: 'terminal', icon: Terminal, hint: 'Open terminal' },
-  { name: 'About', path: 'about', icon: User, hint: 'Learn about me' },
-  { name: 'Connect', path: 'connect', icon: Link, hint: 'Get in touch' },
-  { name: 'Support', path: 'support', icon: Heart, hint: 'Support my work' },
-  { name: 'Logs', path: 'logs', icon: BookOpen, hint: 'Read my life logs' },
-];
 
 export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -257,39 +247,6 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               {isTyping && <span style={{ color: '#7fbf9a' }}>_</span>}
             </div>
           )}
-        </div>
-
-        <div className="flex gap-1">
-          {NAV_ICONS.map((link) => {
-            const IconComponent = link.icon;
-            return (
-              <motion.button
-                onClick={() => { playClick(); onSearch(link.path); }}
-                key={link.path}
-                className="p-2 rounded transition-all duration-200 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                style={{ 
-                  backgroundColor: activeTab === link.path ? '#1b2a24' : 'transparent',
-                  color: activeTab === link.path ? '#7fbf9a' : '#6f9f84',
-                  border: '1px solid #1b2a24'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#1b2a24';
-                  e.currentTarget.style.borderColor = '#7fbf9a';
-                  e.currentTarget.style.color = '#7fbf9a';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = activeTab === link.path ? '#1b2a24' : 'transparent';
-                  e.currentTarget.style.borderColor = '#1b2a24';
-                  e.currentTarget.style.color = activeTab === link.path ? '#7fbf9a' : '#6f9f84';
-                }}
-                title={link.hint}
-              >
-                <IconComponent size={16} />
-              </motion.button>
-            );
-          })}
         </div>
       </div>
     </div>

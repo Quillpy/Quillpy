@@ -1,6 +1,14 @@
+import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
+
 export function AboutTab() {
   return (
     <div className="max-w-2xl mx-auto py-6 sm:py-12">
+      <div className="flex justify-center mb-8">
+        <Avatar className="w-32 h-32">
+          <AvatarImage src="/Quillpy.png" />
+          <AvatarFallback className="bg-[#1b2a24] text-[#7fbf9a] font-bold">QP</AvatarFallback>
+        </Avatar>
+      </div>
 
       <p 
         className="mb-4 sm:mb-6"

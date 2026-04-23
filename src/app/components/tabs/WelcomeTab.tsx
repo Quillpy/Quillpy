@@ -2,15 +2,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Folder, Terminal, User, Link, Heart, BookOpen, Sparkles } from 'lucide-react';
 
-const QUICK_ACTIONS = [
-  { label: 'Projects', icon: Folder, hint: 'View my projects and work', path: 'projects' },
-  { label: 'Terminal', icon: Terminal, hint: 'Open the terminal', path: 'terminal' },
-  { label: 'About', icon: User, hint: 'Learn more about me', path: 'about' },
-  { label: 'Connect', icon: Link, hint: 'Get in touch', path: 'connect' },
-  { label: 'Support', icon: Heart, hint: 'Support my work', path: 'support' },
-  { label: 'Logs', icon: BookOpen, hint: 'Read my life logs', path: 'logs' },
-];
-
 interface WelcomeTabProps {
   onNavigate?: (path: string) => void;
 }
@@ -98,43 +89,6 @@ export function WelcomeTab({ onNavigate }: WelcomeTabProps) {
             This site is a small corner of the internet where I share projects,
             experiments, and things I'm learning along the way.
           </p>
-        </motion.div>
-
-        <motion.div
-          className="mt-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <p style={{ color: '#7b8f86', fontSize: '0.9rem', marginBottom: '1rem' }}>
-            Quick tips:
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {QUICK_ACTIONS.map((action, index) => {
-              const Icon = action.icon;
-              return (
-                <motion.button
-                  key={action.path}
-                  onClick={() => handleNavigate(action.path)}
-                  className="flex items-center gap-2 p-3 rounded-lg text-left transition-all"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1, duration: 0.3 }}
-                  whileHover={{ scale: 1.02, backgroundColor: '#1b2a24' }}
-                  whileTap={{ scale: 0.98 }}
-                  style={{ 
-                    backgroundColor: '#0f1a16', 
-                    border: '1px solid #1b2a24',
-                    color: '#a6b8ad'
-                  }}
-                  title={action.hint}
-                >
-                  <Icon size={16} style={{ color: '#7fbf9a' }} />
-                  <span className="text-xs sm:text-sm">{action.label}</span>
-                </motion.button>
-              );
-            })}
-          </div>
         </motion.div>
         
         <motion.div 
