@@ -6,12 +6,12 @@ import { useClickSound } from '../../hooks/useClickSound';
 import { motion } from 'motion/react';
 
 const QUICK_NAV_ICONS = [
-  { tab: 'welcome' as TabType, icon: Sparkles, hint: 'Welcome' },
-  { tab: 'projects' as TabType, icon: Folder, hint: 'Projects' },
-  { tab: 'about' as TabType, icon: User, hint: 'About' },
-  { tab: 'connect' as TabType, icon: Link, hint: 'Connect' },
-  { tab: 'support' as TabType, icon: Heart, hint: 'Support' },
-  { tab: 'logs' as TabType, icon: BookOpen, hint: 'Logs' },
+  { tab: 'welcome' as TabType, icon: Sparkles, hint: 'Welcome', color: '#a78bda' },
+  { tab: 'projects' as TabType, icon: Folder, hint: 'Projects', color: '#7fbf9a' },
+  { tab: 'about' as TabType, icon: User, hint: 'About', color: '#6f9f84' },
+  { tab: 'connect' as TabType, icon: Link, hint: 'Connect', color: '#67bcf0' },
+  { tab: 'support' as TabType, icon: Heart, hint: 'Support', color: '#f06b8a' },
+  { tab: 'logs' as TabType, icon: BookOpen, hint: 'Logs', color: '#ffd166' },
 ];
 
 interface BrowserControlsProps {
@@ -31,8 +31,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
   const [displayUrl, setDisplayUrl] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const playClick = useClickSound();
+  const [hoveredWindowBtn, setHoveredWindowBtn] = useState<string | null>(null);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const getUrl = () => {
     if (activeTab === 'newtab') {
@@ -102,38 +103,31 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
         <div className="flex gap-1.5 sm:gap-2">
           <button
             onClick={() => { playClick(); onControlClick('kill'); }}
-            onMouseEnter={() => setHoveredButton('kill')}
-            onMouseLeave={() => setHoveredButton(null)}
-            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => setHoveredWindowBtn('kill')}
+            onMouseLeave={() => setHoveredWindowBtn(null)}
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all duration-150"
             style={{ 
-              backgroundColor: hoveredButton === 'kill' ? '#ff6b6b' : '#6f9f84',
-              boxShadow: hoveredButton === 'kill' ? '0 0 8px rgba(255, 107, 107, 0.5)' : 'none'
+              backgroundColor: hoveredWindowBtn === 'kill' ? '#ff5f57' : '#5c5c5c',
             }}
             title="Kill Process"
           />
-          
           <button
             onClick={() => { playClick(); onControlClick('sleep'); }}
-            onMouseEnter={() => setHoveredButton('sleep')}
-            onMouseLeave={() => setHoveredButton(null)}
-            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => setHoveredWindowBtn('sleep')}
+            onMouseLeave={() => setHoveredWindowBtn(null)}
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all duration-150"
             style={{ 
-              backgroundColor: hoveredButton === 'sleep' ? '#ffd93d' : '#6f9f84',
-              opacity: hoveredButton === 'sleep' ? 1 : 0.5,
-              boxShadow: hoveredButton === 'sleep' ? '0 0 8px rgba(255, 217, 61, 0.5)' : 'none'
+              backgroundColor: hoveredWindowBtn === 'sleep' ? '#febc2e' : '#5c5c5c',
             }}
             title="Sleep Mode"
           />
-          
           <button
             onClick={() => { playClick(); onControlClick('run'); }}
-            onMouseEnter={() => setHoveredButton('run')}
-            onMouseLeave={() => setHoveredButton(null)}
-            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => setHoveredWindowBtn('run')}
+            onMouseLeave={() => setHoveredWindowBtn(null)}
+            className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full cursor-pointer transition-all duration-150"
             style={{ 
-              backgroundColor: hoveredButton === 'run' ? '#7fbf9a' : '#6f9f84',
-              opacity: hoveredButton === 'run' ? 1 : 0.5,
-              boxShadow: hoveredButton === 'run' ? '0 0 8px rgba(127, 191, 154, 0.5)' : 'none'
+              backgroundColor: hoveredWindowBtn === 'run' ? '#28c840' : '#5c5c5c',
             }}
             title="Run"
           />
@@ -143,25 +137,16 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           <motion.button
             onClick={() => { playClick(); onBack(); }}
             disabled={!canGoBack}
-            className="p-2 rounded transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => canGoBack && setHoveredIcon('back')}
+            onMouseLeave={() => setHoveredIcon(null)}
+            className="p-2 rounded cursor-pointer"
             whileHover={canGoBack ? { scale: 1.05 } : {}}
             whileTap={canGoBack ? { scale: 0.95 } : {}}
             style={{ 
-              backgroundColor: canGoBack ? 'transparent' : 'transparent',
-              color: canGoBack ? '#7fbf9a' : '#2d3d34',
+              color: hoveredIcon === 'back' ? '#7fbf9a' : canGoBack ? '#6f9f84' : '#2d3d34',
+              backgroundColor: hoveredIcon === 'back' ? '#1b2520' : 'transparent',
               opacity: canGoBack ? 1 : 0.4,
               cursor: canGoBack ? 'pointer' : 'not-allowed',
-              border: '1px solid #1b2a24'
-            }}
-            onMouseEnter={(e) => {
-              if (canGoBack) {
-                e.currentTarget.style.backgroundColor = '#1b2a24';
-                e.currentTarget.style.borderColor = '#7fbf9a';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.borderColor = '#1b2a24';
             }}
             title="Go Back (Alt+Left)"
           >
@@ -171,25 +156,16 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           <motion.button
             onClick={() => { playClick(); onForward(); }}
             disabled={!canGoForward}
-            className="p-2 rounded transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => canGoForward && setHoveredIcon('forward')}
+            onMouseLeave={() => setHoveredIcon(null)}
+            className="p-2 rounded cursor-pointer"
             whileHover={canGoForward ? { scale: 1.05 } : {}}
             whileTap={canGoForward ? { scale: 0.95 } : {}}
             style={{ 
-              backgroundColor: 'transparent',
-              color: canGoForward ? '#7fbf9a' : '#2d3d34',
+              color: hoveredIcon === 'forward' ? '#7fbf9a' : canGoForward ? '#6f9f84' : '#2d3d34',
+              backgroundColor: hoveredIcon === 'forward' ? '#1b2520' : 'transparent',
               opacity: canGoForward ? 1 : 0.4,
               cursor: canGoForward ? 'pointer' : 'not-allowed',
-              border: '1px solid #1b2a24'
-            }}
-            onMouseEnter={(e) => {
-              if (canGoForward) {
-                e.currentTarget.style.backgroundColor = '#1b2a24';
-                e.currentTarget.style.borderColor = '#7fbf9a';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.borderColor = '#1b2a24';
             }}
             title="Go Forward (Alt+Right)"
           >
@@ -198,21 +174,14 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
 
           <motion.button
             onClick={() => { playClick(); onSearch('welcome'); }}
-            className="p-2 rounded transition-all duration-200 cursor-pointer"
+            onMouseEnter={() => setHoveredIcon('home')}
+            onMouseLeave={() => setHoveredIcon(null)}
+            className="p-2 rounded cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             style={{ 
-              backgroundColor: 'transparent',
-              color: '#7fbf9a',
-              border: '1px solid #1b2a24'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#1b2a24';
-              e.currentTarget.style.borderColor = '#7fbf9a';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-              e.currentTarget.style.borderColor = '#1b2a24';
+              color: hoveredIcon === 'home' ? '#7fbf9a' : '#6f9f84',
+              backgroundColor: hoveredIcon === 'home' ? '#1b2520' : 'transparent',
             }}
             title="Go Home"
           >
@@ -243,13 +212,6 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               style={{ 
                 backgroundColor: '#1b2a24',
                 color: '#a6b8ad',
-                border: '1px solid transparent'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#3a4d42';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#transparent';
               }}
             >
               {displayUrl || getUrl()}
@@ -264,22 +226,14 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 <motion.button
                   key={item.tab}
                   onClick={() => { playClick(); onNavigate(item.tab); }}
-                  className="p-1.5 rounded transition-all duration-200 cursor-pointer"
+                  onMouseEnter={() => setHoveredIcon(item.tab)}
+                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="p-1.5 rounded cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   style={{ 
-                    backgroundColor: 'transparent',
-                    color: '#6f9f84',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#1a1824';
-                    e.currentTarget.style.color = '#a78bda';
-                    e.currentTarget.style.boxShadow = '0 0 15px rgba(138, 92, 168, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = '#6f9f84';
-                    e.currentTarget.style.boxShadow = 'none';
+                    color: hoveredIcon === item.tab ? item.color : '#6f9f84',
+                    backgroundColor: hoveredIcon === item.tab ? '#1b2520' : 'transparent',
                   }}
                   title={item.hint}
                 >

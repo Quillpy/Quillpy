@@ -7,7 +7,7 @@ interface BootScreenProps {
 
 export function BootScreen({ onComplete }: BootScreenProps) {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 600);
+    const timer = setTimeout(onComplete, 400);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -15,7 +15,7 @@ export function BootScreen({ onComplete }: BootScreenProps) {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.2 }}
       className="fixed inset-0 flex items-center justify-center"
       style={{ backgroundColor: '#0f1a16', fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}
     >

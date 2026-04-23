@@ -28,12 +28,12 @@ const QUICK_LINKS = [
 ];
 
 const QUICK_NAV_ICONS = [
-  { cmd: 'welcome', icon: Sparkles, hint: 'Go to welcome' },
-  { cmd: 'projects', icon: Folder, hint: 'View projects' },
-  { cmd: 'about', icon: User, hint: 'About me' },
-  { cmd: 'connect', icon: Link, hint: 'Get in touch' },
-  { cmd: 'support', icon: Heart, hint: 'Support me' },
-  { cmd: 'logs', icon: BookOpen, hint: 'Life logs' },
+  { cmd: 'welcome', label: 'Welcome', icon: Sparkles, hint: 'Go to welcome', color: '#a78bda' },
+  { cmd: 'projects', label: 'Projects', icon: Folder, hint: 'View projects', color: '#7fbf9a' },
+  { cmd: 'about', label: 'About', icon: User, hint: 'About me', color: '#6f9f84' },
+  { cmd: 'connect', label: 'Connect', icon: Link, hint: 'Get in touch', color: '#67bcf0' },
+  { cmd: 'support', label: 'Support', icon: Heart, hint: 'Support me', color: '#f06b8a' },
+  { cmd: 'logs', label: 'Logs', icon: BookOpen, hint: 'Life logs', color: '#ffd166' },
 ];
 
 export function TerminalTab({ onNavigate }: TerminalTabProps) {
@@ -43,6 +43,8 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   const [localHistory, setLocalHistory] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [currentTip, setCurrentTip] = useState(0);
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+  const [hoveredWindowBtn, setHoveredWindowBtn] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -82,16 +84,15 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
     } else if (lowerCmd === 'neofetch') {
       output = [
         <pre key="neofetch" className="text-xs sm:text-sm" style={{ color: '#7fbf9a' }}>
-{`       ████████████████
-    ██              ████
-  ██    Quillpy      ███
-  ██   ───────────   ███
-  ██   os:  Linux    ███
-  ██   focus:  dev   ███
-  ██   editor:  vim  ███
-  ██   status:  🚀   ███
-  ██              ████
-    ████████████████`}
+{`       ▄██████████████▄
+     ███            ███
+   ███    Quillpy     ███
+   ███   ─────────    ███
+   ███   os:  linux   ███
+   ███   editor:  vim  ███
+   ███   shell:  zsh   ███
+     ███          ███
+       ▀████████▀`}
         </pre>
       ];
     } else if (lowerCmd === 'clear') {
@@ -196,63 +197,75 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
     >
       <div 
         className="rounded-lg overflow-hidden"
-        style={{ backgroundColor: '#0f1a16', border: '1px solid #1b2a24' }}
+        style={{ backgroundColor: '#0d1512', border: '1px solid #1a2822' }}
       >
         <div 
-          className="px-4 py-2 flex items-center gap-2 border-b"
-          style={{ borderColor: '#1b2a24', backgroundColor: '#121c18' }}
+          className="px-4 py-2.5 flex items-center gap-2 border-b"
+          style={{ borderColor: '#1a2822', backgroundColor: '#0f1c16' }}
         >
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#6f9f84' }} />
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#3a4d42' }} />
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#3a4d42' }} />
+            <div 
+              onMouseEnter={() => setHoveredWindowBtn(0)}
+              onMouseLeave={() => setHoveredWindowBtn(null)}
+              className="w-3 h-3 rounded-full cursor-pointer transition-all duration-150" 
+              style={{ backgroundColor: hoveredWindowBtn === 0 ? '#ff5f57' : '#5c6b64' }} 
+            />
+            <div 
+              onMouseEnter={() => setHoveredWindowBtn(1)}
+              onMouseLeave={() => setHoveredWindowBtn(null)}
+              className="w-3 h-3 rounded-full cursor-pointer transition-all duration-150" 
+              style={{ backgroundColor: hoveredWindowBtn === 1 ? '#febc2e' : '#5c6b64' }} 
+            />
+            <div 
+              onMouseEnter={() => setHoveredWindowBtn(2)}
+              onMouseLeave={() => setHoveredWindowBtn(null)}
+              className="w-3 h-3 rounded-full cursor-pointer transition-all duration-150" 
+              style={{ backgroundColor: hoveredWindowBtn === 2 ? '#28c840' : '#5c6b64' }} 
+            />
           </div>
-          <span className="text-xs ml-2" style={{ color: '#6f9f84' }}>quillpy@dev: ~</span>
+          <span className="text-xs ml-3 opacity-60" style={{ color: '#6f9f84' }}>quillpy@dev — bash</span>
         </div>
 
         <div className="p-4">
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-1 mb-4">
             {QUICK_NAV_ICONS.map((link) => {
               const Icon = link.icon;
               return (
-                <motion.button
+                <button
                   key={link.cmd}
                   onClick={() => { onNavigate(link.cmd as TabType); }}
-                  className="p-1.5 rounded transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ backgroundColor: '#1b2a24', color: '#6f9f84' }}
+                  onMouseEnter={() => setHoveredIcon(link.cmd)}
+                  onMouseLeave={() => setHoveredIcon(null)}
+                  className="p-1.5 rounded transition-colors cursor-pointer"
+                  style={{ 
+                    backgroundColor: hoveredIcon === link.cmd ? '#1b2520' : '#1a2822',
+                    color: hoveredIcon === link.cmd ? link.color : '#5c6b64',
+                  }}
                   title={link.hint}
                 >
                   <Icon size={14} />
-                </motion.button>
+                </button>
               );
             })}
           </div>
 
           <div className="space-y-2">
             {commandHistory.map((entry, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div style={{ color: '#7fbf9a' }}>
+              <div key={i}>
+                <div className="text-xs" style={{ color: '#5c6b64' }}>
                   <span style={{ color: '#6f9f84' }}>quillpy@dev</span>
-                  <span style={{ color: '#3a4d42' }}>:~$</span>{' '}
+                  <span style={{ marginLeft: '4px' }}>$</span>{' '}
                   {entry.input}
                 </div>
                 <div className="ml-4 mt-1">
                   {entry.output}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           
           <div className="flex items-center mt-2">
-            <span style={{ color: '#7fbf9a' }}>quillpy@dev</span>
-            <span style={{ color: '#3a4d42' }}>:~$</span>
+            <span style={{ color: '#6f9f84' }}>$</span>
             <input
               ref={inputRef}
               type="text"
@@ -260,24 +273,24 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent outline-none ml-2"
-              style={{ color: '#e6f0ea', caretColor: '#7fbf9a' }}
+              style={{ color: '#a6b8ad', caretColor: '#7fbf9a' }}
               autoFocus
-              placeholder="Type a command..."
+              placeholder="..."
             />
           </div>
         </div>
         
-        <div className="mt-4 pt-4 border-t flex items-center gap-2" style={{ borderColor: '#1b2a24' }}>
+        <div className="mt-3 pt-3 border-t flex items-center gap-2" style={{ borderColor: '#1a2822' }}>
           <AnimatePresence mode="wait">
             <motion.p 
               key={currentTip}
-              initial={{ opacity: 0, x: -5 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 5 }}
-              transition={{ duration: 0.25 }}
-              style={{ color: '#6f9f84', fontSize: '0.75rem' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-xs"
+              style={{ color: '#4a5a53' }}
             >
-              <span style={{ color: '#8a5ca8', marginRight: '0.5rem' }}>▸</span>
               {TIPS[currentTip].text}
             </motion.p>
           </AnimatePresence>
