@@ -84,15 +84,15 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
     } else if (lowerCmd === 'neofetch') {
       output = [
         <pre key="neofetch" className="text-xs sm:text-sm" style={{ color: '#7fbf9a' }}>
-{`       ▄██████████████▄
+{`    ▄██████████████▄
      ███            ███
    ███    Quillpy     ███
    ███   ─────────    ███
    ███   os:  linux   ███
-   ███   editor:  vim  ███
-   ███   shell:  zsh   ███
-     ███          ███
-       ▀████████▀`}
+   ███   editor:  vim ███
+   ███   shell:  zsh  ███
+     ███           ███
+       ▀███████████▀`}
         </pre>
       ];
     } else if (lowerCmd === 'clear') {
