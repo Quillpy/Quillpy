@@ -63,8 +63,8 @@ const socialLinks: SocialLink[] = [
   {
     name: 'Email',
     icon: Mail,
-    url: 'mailto:hello@example.com',
-    label: 'hello@example.com ✉️',
+    url: 'mailto:gm.goofy304@passinbox.com',
+    label: 'gm.goofy304@passinbox.com ✉️',
   },
 ];
 

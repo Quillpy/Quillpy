@@ -8,40 +8,35 @@ interface LogEntry {
 
 const LOGS: LogEntry[] = [
   {
-    date: '2026-04-23',
-    title: 'Building Quillpy Portfolio v2',
-    content: 'Finally revamped the entire portfolio with a terminal-based UI. Used React + Vite + Tailwind. Added animations with Framer Motion. Added click sounds too!'
-  },
-  {
-    date: '2026-04-15',
-    title: 'Started Learning Rust',
-    content: 'Decided to dive deep into Rust. The borrow checker is tough but rewarding. Building a CLI tool as a side project.'
-  },
-  {
-    date: '2026-04-01',
-    title: 'New Keyboard Arrived',
-    content: 'Got a Keychron Q1 with custom switches. Typing this on it now. The tactile feel is amazing!'
-  },
-  {
-    date: '2026-03-20',
-    title: 'Launched First npm Package',
-    content: 'Published my first open-source npm package - a simple utility for date formatting. Got 100 downloads in the first week!'
-  },
-  {
-    date: '2026-03-05',
-    title: 'Started This Website',
-    content: 'Bought quillpy.dev and started building this terminal-styled portfolio. It was supposed to take a week, took a month 😅'
-  },
-  {
-    date: '2026-02-14',
-    title: 'Valentine\'s Day Coding Session',
-    content: 'Spent the evening refactoring old projects. Not the most romantic, but productive!'
-  },
-  {
-    date: '2026-01-30',
-    title: 'First PR Merged',
-    content: 'Contributed to an open-source project and got my first PR merged. Feeling part of the community now.'
-  }
+  date: '2025-11-18',
+  title: 'Started Learning Python',
+  content: 'This is where everything began. Started exploring Python out of curiosity and quickly realized programming felt like solving puzzles.'
+},
+{
+  date: '2025-12-02',
+  title: 'Discovered CS50',
+  content: 'Started Harvard CS50. It completely changed how I see computers and problem solving. First time I understood what computer science actually is.'
+},
+{
+  date: '2025-12-20',
+  title: 'Created My GitHub Account',
+  content: 'Started using GitHub to store my experiments and code. Felt like stepping into the real developer world.'
+},
+{
+  date: '2026-01-05',
+  title: 'Built First Small Scripts',
+  content: 'Started writing small automation scripts and experimenting with ideas instead of just following tutorials.'
+},
+{
+  date: '2026-01-18',
+  title: 'Shifted Toward Systems Curiosity',
+  content: 'Became more interested in how computers actually work internally. Started exploring Linux and lower-level programming concepts.'
+},
+{
+  date: '2026-02-02',
+  title: 'Started Building Real Projects',
+  content: 'Moved from learning syntax to building actual tools and experiments. This is when programming started feeling natural.'
+},
 ];
 
 export function LogsTab() {

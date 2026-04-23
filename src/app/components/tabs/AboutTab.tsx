@@ -21,7 +21,9 @@ export function AboutTab() {
           lineHeight: '1.8'
         }}
       >
-        I'm a 16 year old student who enjoys building things with code and exploring how systems work.
+        I'm a 16-year-old student who enjoys exploring how systems work and building small
+        experimental tools around the ideas I discover. I see programming less as a subject
+        and more as a way to understand the structure behind things.
       </p>
 
       <p 
@@ -32,9 +34,24 @@ export function AboutTab() {
           lineHeight: '1.8'
         }}
       >
-        I first got my PC in class 7. Like most people I used it for games and school work,
-        but in class 9 I became curious about how games are made. That curiosity led me
-        to programming — and I haven't looked back since.
+        My curiosity started in class 9 while wondering how games actually function behind
+        the screen. That question slowly expanded into systems, scripting, and AI experiments.
+        Since then, I’ve been learning by building — mostly small tools, ideas, and technical
+        explorations that help me understand computers better.
+      </p>
+
+      <p 
+        className="mb-6 sm:mb-8"
+        style={{ 
+          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+          color: '#a6b8ad',
+          lineHeight: '1.8'
+        }}
+      >
+        The name <span style={{ color: '#7fbf9a' }}>Quillpy</span> started as an experiment.
+        I originally planned to use “Shubhampy”, but after discovering it already existed,
+        I explored alternatives and found “Quill”. It felt unique and expressive — so it stayed.
+        Since then, Quillpy has become my identity for building and experimenting with ideas.
       </p>
 
       <div className="mb-6 sm:mb-8">
@@ -51,11 +68,12 @@ export function AboutTab() {
 
         <ul className="space-y-2">
           {[
-            'programming 💻',
+            'AI experiments 🤖',
+            'systems exploration 🧠',
+            'automation scripts & tools ⚙️',
             'Linux customization 🐧',
-            'chess ♟',
-            'game mechanics 🎮',
-            'creative engineering ideas ⚙️'
+            'designing unusual interfaces 🎨',
+            'understanding how things work internally 🔍'
           ].map((interest) => (
             <li 
               key={interest}
@@ -77,7 +95,9 @@ export function AboutTab() {
           lineHeight: '1.8'
         }}
       >
-        Python is my main language, and I also use C++ for competitive programming.
+        Python is currently my primary language for experimentation and scripting,
+        and I use C for understanding low-level concepts. I'm also interested in
+        moving toward C++ or Rust in the future.
       </p>
 
       <p 
@@ -88,9 +108,9 @@ export function AboutTab() {
           lineHeight: '1.8'
         }}
       >
-        I moved from Windows to Linux while exploring different systems and
-        currently use Arch Linux with KDE — though I enjoy switching things
-        and experimenting with setups.
+        I use Linux as my main environment and currently run Kubuntu with KDE.
+        I enjoy modifying setups and learning how operating systems behave beneath
+        the interface.
       </p>
 
       <p 
@@ -100,7 +120,9 @@ export function AboutTab() {
           lineHeight: '1.8'
         }}
       >
-        I'm interested in the intersection of programming, systems, and creative engineering.
+        Long term, I want to contribute something meaningful to human development —
+        whether through programming, systems thinking, or ideas that help people
+        understand and build better technology.
       </p>
 
     </div>
