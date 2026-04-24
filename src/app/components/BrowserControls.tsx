@@ -103,19 +103,37 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
     }
   };
 
-  const navButtonStyle = (key: string, enabled = true) => ({
-    color: hoveredIcon === key ? '#dbe6df' : enabled ? '#6f9f84' : '#2d3d34',
-    backgroundColor: hoveredIcon === key ? '#18231e' : 'transparent',
-    opacity: enabled ? 1 : 0.45,
-    cursor: enabled ? 'pointer' : 'not-allowed',
-  });
+  const navButtonStyle = (key: string, enabled = true) => {
+    const isLight = theme === 'light';
+    const baseColor = isLight ? '#3a4d3a' : '#6f9f84';
+    const hoverColor = isLight ? '#5a6b5a' : '#dbe6df';
+    const activeBg = isLight ? '#e8e6dc' : '#18231e';
+    return {
+      color: hoveredIcon === key ? hoverColor : enabled ? baseColor : isLight ? '#9ea592' : '#2d3d34',
+      backgroundColor: hoveredIcon === key ? activeBg : 'transparent',
+      opacity: enabled ? 1 : 0.45,
+      cursor: enabled ? 'pointer' : 'not-allowed',
+    };
+  };
+
+  const isLight = theme === 'light';
+  const urlBarBg = isLight ? '#e8e6dc' : '#18231e';
+  const urlBarBorder = isLight ? '#9ea592' : '#22332b';
+  const urlBarText = isLight ? '#3a4d3a' : '#a6b8ad';
+  const urlBarCaret = isLight ? '#5a6b5a' : '#7fbf9a';
+  const settingsBg = isLight ? '#e8e6dc' : isSettingsOpen ? '#18231e' : '#d8d6cc';
+  const settingsBorder = isLight ? '#9ea592' : '#22332b';
+  const settingsText = isLight ? '#5a6b5a' : '#a6b8ad';
+  const accentColor = isLight ? '#5a6b5a' : '#7fbf9a';
+  const headerColor = isLight ? '#5a6b5a' : '#7fbf9a';
+  const borderColor = isLight ? '#9ea592' : '#1f2f28';
 
   return (
     <div
       className="px-3 sm:px-4 py-2.5"
       style={{
-        backgroundColor: '#121b17',
-        borderBottom: '1px solid #1d2c25',
+        backgroundColor: isLight ? '#e0ded4' : '#121b17',
+        borderBottom: `1px solid ${isLight ? '#c7c5ba' : '#1d2c25'}`,
       }}
     >
       <div className="flex items-center gap-2.5">
@@ -212,9 +230,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               }}
               className="flex-1 border px-3 py-2 font-mono text-xs sm:text-sm outline-none ui-panel-soft"
               style={{
-                backgroundColor: '#18231e',
-                color: '#e6f0ea',
-                borderColor: '#355246',
+                backgroundColor: urlBarBg,
+                color: urlBarText,
+                borderColor: urlBarBorder,
               }}
             />
           ) : (
@@ -222,17 +240,17 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               onClick={handleUrlClick}
               className="ui-hover ui-panel-soft flex-1 cursor-text border px-3 py-2 font-mono text-xs sm:text-sm"
               style={{
-                backgroundColor: '#18231e',
-                color: '#a6b8ad',
-                borderColor: '#22332b',
+                backgroundColor: urlBarBg,
+                color: urlBarText,
+                borderColor: urlBarBorder,
               }}
             >
               {displayUrl || getUrl()}
-              {isTyping && <span style={{ color: '#7fbf9a' }}>_</span>}
+              {isTyping && <span style={{ color: urlBarCaret }}>_</span>}
             </div>
           )}
 
-          <div className="flex gap-1 border-l pl-2" style={{ borderColor: '#22332b' }}>
+          <div className="flex gap-1 border-l pl-2" style={{ borderColor: urlBarBorder }}>
             {QUICK_NAV_ICONS.map((item) => {
               const Icon = item.icon;
               return (
@@ -245,8 +263,8 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   style={{
-                    color: hoveredIcon === item.tab ? item.color : '#6f9f84',
-                    backgroundColor: hoveredIcon === item.tab ? '#18231e' : 'transparent',
+                    color: hoveredIcon === item.tab ? item.color : (isLight ? '#5a6b5a' : '#6f9f84'),
+                    backgroundColor: hoveredIcon === item.tab ? urlBarBg : 'transparent',
                   }}
                   title={item.hint}
                 >
@@ -265,9 +283,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               style={{
-                color: hoveredIcon === 'settings' ? '#dbe6df' : '#6f9f84',
-                backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? '#18231e' : '#101814',
-                borderColor: '#22332b',
+                color: hoveredIcon === 'settings' ? (isLight ? '#5a6b5a' : '#dbe6df') : (isLight ? '#3a4d3a' : '#6f9f84'),
+                backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? urlBarBg : (isLight ? '#d8d6cc' : '#101814'),
+                borderColor: urlBarBorder,
               }}
               title="Settings"
             >
@@ -282,17 +300,17 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 transition={{ duration: 0.18 }}
                 className="absolute right-0 top-[calc(100%+0.5rem)] w-52 border ui-panel z-20"
                 style={{
-                  backgroundColor: '#101814',
-                  borderColor: '#22332b',
+                  backgroundColor: isLight ? '#f4f2e8' : '#101814',
+                  borderColor: settingsBorder,
                 }}
               >
-                <div className="px-3 py-2.5 border-b text-[11px] uppercase tracking-[0.16em]" style={{ borderColor: '#1f2f28', color: '#7fbf9a' }}>
+                <div className="px-3 py-2.5 border-b text-[11px] uppercase tracking-[0.16em]" style={{ borderColor, color: headerColor }}>
                   Settings
                 </div>
                 <div className="px-3 py-3">
-                  <div className="mb-2 flex items-center justify-between text-xs" style={{ color: '#a6b8ad' }}>
+                  <div className="mb-2 flex items-center justify-between text-xs" style={{ color: settingsText }}>
                     <span>Body font size</span>
-                    <span style={{ color: '#7fbf9a' }}>{bodyFontSize}px</span>
+                    <span style={{ color: accentColor }}>{bodyFontSize}px</span>
                   </div>
                   <input
                     type="range"
@@ -301,7 +319,8 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                     step="1"
                     value={bodyFontSize}
                     onChange={(e) => onBodyFontSizeChange(Number(e.target.value))}
-                    className="w-full accent-[#7fbf9a]"
+                    className="w-full"
+                    style={{ accentColor }}
                   />
                   <div className="mt-3 grid grid-cols-3 gap-2">
                     {[14, 16, 18].map((size) => (
@@ -310,28 +329,28 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         onClick={() => onBodyFontSizeChange(size)}
                         className="ui-hover px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: bodyFontSize === size ? '#18231e' : '#101814',
-                          borderColor: bodyFontSize === size ? '#355246' : '#22332b',
-                          color: bodyFontSize === size ? '#e6f0ea' : '#8ea99a',
+                          backgroundColor: bodyFontSize === size ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          borderColor: bodyFontSize === size ? urlBarBorder : settingsBorder,
+                          color: bodyFontSize === size ? urlBarText : settingsText,
                         }}
                       >
                         {size}px
                       </button>
                     ))}
                   </div>
-                  <div className="mt-4 pt-3 border-t" style={{ borderColor: '#1f2f28' }}>
-                    <div className="mb-2 flex items-center justify-between text-xs" style={{ color: '#a6b8ad' }}>
+                  <div className="mt-4 pt-3 border-t" style={{ borderColor }}>
+                    <div className="mb-2 flex items-center justify-between text-xs" style={{ color: settingsText }}>
                       <span>Theme</span>
-                      <span style={{ color: '#7fbf9a' }}>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                      <span style={{ color: accentColor }}>{theme === 'dark' ? 'Dark' : 'Light'}</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         onClick={() => onThemeChange('dark')}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: theme === 'dark' ? '#18231e' : '#101814',
-                          borderColor: theme === 'dark' ? '#355246' : '#22332b',
-                          color: theme === 'dark' ? '#e6f0ea' : '#8ea99a',
+                          backgroundColor: theme === 'dark' ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          borderColor: theme === 'dark' ? urlBarBorder : settingsBorder,
+                          color: theme === 'dark' ? urlBarText : settingsText,
                         }}
                       >
                         <Moon size={12} />
@@ -341,9 +360,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         onClick={() => onThemeChange('light')}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: theme === 'light' ? '#18231e' : '#101814',
-                          borderColor: theme === 'light' ? '#355246' : '#22332b',
-                          color: theme === 'light' ? '#e6f0ea' : '#8ea99a',
+                          backgroundColor: theme === 'light' ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          borderColor: theme === 'light' ? urlBarBorder : settingsBorder,
+                          color: theme === 'light' ? urlBarText : settingsText,
                         }}
                       >
                         <Sun size={12} />

@@ -44,9 +44,8 @@ export function Browser() {
   const playClick = useClickSound();
 
   useEffect(() => {
-    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.remove('dark', 'light');
     document.documentElement.classList.add(theme);
-    document.documentElement.style.colorScheme = theme;
   }, [theme]);
 
   useEffect(() => {
@@ -165,10 +164,12 @@ export function Browser() {
 
   const activeTab = tabs.find(t => t.id === activeTabId);
 
+  const browserBg = theme === 'light' ? '#c7c5ba' : '#101814';
+
   return (
     <div 
       className="overflow-hidden relative flex flex-col"
-      style={{ backgroundColor: '#101814', height: '100%' }}
+      style={{ backgroundColor: browserBg, height: '100%' }}
     >
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 
@@ -209,17 +210,17 @@ export function Browser() {
       <div 
         className="px-4 py-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
         style={{ 
-          backgroundColor: '#0c120f',
-          borderColor: '#1a2721',
-          color: '#6f9f84'
+          backgroundColor: theme === 'light' ? '#c7c5ba' : '#0c120f',
+          borderColor: theme === 'light' ? '#9ea592' : '#1a2721',
+          color: theme === 'light' ? '#5a6b5a' : '#6f9f84'
         }}
       >
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1">
-            <span style={{ color: '#7fbf9a' }}>●</span>
+            <span style={{ color: theme === 'light' ? '#5a6b5a' : '#7fbf9a' }}>●</span>
             Connected
           </span>
-          <span style={{ color: '#3a4d42' }}>|</span>
+          <span style={{ color: theme === 'light' ? '#9ea592' : '#3a4d42' }}>|</span>
           <span>Linux</span>
           <span style={{ color: '#3a4d42' }}>|</span>
           <span>Building things since 2024</span>

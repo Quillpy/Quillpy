@@ -29,7 +29,7 @@ export function TabContent({ activeTab, onSearch, bodyFontSize }: TabContentProp
   return (
     <div 
       className="min-h-0 flex-1 overflow-y-auto browser-scroll"
-      style={{ backgroundColor: '#101814', fontSize: `${bodyFontSize}px` }}
+      style={{ backgroundColor: 'var(--card)', fontSize: `${bodyFontSize}px` }}
     >
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -43,7 +43,7 @@ export function TabContent({ activeTab, onSearch, bodyFontSize }: TabContentProp
           >
             <p 
               className="font-mono text-sm"
-              style={{ color: '#6f9f84' }}
+              style={{ color: 'var(--muted-foreground)' }}
             >
               Loading {activeTab}...
             </p>
