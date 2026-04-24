@@ -13,10 +13,10 @@ export function SupportTab() {
           Support
         </div>
         <h1 className="mb-3 text-3xl sm:text-4xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
-          Support Quillpy
+          Support Shubham
         </h1>
         <p className="mx-auto max-w-xl" style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
-          Support helps keep projects online and makes more time for experimentation, writing, and shipping.
+          Help a 16-year-old with big dreams and a small kidney keep building cool stuff. Every bit helps — whether its coffee money or just knowing someone out there cares.
         </p>
       </div>
 

@@ -1,13 +1,17 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export function useClickSound() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  useEffect(() => {
+    const audio = new Audio('/click.mp3');
+    audio.preload = 'auto';
+    audio.volume = 0.3;
+    audioRef.current = audio;
+  }, []);
+
   const playClick = useCallback(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio('/click_soundeffect.mp3');
-      audioRef.current.volume = 0.3;
-    }
+    if (!audioRef.current) return;
     audioRef.current.currentTime = 0;
     audioRef.current.play().catch(() => {});
   }, []);

@@ -71,7 +71,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       input: 'boot',
       output: (
         <div className="space-y-1">
-          <div style={{ color: 'var(--brand)' }}>quillpy shell ready</div>
+          <div style={{ color: 'var(--brand)' }}>shubham@dev:~$ shell ready</div>
           <div style={{ color: 'var(--text-soft)' }}>Type help to see available commands.</div>
         </div>
       ),
@@ -184,14 +184,16 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
   const renderFortune = () => {
     const fortunes = [
-      'The only way to do great work is to love what you do.',
-      'Simplicity is the ultimate sophistication.',
-      'Stay hungry, stay foolish.',
-      'Code is like humor. When you have to explain it, it\'s bad.',
-      'Make it work, make it right, make it fast.',
-      'First, solve the problem. Then, write the code.',
-      'Linux: Because booting is for emergency vehicles.',
-      'There are 10 types of people in the world: those who understand binary and those who don\'t.',
+      'My left kidney is smaller than my right one. And somehow I still beat you at chess.',
+      'Class 10 ending: the last time I touched grass voluntarily.',
+      'CS50: because class 9 curiosity demanded a proper answer.',
+      'KDE Plasma: making my 2014 laptop look like a spaceship since 2024.',
+      'There are 10 types of people: those who understand binary, those who dont, and those who are still waiting for their RAM upgrade.',
+      '4GB RAM but KDE Plasma? Bold strategy cotton.',
+      'I shift to Delhi soon. My laptop is more excited than I am.',
+      'AIIMS saved my kidney. CS50 saved my sanity.',
+      'Linux: Because Windows asked if I am a pirate.',
+      'First program took a year. Now I break things faster.',
     ];
     const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
     return <div style={{ color: 'var(--text-muted)' }}>{fortune}</div>;
@@ -283,21 +285,25 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
     } else if (lowerCommand === 'neofetch') {
       output = (
         <pre className="text-xs sm:text-sm" style={{ color: 'var(--brand)' }}>
-{`   quillpy@dev
+{`   shubham@dev
     -----------
-    os      linux / quillpy
+    os      Kubuntu 25.10
+    kernel  6.17.0-22-generic
+    de      KDE Plasma 6.4.5
+    cpu     Intel i3-4160 @ 3.60GHz
+    ram     3.7 GiB / 4 GiB (tragic)
+    gpu     Intel HD Graphics 4400
     shell   bash
     editor  vim
-    style   minimal
-    version 0.1`}
+    age     16 years young`}
         </pre>
       );
     } else if (lowerCommand === 'whoami') {
       output = (
-        <div style={{ color: 'var(--text-muted)' }}>quillpy - student, builder, systems explorer</div>
+        <div style={{ color: 'var(--text-muted)' }}>shubham - 16 year old, student, Kubuntu enthusiast</div>
       );
     } else if (lowerCommand === 'pwd') {
-      output = <div style={{ color: 'var(--text-muted)' }}>/home/quillpy</div>;
+      output = <div style={{ color: 'var(--text-muted)' }}>/home/shubham</div>;
     } else if (lowerCommand === 'date') {
       output = <div style={{ color: 'var(--text-muted)' }}>{new Date().toLocaleString()}</div>;
     } else if (lowerCommand === 'echo') {
@@ -457,7 +463,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
       >
         <div className="border-b px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>
           <span className="text-xs" style={{ color: 'var(--brand)' }}>
-            quillpy@dev:~/app$ ls
+            shubham@dev:~/app$ ls
           </span>
         </div>
 
@@ -465,14 +471,14 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
           {entries.map((entry, index) => (
             <div key={`${entry.input}-${index}`} className="space-y-1">
               <div className="text-xs" style={{ color: 'var(--text-soft)' }}>
-                <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>:~$ {entry.input}
+                <span style={{ color: 'var(--brand)' }}>shubham@dev</span>:~$ {entry.input}
               </div>
               <div className="pl-4 text-sm">{entry.output}</div>
             </div>
           ))}
 
           <div className="flex items-center text-sm">
-            <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>
+            <span style={{ color: 'var(--brand)' }}>shubham@dev</span>
             <span style={{ color: 'var(--text-soft)' }}>:~$</span>
             <input
               ref={inputRef}
