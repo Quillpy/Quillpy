@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
 import { BookOpen, Folder, Heart, Link, Sparkles, User } from 'lucide-react';
 import { TabType } from './Browser';
 
@@ -21,7 +20,7 @@ const PAGES = [
   { cmd: 'logs', label: 'Logs', icon: BookOpen },
 ] as const;
 
-const COMMANDS = [
+const ALL_COMMANDS = [
   'help',
   'clear',
   'neofetch',
@@ -34,6 +33,35 @@ const COMMANDS = [
   'open',
   'cd',
   'cat',
+  'cowsay',
+  'fortune',
+  'cmatrix',
+  'sl',
+  'figlet',
+  'aafire',
+  'asciiview',
+  'sudo',
+];
+
+const VISIBLE_COMMANDS = [
+  'help',
+  'clear',
+  'neofetch',
+  'whoami',
+  'ls',
+  'pwd',
+  'date',
+  'echo',
+  'history',
+  'open',
+  'cd',
+  'cat',
+  'cowsay',
+  'fortune',
+  'cmatrix',
+  'sl',
+  'figlet',
+  'aafire',
 ];
 
 export function TerminalTab({ onNavigate }: TerminalTabProps) {
@@ -44,16 +72,23 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       output: (
         <div className="space-y-1">
           <div style={{ color: 'var(--brand)' }}>quillpy shell ready</div>
-          <div style={{ color: 'var(--text-soft)' }}>Type help to inspect available commands.</div>
+          <div style={{ color: 'var(--text-soft)' }}>Type help to see available commands.</div>
         </div>
       ),
     },
   ]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [history, setHistory] = useState<string[]>([]);
-  const [hoveredWindowBtn, setHoveredWindowBtn] = useState<number | null>(null);
+  const [isVoid, setIsVoid] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const voided = localStorage.getItem('quillpy_void');
+    if (voided) {
+      setIsVoid(true);
+    }
+  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -69,44 +104,37 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   };
 
   const renderHelp = () => (
-    <div className="grid gap-2 sm:grid-cols-2" style={{ color: 'var(--text-muted)' }}>
-      <div><span style={{ color: 'var(--brand)' }}>help</span> list commands</div>
-      <div><span style={{ color: 'var(--brand)' }}>clear</span> reset terminal output</div>
-      <div><span style={{ color: 'var(--brand)' }}>neofetch</span> show system card</div>
-      <div><span style={{ color: 'var(--brand)' }}>whoami</span> short profile</div>
-      <div><span style={{ color: 'var(--brand)' }}>ls</span> list available pages</div>
-      <div><span style={{ color: 'var(--brand)' }}>pwd</span> show current path</div>
-      <div><span style={{ color: 'var(--brand)' }}>date</span> show local date</div>
-      <div><span style={{ color: 'var(--brand)' }}>history</span> show recent commands</div>
-      <div><span style={{ color: 'var(--brand)' }}>echo &lt;text&gt;</span> print text</div>
-      <div><span style={{ color: 'var(--brand)' }}>cd &lt;page&gt;</span> navigate to a page</div>
-      <div><span style={{ color: 'var(--brand)' }}>open &lt;page&gt;</span> open a page</div>
-      <div><span style={{ color: 'var(--brand)' }}>cat stack|contact|focus</span> read notes</div>
+    <div className="grid gap-1 sm:grid-cols-2" style={{ color: 'var(--text-muted)' }}>
+      <div><span style={{ color: 'var(--brand)' }}>help</span> - list commands</div>
+      <div><span style={{ color: 'var(--brand)' }}>clear</span> - reset terminal</div>
+      <div><span style={{ color: 'var(--brand)' }}>neofetch</span> - system info</div>
+      <div><span style={{ color: 'var(--brand)' }}>whoami</span> - your profile</div>
+      <div><span style={{ color: 'var(--brand)' }}>ls</span> - list pages</div>
+      <div><span style={{ color: 'var(--brand)' }}>pwd</span> - current path</div>
+      <div><span style={{ color: 'var(--brand)' }}>date</span> - show date</div>
+      <div><span style={{ color: 'var(--brand)' }}>history</span> - command history</div>
+      <div><span style={{ color: 'var(--brand)' }}>echo [text]</span> - print text</div>
+      <div><span style={{ color: 'var(--brand)' }}>cd [page]</span> - go to page</div>
+      <div><span style={{ color: 'var(--brand)' }}>open [page]</span> - open page</div>
+      <div><span style={{ color: 'var(--brand)' }}>cat [topic]</span> - read notes</div>
+      <div><span style={{ color: 'var(--brand)' }}>cowsay [msg]</span> - cow says</div>
+      <div><span style={{ color: 'var(--brand)' }}>fortune</span> - wise words</div>
+      <div><span style={{ color: 'var(--brand)' }}>cmatrix</span> - matrix rain</div>
+      <div><span style={{ color: 'var(--brand)' }}>sl</span> - steam locomotive</div>
+      <div><span style={{ color: 'var(--brand)' }}>figlet [text]</span> - big letters</div>
+      <div><span style={{ color: 'var(--brand)' }}>aafire</span> - fire animation</div>
     </div>
   );
 
   const renderLs = () => (
-    <div className="mt-1 flex flex-wrap gap-2">
-      {PAGES.map((page) => {
-        const Icon = page.icon;
-        return (
-          <motion.button
-            key={page.cmd}
-            onClick={() => onNavigate(page.cmd as TabType)}
-            className="ui-hover ui-panel-soft flex items-center gap-1.5 border px-2.5 py-1.5 text-xs"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{
-              backgroundColor: 'var(--surface-2)',
-              borderColor: 'var(--border)',
-              color: 'var(--brand)',
-            }}
-          >
-            <Icon size={12} />
-            {page.label}
-          </motion.button>
-        );
-      })}
+    <div style={{ color: 'var(--text-muted)' }}>
+      <div className="mb-1">Pages in /app:</div>
+      {PAGES.map((page) => (
+        <div key={page.cmd} className="flex items-center gap-2 pl-4">
+          <span style={{ color: 'var(--brand)' }}>d</span>
+          <span style={{ color: 'var(--text-strong)' }}>{page.label}</span>
+        </div>
+      ))}
     </div>
   );
 
@@ -118,24 +146,117 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
         </div>
       );
     }
-
     if (topic === 'contact') {
       return (
         <div style={{ color: 'var(--text-muted)' }}>
-          Best route: open the <span style={{ color: 'var(--brand)' }}>connect</span> page.
+          Best route: use <span style={{ color: 'var(--brand)' }}>open connect</span> command.
         </div>
       );
     }
-
     if (topic === 'focus') {
       return (
         <div style={{ color: 'var(--text-muted)' }}>
-          Current focus: building clean tools, learning systems, and shipping more often.
+          Current focus: building clean tools, learning systems, shipping more often.
         </div>
       );
     }
+    return <div style={{ color: 'var(--destructive)' }}>cat: {topic}: No such file or directory</div>;
+  };
 
-    return <div style={{ color: 'var(--destructive)' }}>cat: {topic}: no such file</div>;
+  const renderCowsay = (msg: string) => {
+    const text = msg || 'Moo!';
+    const lines = text.match(/.{1,20}/g) || [text];
+    const maxLen = Math.max(...lines.map((l: string) => l.length));
+    const top = '_' .repeat(maxLen + 2);
+    return (
+      <pre style={{ color: 'var(--text-muted)', fontSize: '0.75rem', lineHeight: '1.4' }}>
+{` ${top}
+< ${lines[0]} >
+ ${'-'.repeat(maxLen + 2)}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`}
+      </pre>
+    );
+  };
+
+  const renderFortune = () => {
+    const fortunes = [
+      'The only way to do great work is to love what you do.',
+      'Simplicity is the ultimate sophistication.',
+      'Stay hungry, stay foolish.',
+      'Code is like humor. When you have to explain it, it\'s bad.',
+      'Make it work, make it right, make it fast.',
+      'First, solve the problem. Then, write the code.',
+      'Linux: Because booting is for emergency vehicles.',
+      'There are 10 types of people in the world: those who understand binary and those who don\'t.',
+    ];
+    const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+    return <div style={{ color: 'var(--text-muted)' }}>{fortune}</div>;
+  };
+
+  const renderCmatrix = () => {
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+    let output = '';
+    for (let i = 0; i < 15; i++) {
+      output += Array(40).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('') + '\n';
+    }
+    return (
+      <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1' }}>{output}</pre>
+    );
+  };
+
+  const renderSl = () => (
+    <pre style={{ color: 'var(--brand)', fontSize: '0.6rem', lineHeight: '1.1' }}>
+{`      ====        ________        ___________
+  _DQQ|      _DQQ|        _DQQ|        _DQQ|
+QQ|       QQ|       QQ|       QQ|       QQ|
+QQ|       QQ|       QQ|       QQ|       QQ|
+QQ| _____QQ| _____QQ| _____QQ| _____QQ| _____QQ|____
+QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ||_DQQ|
+  |_DQQ|     |_DQQ|       |_DQQ|       |_DQQ|    |_DQQ|
+QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
+QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
+Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
+ |___|QQ|  |___|QQ|  |___|QQ|  |___|QQ|   |___|
+    |_|      |_|       |_|       |_|        |_|`}
+    </pre>
+  );
+
+  const renderFiglet = (text: string) => {
+    const msg = text || 'quillpy';
+    return (
+      <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1.2' }}>
+  ____                 _    __  __               
+ / ___|__   __|  _ \ |  __||  _ \ |__   __|| __ |
+| (_ || '__|/ _` ||  _| | (_ ||  |_ || '__||  _|  
+ \___||_||_|\___,||_|   \___||_| \_||_|   |_|   
+      _______                   _                  
+     |__   __|                 | |                 
+        | |  ___ |__   __|  _ \  __|  _ \  _ |_ 
+        | | / _ \ '__|/ _` ||  _| |  __/| | | || _|  
+        | ||  __/| | | (_) || |   | |   | |   |_|   
+        |_|\___||_| |__,_||_|   |_|   |_|  (_|   
+      </pre>
+    );
+  };
+
+  const renderAafire = () => {
+    let fire = '';
+    const chars = ' .,:!i1tfLCG0@#';
+    for (let i = 0; i < 20; i++) {
+      fire += Array(50).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('') + '\n';
+    }
+    return (
+      <pre style={{ color: '#ff6600', fontSize: '0.5rem', lineHeight: '1' }}>{fire}</pre>
+    );
+  };
+
+  const handleSudo = () => {
+    localStorage.setItem('quillpy_void', 'true');
+    setIsVoid(true);
   };
 
   const executeCommand = (rawInput: string) => {
@@ -163,19 +284,17 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       output = (
         <pre className="text-xs sm:text-sm" style={{ color: 'var(--brand)' }}>
 {`   quillpy@dev
-   -----------
-   os      linux
-   shell   bash
-   editor  vim
-   style   minimal
-   mode    building`}
+    -----------
+    os      linux / quillpy
+    shell   bash
+    editor  vim
+    style   minimal
+    version 0.1`}
         </pre>
       );
     } else if (lowerCommand === 'whoami') {
       output = (
-        <div style={{ color: 'var(--text-muted)' }}>
-          Quillpy. Student, builder, Linux user, and curious systems explorer.
-        </div>
+        <div style={{ color: 'var(--text-muted)' }}>quillpy - student, builder, systems explorer</div>
       );
     } else if (lowerCommand === 'pwd') {
       output = <div style={{ color: 'var(--text-muted)' }}>/home/quillpy</div>;
@@ -202,17 +321,38 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       if (target && PAGES.some((page) => page.cmd === target)) {
         output = navigateToPage(target);
       } else {
-        output = <div style={{ color: 'var(--destructive)' }}>{lowerCommand}: invalid target</div>;
+        output = <div style={{ color: 'var(--destructive)' }}>{lowerCommand}: no such page: {target}</div>;
       }
     } else if (lowerCommand === 'cat') {
       output = renderCat((args[0] || '').toLowerCase());
+    } else if (lowerCommand === 'cowsay') {
+      output = renderCowsay(args.join(' '));
+    } else if (lowerCommand === 'fortune') {
+      output = renderFortune();
+    } else if (lowerCommand === 'cmatrix') {
+      output = renderCmatrix();
+    } else if (lowerCommand === 'sl') {
+      output = renderSl();
+    } else if (lowerCommand === 'figlet') {
+      output = renderFiglet(args.join(' '));
+    } else if (lowerCommand === 'aafire') {
+      output = renderAafire();
+    } else if (lowerCommand === 'sudo' && args[0] === 'rm' && args[1] === '-rf' && args[2] === '/') {
+      handleSudo();
+      output = (
+        <div style={{ color: 'var(--destructive)' }}>
+          root@quillpy:~# rm -rf /<br />
+          rm: cannot remove '/': Device or resource busy<br />
+          Just kidding! YOU HAVE BEEN VOIDED! :D
+        </div>
+      );
     } else if (lower === 'about' || lower === 'projects' || lower === 'welcome' || lower === 'connect' || lower === 'support' || lower === 'logs') {
       output = navigateToPage(lower);
     } else {
       output = (
         <div className="space-y-1">
-          <div style={{ color: 'var(--destructive)' }}>command not found: {rawInput}</div>
-          <div style={{ color: 'var(--text-soft)' }}>Try help.</div>
+          <div style={{ color: 'var(--destructive)' }}>{command}: command not found</div>
+          <div style={{ color: 'var(--text-soft)' }}>Type help for available commands.</div>
         </div>
       );
     }
@@ -231,9 +371,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (!history.length) {
-        return;
-      }
+      if (!history.length) return;
       const nextIndex = historyIndex === -1 ? history.length - 1 : Math.max(historyIndex - 1, 0);
       setHistoryIndex(nextIndex);
       setInput(history[nextIndex]);
@@ -242,9 +380,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (historyIndex === -1) {
-        return;
-      }
+      if (historyIndex === -1) return;
       const nextIndex = historyIndex + 1;
       if (nextIndex >= history.length) {
         setHistoryIndex(-1);
@@ -258,71 +394,76 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
     if (event.key === 'Tab') {
       event.preventDefault();
-      const match = COMMANDS.find((command) => command.startsWith(input.toLowerCase()));
-      if (match) {
-        setInput(match);
-      }
+      const match = ALL_COMMANDS.find((cmd) => cmd.startsWith(input.toLowerCase()));
+      if (match) setInput(match);
     }
   };
+
+  if (isVoid) {
+    return (
+      <div
+        onClick={() => window.location.reload()}
+        className="flex h-full w-full cursor-pointer items-center justify-center"
+        style={{ 
+          backgroundColor: '#000', 
+          color: '#00ff00', 
+          fontFamily: "'JetBrains Mono', monospace",
+        }}
+      >
+        <div className="text-center select-none">
+          <pre style={{ color: '#0f0' }}>
+{`
+  _____                           _             
+ |  ___|                         | |            
+ | |__ _ __ __   __ ___  _ __  _| | _ __  _ 
+ |  _|| '__| _ \\ / __/ _ \\| '__|| __|| __||    
+ | |  | | |  __/| ||  __/| |   | |  | |  __|
+ |_|  |_| |_|\\___||___||_|   |_|  |_|  |_|  
+                                            
+ _   _        _   _                 _   _      
+| | | |      | | | |               | | | |     
+| |_| | ___ | |_| | __  _   _ ___ | |_| | ___ 
+|  _  |/ _ \\|  _  |/ _ \\| | | _ \\|  _  |/ _ \\
+| | | |  __/| | | | (_) | |_| (_)|| | | |  __|
+\\_| |_/\\___||\_| |_/\\___/ \\___/|___/\\_| |_/\\___
+
+ __________________________________________
+|                                        |
+|   YOU HAVE ENTERED THE VOID.             |
+|                                        |
+|   Every click reloads your fate.         |
+|   There is no escape, only restart.       |
+|                                        |
+|   The void remembers your choice.     |
+|   But fresh start... awaits.           |
+|                                        |
+|   Click anywhere to reincarnate.     |
+|____________________________________| `}
+          </pre>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       className="mx-auto w-full max-w-5xl py-4 sm:py-8"
-      style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}
+      style={{ fontFamily: "'JetBrains Mono', monospace" }}
       onClick={() => inputRef.current?.focus()}
     >
       <div
-        className="overflow-hidden border ui-panel"
+        className="overflow-hidden border"
         style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}
       >
-        <div
-          className="flex items-center justify-between border-b px-4 py-3"
-          style={{ backgroundColor: 'var(--surface-2)', borderColor: 'var(--border)' }}
-        >
-          <div className="flex gap-1.5">
-            {[0, 1, 2].map((button) => (
-              <div
-                key={button}
-                onMouseEnter={() => setHoveredWindowBtn(button)}
-                onMouseLeave={() => setHoveredWindowBtn(null)}
-                className="h-3 w-3 rounded-full"
-                style={{
-                  backgroundColor: hoveredWindowBtn === button ? ['#ff5f57', '#febc2e', '#28c840'][button] : 'var(--text-soft)',
-                }}
-              />
-            ))}
-          </div>
+        <div className="border-b px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>
           <span className="text-xs" style={{ color: 'var(--brand)' }}>
-            quillpy@dev / shell
+            quillpy@dev:~/app$ ls
           </span>
-        </div>
-
-        <div className="border-b px-4 py-3" style={{ borderColor: 'var(--border)' }}>
-          <div className="flex flex-wrap gap-2">
-            {PAGES.map((page) => {
-              const Icon = page.icon;
-              return (
-                <button
-                  key={page.cmd}
-                  onClick={() => onNavigate(page.cmd as TabType)}
-                  className="ui-hover ui-panel-soft flex items-center gap-1.5 border px-2.5 py-1.5 text-xs"
-                  style={{
-                    backgroundColor: 'var(--surface-2)',
-                    borderColor: 'var(--border)',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  <Icon size={12} />
-                  {page.label}
-                </button>
-              );
-            })}
-          </div>
         </div>
 
         <div className="space-y-4 px-4 py-4 sm:px-5 sm:py-5">
           {entries.map((entry, index) => (
-            <div key={`${entry.input}-${index}`} className="space-y-1.5">
+            <div key={`${entry.input}-${index}`} className="space-y-1">
               <div className="text-xs" style={{ color: 'var(--text-soft)' }}>
                 <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>:~$ {entry.input}
               </div>

@@ -139,22 +139,18 @@ function ContactForm() {
     setStatus('submitting');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/gm.goofy304@passinbox.com', {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('message', formData.message);
+      formDataToSend.append('_subject', 'New message from Quillpy');
+      formDataToSend.append('_gotcha', '');
+
+      const response = await fetch('https://formsubmit.co/gm.goofy304@passinbox.com', {
         method: 'POST',
-        body: new FormData(form),
-        headers: {
-          'Accept': 'application/json'
-        }
+        body: formDataToSend,
+        mode: 'no-cors',
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      const data = await response.json();
-      if (data.success === 'false') {
-        throw new Error('Failed to send message');
-      }
 
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
@@ -209,9 +205,7 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} action="https://formsubmit.co/gm.goofy304@passinbox.com" method="POST" className="border px-5 py-5 space-y-4 ui-panel-soft" style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}>
-      <input type="text" name="_gotcha" style={{ display: 'none' }} />
-      <input type="hidden" name="_subject" value="New message from Quillpy" />
+    <form onSubmit={handleSubmit} className="border px-5 py-5 space-y-4 ui-panel-soft" style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}>
       <div>
         <label htmlFor="name" className="mb-2 block text-sm" style={{ color: 'var(--text-muted)' }}>
           Name
@@ -222,8 +216,12 @@ function ContactForm() {
           type="text"
           value={formData.name}
           onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-          className="w-full border px-3 py-2.5 outline-none"
-          style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
+          className="w-full border px-3 py-2.5 outline-none transition-colors"
+          style={{ 
+            backgroundColor: 'var(--surface-2)', 
+            borderColor: 'var(--border)', 
+            color: 'var(--text-strong)'
+          }}
           placeholder="Your name"
           required
         />
@@ -239,8 +237,12 @@ function ContactForm() {
           type="email"
           value={formData.email}
           onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-          className="w-full border px-3 py-2.5 outline-none"
-          style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
+          className="w-full border px-3 py-2.5 outline-none transition-colors"
+          style={{ 
+            backgroundColor: 'var(--surface-2)', 
+            borderColor: 'var(--border)', 
+            color: 'var(--text-strong)'
+          }}
           placeholder="you@example.com"
           required
         />
@@ -256,7 +258,13 @@ function ContactForm() {
           value={formData.message}
           onChange={(event) => setFormData({ ...formData, message: event.target.value })}
           className="min-h-36 w-full border px-3 py-2.5 outline-none"
-          style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
+          style={{ 
+            backgroundColor: 'var(--surface-2)', 
+            borderColor: 'var(--border)', 
+            color: 'var(--text-strong)',
+            resize: 'vertical',
+            minHeight: '9rem'
+          }}
           placeholder="Tell me what you want to build, ask, or share."
           required
         />

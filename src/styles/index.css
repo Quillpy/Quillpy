@@ -2,6 +2,12 @@
 @import './tailwind.css';
 @import './theme.css';
 
+input,
+textarea,
+select {
+  border-radius: 0 !important;
+}
+
 html,
 body,
 #root {
