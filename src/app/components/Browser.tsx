@@ -38,9 +38,16 @@ export function Browser() {
   const [controlMode, setControlMode] = useState<ControlMode>(null);
   const [showContent, setShowContent] = useState(true);
   const [bodyFontSize, setBodyFontSize] = useState(16);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [tabHistory, setTabHistory] = useState<TabHistory[]>([{ type: 'welcome', title: 'Welcome' }]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const playClick = useClickSound();
+
+  useEffect(() => {
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(theme);
+    document.documentElement.style.colorScheme = theme;
+  }, [theme]);
 
   useEffect(() => {
     const handleClick = () => playClick();
@@ -174,6 +181,8 @@ export function Browser() {
         canGoForward={historyIndex < tabHistory.length - 1}
         bodyFontSize={bodyFontSize}
         onBodyFontSizeChange={setBodyFontSize}
+        theme={theme}
+        onThemeChange={setTheme}
       />
       
       <motion.div

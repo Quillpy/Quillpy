@@ -1,5 +1,5 @@
 import { TabType } from './Browser';
-import { ChevronLeft, ChevronRight, Home, Settings2, Sparkles, Folder, User, Link, Heart, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Settings2, Sparkles, Folder, User, Link, Heart, BookOpen, Moon, Sun } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { ControlMode } from './DevControlOverlay';
 import { useClickSound } from '../../hooks/useClickSound';
@@ -25,9 +25,11 @@ interface BrowserControlsProps {
   canGoForward: boolean;
   bodyFontSize: number;
   onBodyFontSizeChange: (size: number) => void;
+  theme: 'dark' | 'light';
+  onThemeChange: (theme: 'dark' | 'light') => void;
 }
 
-export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange }: BrowserControlsProps) {
+export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [urlValue, setUrlValue] = useState('');
   const [displayUrl, setDisplayUrl] = useState('');
@@ -316,6 +318,38 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         {size}px
                       </button>
                     ))}
+                  </div>
+                  <div className="mt-4 pt-3 border-t" style={{ borderColor: '#1f2f28' }}>
+                    <div className="mb-2 flex items-center justify-between text-xs" style={{ color: '#a6b8ad' }}>
+                      <span>Theme</span>
+                      <span style={{ color: '#7fbf9a' }}>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => onThemeChange('dark')}
+                        className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
+                        style={{
+                          backgroundColor: theme === 'dark' ? '#18231e' : '#101814',
+                          borderColor: theme === 'dark' ? '#355246' : '#22332b',
+                          color: theme === 'dark' ? '#e6f0ea' : '#8ea99a',
+                        }}
+                      >
+                        <Moon size={12} />
+                        Dark
+                      </button>
+                      <button
+                        onClick={() => onThemeChange('light')}
+                        className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
+                        style={{
+                          backgroundColor: theme === 'light' ? '#18231e' : '#101814',
+                          borderColor: theme === 'light' ? '#355246' : '#22332b',
+                          color: theme === 'light' ? '#e6f0ea' : '#8ea99a',
+                        }}
+                      >
+                        <Sun size={12} />
+                        Light
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>

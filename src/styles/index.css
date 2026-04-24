@@ -2,10 +2,6 @@
 @import './tailwind.css';
 @import './theme.css';
 
-:root {
-  color-scheme: dark;
-}
-
 html,
 body,
 #root {
@@ -15,10 +11,25 @@ body,
 body {
   margin: 0;
   overflow: hidden;
+  transition: background 320ms ease;
+}
+
+:root,
+.dark {
+  color-scheme: dark;
   background:
     radial-gradient(circle at top, rgba(41, 62, 54, 0.35), transparent 38%),
     linear-gradient(180deg, #09100d 0%, #0d1512 100%);
   color: #e4ece7;
+}
+
+:root.light,
+.light {
+  color-scheme: light;
+  background:
+    radial-gradient(circle at top, rgba(90, 107, 90, 0.2), transparent 38%),
+    linear-gradient(180deg, #d4d2c8 0%, #D0CFC0 100%);
+  color: #1a2418;
 }
 
 button,
