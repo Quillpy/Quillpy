@@ -105,7 +105,7 @@ export function ProjectsTab() {
               </p>
             </div>
           </div>
-          <div className="inline-flex items-center gap-2 border px-3 py-1.5 text-sm ui-hover" style={{ borderColor: 'var(--border)', color: 'var(--text-strong)', backgroundColor: 'var(--surface-overlay)' }}>
+            <div className="inline-flex items-center gap-2 border px-3 py-1.5 text-sm" style={{ borderColor: 'var(--border)', color: 'var(--text-strong)', backgroundColor: 'var(--surface-overlay)' }}>
             View project
             <ArrowUpRight size={16} />
           </div>
@@ -155,7 +155,7 @@ export function ProjectsTab() {
               {project.stack.map((item) => (
                 <span
                   key={item}
-                  className="border px-2.5 py-1 text-xs ui-hover"
+                  className="border px-2.5 py-1 text-xs"
                   style={{ borderColor: 'var(--border)', color: 'var(--text-soft)', backgroundColor: 'var(--surface-2)' }}
                 >
                   {item}

@@ -50,7 +50,7 @@ function KillMode() {
         transition={{ duration: 0.3 }}
       >
         <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '1rem' }}>
-          $ kill quillpy.dev
+          $ kill quillpy.com
         </div>
         <motion.div
           initial={{ opacity: 0 }}

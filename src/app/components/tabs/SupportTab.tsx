@@ -25,10 +25,10 @@ export function SupportTab() {
           What it supports
         </div>
         <div className="grid gap-3 sm:grid-cols-2" style={{ color: 'var(--text-muted)' }}>
-          <div className="border px-4 py-3 ui-hover" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Hosting and domain costs</div>
-          <div className="border px-4 py-3 ui-hover" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>More open-source experiments</div>
-          <div className="border px-4 py-3 ui-hover" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Time spent on content and notes</div>
-          <div className="border px-4 py-3 ui-hover" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Longer late-night build sessions</div>
+          <div className="border px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Hosting and domain costs</div>
+          <div className="border px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>More open-source experiments</div>
+          <div className="border px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Time spent on content and notes</div>
+          <div className="border px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>Longer late-night build sessions</div>
         </div>
       </div>
 

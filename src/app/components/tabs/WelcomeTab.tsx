@@ -68,7 +68,7 @@ export function WelcomeTab() {
 
 function WelcomeCard({ title, text }: { title: string; text: string }) {
   return (
-    <div className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
+    <div className="ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
       <div className="mb-2 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
         {title}
       </div>

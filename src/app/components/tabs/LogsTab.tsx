@@ -83,7 +83,7 @@ export function LogsTab() {
               />
 
               <div
-                className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5"
+                className="ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5"
                 style={{
                   backgroundColor: 'var(--surface-1)',
                   borderColor: 'var(--border)',

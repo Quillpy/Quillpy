@@ -222,7 +222,7 @@ function ContactForm() {
           type="text"
           value={formData.name}
           onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-          className="w-full border px-3 py-2.5 outline-none ui-hover"
+          className="w-full border px-3 py-2.5 outline-none"
           style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
           placeholder="Your name"
           required
@@ -239,7 +239,7 @@ function ContactForm() {
           type="email"
           value={formData.email}
           onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-          className="w-full border px-3 py-2.5 outline-none ui-hover"
+          className="w-full border px-3 py-2.5 outline-none"
           style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
           placeholder="you@example.com"
           required
@@ -255,7 +255,7 @@ function ContactForm() {
           name="message"
           value={formData.message}
           onChange={(event) => setFormData({ ...formData, message: event.target.value })}
-          className="min-h-36 w-full border px-3 py-2.5 outline-none ui-hover"
+          className="min-h-36 w-full border px-3 py-2.5 outline-none"
           style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
           placeholder="Tell me what you want to build, ask, or share."
           required

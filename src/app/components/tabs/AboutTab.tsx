@@ -52,7 +52,7 @@ export function AboutTab() {
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((interest) => (
-            <div key={interest} className="border px-3 py-2.5 text-sm ui-hover" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)', backgroundColor: 'var(--surface-2)' }}>
+            <div key={interest} className="border px-3 py-2.5 text-sm" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)', backgroundColor: 'var(--surface-2)' }}>
               {interest}
             </div>
           ))}
@@ -64,7 +64,7 @@ export function AboutTab() {
 
 function AboutPanel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ui-hover ui-panel-soft border px-5 py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)', color: 'var(--text-muted)', lineHeight: '1.85' }}>
+    <div className="ui-panel-soft border px-5 py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)', color: 'var(--text-muted)', lineHeight: '1.85' }}>
       {children}
     </div>
   );

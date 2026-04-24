@@ -221,10 +221,10 @@ export function Browser() {
           <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Linux</span>
           <span style={{ color: 'var(--text-soft)' }}>|</span>
-          <span>Building things since 2024</span>
+          <span>Building things since 2026</span>
         </div>
         <div className="flex items-center gap-2">
-          <span>quillpy.dev</span>
+          <span>quillpy.com</span>
         </div>
       </div>
     </div>

@@ -285,7 +285,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
                 key={button}
                 onMouseEnter={() => setHoveredWindowBtn(button)}
                 onMouseLeave={() => setHoveredWindowBtn(null)}
-                className="ui-hover h-3 w-3 rounded-full"
+                className="h-3 w-3 rounded-full"
                 style={{
                   backgroundColor: hoveredWindowBtn === button ? ['#ff5f57', '#febc2e', '#28c840'][button] : 'var(--text-soft)',
                 }}
