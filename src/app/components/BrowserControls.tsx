@@ -298,12 +298,12 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                     className="w-full"
                     style={{ accentColor }}
                   />
-                  <div className="mt-3 grid grid-cols-3 gap-2">
+                  <div className="mt-3 flex gap-2">
                     {[14, 16, 18].map((size) => (
                       <button
                         key={size}
                         onClick={() => onBodyFontSizeChange(size)}
-                        className="ui-hover px-2 py-1.5 border text-xs"
+                        className="ui-hover flex-1 px-2 py-1.5 border text-xs"
                         style={{
                           backgroundColor: bodyFontSize === size ? 'var(--button-hover)' : 'var(--surface-2)',
                           borderColor: bodyFontSize === size ? urlBarBorder : settingsBorder,
@@ -343,6 +343,36 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                       >
                         <Sun size={12} />
                         Light
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-3 border-t" style={{ borderColor }}>
+                    <div className="mb-2 flex items-center justify-between text-xs" style={{ color: settingsText }}>
+                      <span>Sounds</span>
+                      <span style={{ color: accentColor }}>{playClick.isEnabled ? 'On' : 'Off'}</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => playClick.setEnabled(true)}
+                        className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
+                        style={{
+                          backgroundColor: playClick.isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
+                          borderColor: playClick.isEnabled ? urlBarBorder : settingsBorder,
+                          color: playClick.isEnabled ? 'var(--text-strong)' : settingsText,
+                        }}
+                      >
+                        On
+                      </button>
+                      <button
+                        onClick={() => playClick.setEnabled(false)}
+                        className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
+                        style={{
+                          backgroundColor: !playClick.isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
+                          borderColor: !playClick.isEnabled ? urlBarBorder : settingsBorder,
+                          color: !playClick.isEnabled ? 'var(--text-strong)' : settingsText,
+                        }}
+                      >
+                        Off
                       </button>
                     </div>
                   </div>

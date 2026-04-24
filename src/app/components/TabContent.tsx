@@ -14,9 +14,10 @@ interface TabContentProps {
   activeTab: TabType;
   onSearch: (query: string) => void;
   bodyFontSize: number;
+  onVoid: () => void;
 }
 
-export function TabContent({ activeTab, onSearch, bodyFontSize }: TabContentProps) {
+export function TabContent({ activeTab, onSearch, bodyFontSize, onVoid }: TabContentProps) {
   return (
     <div 
       className="min-h-0 flex-1 overflow-y-auto browser-scroll"
@@ -36,7 +37,7 @@ export function TabContent({ activeTab, onSearch, bodyFontSize }: TabContentProp
           {activeTab === 'projects' && <ProjectsTab />}
           {activeTab === 'philosophy' && <PhilosophyTab />}
           {activeTab === 'connect' && <ConnectTab />}
-          {activeTab === 'terminal' && <TerminalTab onNavigate={onSearch} />}
+          {activeTab === 'terminal' && <TerminalTab onNavigate={onSearch} onVoid={onVoid} />}
           {activeTab === 'support' && <SupportTab />}
           {activeTab === 'logs' && <LogsTab />}
           {activeTab === 'newtab' && <NewTabPage onSearch={onSearch} />}

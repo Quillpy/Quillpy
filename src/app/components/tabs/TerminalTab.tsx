@@ -79,16 +79,8 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   ]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [history, setHistory] = useState<string[]>([]);
-  const [isVoid, setIsVoid] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const voided = localStorage.getItem('quillpy_void');
-    if (voided) {
-      setIsVoid(true);
-    }
-  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -123,6 +115,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       <div><span style={{ color: 'var(--brand)' }}>sl</span> - steam locomotive</div>
       <div><span style={{ color: 'var(--brand)' }}>figlet [text]</span> - big letters</div>
       <div><span style={{ color: 'var(--brand)' }}>aafire</span> - fire animation</div>
+      <div><span style={{ color: 'var(--destructive)' }}>sudo rm -rf /</span> - don't. seriously. don't.</div>
     </div>
   );
 

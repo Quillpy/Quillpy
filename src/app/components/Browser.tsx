@@ -3,6 +3,7 @@ import { BrowserControls } from './BrowserControls';
 import { TabBar } from './TabBar';
 import { TabContent } from './TabContent';
 import { DevControlOverlay, ControlMode } from './DevControlOverlay';
+import { VoidOverlay } from './VoidOverlay';
 import { motion } from 'motion/react';
 import { useClickSound } from '../../hooks/useClickSound';
 
@@ -40,13 +41,25 @@ export function Browser() {
   const [bodyFontSize, setBodyFontSize] = useState(16);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [tabHistory, setTabHistory] = useState<TabHistory[]>([{ type: 'welcome', title: 'Welcome' }]);
+  const [isVoid, setIsVoid] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const playClick = useClickSound();
+
+  useEffect(() => {
+    const voided = localStorage.getItem('quillpy_void');
+    if (voided) {
+      setIsVoid(true);
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.remove('dark', 'light');
     document.documentElement.classList.add(theme);
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--font-size', `${bodyFontSize}px`);
+  }, [bodyFontSize]);
 
   useEffect(() => {
     const handleClick = () => playClick();
@@ -76,6 +89,11 @@ export function Browser() {
   const handleResume = () => {
     setShowContent(true);
     setControlMode(null);
+  };
+
+  const handleVoid = () => {
+    localStorage.setItem('quillpy_void', 'true');
+    setIsVoid(true);
   };
 
   const handleControlClick = (mode: ControlMode) => {
@@ -196,18 +214,21 @@ export function Browser() {
           onCloseTab={handleCloseTab}
           onAddTab={handleAddTab}
         />
-        <TabContent 
-          activeTab={activeTab?.type || 'welcome'} 
+      <TabContent
+          activeTab={activeTab?.type || 'welcome'}
           onSearch={handleSearch}
           bodyFontSize={bodyFontSize}
+          onVoid={handleVoid}
         />
       </motion.div>
 
       <DevControlOverlay mode={controlMode} onResume={handleResume} />
-      
-      <div 
+
+      {isVoid && <VoidOverlay />}
+
+      <div
         className="px-4 py-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
-        style={{ 
+        style={{
           backgroundColor: 'var(--chrome-panel-strong)',
           borderColor: 'var(--chrome-border)',
           color: 'var(--text-muted)'
