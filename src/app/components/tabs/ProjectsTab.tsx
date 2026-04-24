@@ -1,141 +1,185 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-
-const TIPS = [
-  { text: 'Tabs can be added and closed - try the + button' },
-  { text: 'The terminal supports cd, ls, help and more commands' },
-];
+import { motion } from 'motion/react';
+import { ArrowUpRight, FolderGit2, Sparkles } from 'lucide-react';
 
 interface Project {
   title: string;
   description: string;
   url: string;
+  status: string;
+  type: string;
+  stack: string[];
 }
 
 const projects: Project[] = [
   {
-    title: 'FastCR ⚡',
-    description: 'A lightweight fast code runner.',
+    title: 'FastCR',
+    description: 'A lightweight code runner built for quick local experiments and short feedback loops.',
     url: 'https://github.com',
+    status: 'Active',
+    type: 'Tooling',
+    stack: ['Python', 'CLI', 'Automation'],
   },
   {
-    title: 'Linux Setup 🐧',
-    description: 'Custom Arch Linux KDE environment with minimal design.',
+    title: 'Linux Setup',
+    description: 'A refined Arch and KDE environment shaped around speed, focus, and a quieter desktop.',
     url: 'https://github.com',
+    status: 'Iterating',
+    type: 'System',
+    stack: ['Linux', 'Shell', 'Dotfiles'],
   },
   {
-    title: 'Dotfiles ⚙️',
-    description: 'Minimal configs for my Linux setup.',
+    title: 'Dotfiles',
+    description: 'Minimal personal configuration files for terminal, editor, and workflow setup.',
     url: 'https://github.com',
+    status: 'Stable',
+    type: 'Config',
+    stack: ['Bash', 'Neovim', 'Git'],
   },
   {
-    title: 'Experimental Ideas 🧪',
-    description: 'Small coding experiments and tools.',
+    title: 'Experimental Ideas',
+    description: 'A stream of smaller interfaces, scripts, and technical sketches that turn curiosity into code.',
     url: 'https://github.com',
+    status: 'Growing',
+    type: 'Lab',
+    stack: ['UI', 'Scripts', 'Prototypes'],
   },
 ];
 
 export function ProjectsTab() {
-  const [currentTip, setCurrentTip] = useState(0);
-
-  useEffect(() => {
-    const tipInterval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % TIPS.length);
-    }, 5000);
-    return () => clearInterval(tipInterval);
-  }, []);
+  const featured = projects[0];
+  const remainingProjects = projects.slice(1);
 
   return (
-    <div className="max-w-4xl mx-auto py-6 sm:py-12">
+    <div className="mx-auto max-w-5xl py-6 sm:py-10">
+      <div className="mb-8 flex flex-col gap-3 sm:mb-10">
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+          <FolderGit2 size={14} />
+          Project Gallery
+        </div>
+        <h1
+          style={{
+            fontSize: 'clamp(2rem, 5vw, 3rem)',
+            fontWeight: '300',
+            color: '#e6f0ea',
+            lineHeight: '1.05',
+          }}
+        >
+          Small systems, experiments, and tools.
+        </h1>
+        <p
+          className="max-w-2xl"
+          style={{
+            color: '#9db0a5',
+            fontSize: 'clamp(0.95rem, 2vw, 1.05rem)',
+            lineHeight: '1.8',
+          }}
+        >
+          A focused selection of projects that reflect how I learn: build something real, strip it down, then refine it until it feels useful.
+        </p>
+      </div>
 
-      <h1
-        className="mb-4"
+      <motion.a
+        href={featured.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="ui-hover mb-4 block rounded-[24px] border p-5 sm:mb-5 sm:p-7"
+        whileHover={{ y: -4 }}
         style={{
-          fontSize: 'clamp(1.8rem, 4vw, 2.3rem)',
-          fontWeight: '300',
-          color: '#e6f0ea'
+          background: 'linear-gradient(180deg, rgba(19, 29, 24, 0.96) 0%, rgba(12, 18, 15, 0.96) 100%)',
+          borderColor: '#294037',
+          boxShadow: '0 18px 40px rgba(0, 0, 0, 0.22)',
         }}
       >
-        Projects 🚀
-      </h1>
+        <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs" style={{ borderColor: '#2c443a', color: '#7fbf9a' }}>
+              <Sparkles size={12} />
+              Featured
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl" style={{ color: '#e6f0ea', fontWeight: 400 }}>
+                {featured.title}
+              </h2>
+              <p className="mt-3 max-w-2xl" style={{ color: '#a6b8ad', lineHeight: '1.8' }}>
+                {featured.description}
+              </p>
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm" style={{ borderColor: '#22332b', color: '#c6d4cc' }}>
+            View project
+            <ArrowUpRight size={16} />
+          </div>
+        </div>
 
-      <p
-        className="mb-8"
-        style={{
-          color: '#a6b8ad',
-          fontSize: 'clamp(1rem, 2vw, 1.1rem)'
-        }}
-      >
-        A few things I've built or experimented with.
-      </p>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <ProjectMeta label="Status" value={featured.status} />
+          <ProjectMeta label="Type" value={featured.type} />
+          <ProjectMeta label="Stack" value={featured.stack.join(' / ')} />
+        </div>
+      </motion.a>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+      <div className="grid gap-4 md:grid-cols-2">
+        {remainingProjects.map((project, index) => (
+          <motion.a
+            key={project.title}
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ui-hover block rounded-[22px] border p-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08 * index, duration: 0.35 }}
+            whileHover={{ y: -3 }}
+            style={{
+              backgroundColor: '#0f1714',
+              borderColor: '#1f2f28',
+            }}
+          >
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <div className="mb-2 inline-flex rounded-full border px-2.5 py-1 text-xs" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+                  {project.type}
+                </div>
+                <h3 className="text-xl" style={{ color: '#e6f0ea', fontWeight: 400 }}>
+                  {project.title}
+                </h3>
+              </div>
+              <ArrowUpRight size={18} style={{ color: '#6f9f84' }} />
+            </div>
+
+            <p className="mb-5" style={{ color: '#a6b8ad', lineHeight: '1.75' }}>
+              {project.description}
+            </p>
+
+            <div className="mb-4 flex flex-wrap gap-2">
+              {project.stack.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border px-2.5 py-1 text-xs"
+                  style={{ borderColor: '#22332b', color: '#8ea99a' }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="text-sm" style={{ color: '#7fbf9a' }}>
+              {project.status}
+            </div>
+          </motion.a>
         ))}
       </div>
-
-      <p
-        style={{
-          color: '#7b8f86',
-          marginTop: '1.8rem',
-          fontSize: '0.9rem'
-        }}
-      >
-        More projects coming soon.
-      </p>
-
-      <div className="mt-8 pt-4 border-t" style={{ borderColor: '#1b2a24' }}>
-        <AnimatePresence mode="wait">
-          <motion.p 
-            key={currentTip}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.3 }}
-            style={{ color: '#6f9f84', fontSize: '0.8rem' }}
-          >
-            <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
-          </motion.p>
-        </AnimatePresence>
-      </div>
-
     </div>
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function ProjectMeta({ label, value }: { label: string; value: string }) {
   return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block p-4 sm:p-6 rounded-lg transition-all duration-200 cursor-pointer"
-      style={{
-        backgroundColor: isHovered ? '#1a1824' : 'transparent',
-        border: `1px solid ${isHovered ? '#8a5ca8' : '#1b2a24'}`,
-        boxShadow: isHovered ? '0 0 20px rgba(138, 92, 168, 0.1)' : 'none',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <h3
-        className="mb-2"
-        style={{
-          fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)',
-          color: isHovered ? '#a78bda' : '#e6f0ea',
-          fontWeight: '500',
-          transition: 'color 0.2s'
-        }}
-      >
-        {project.title}
-      </h3>
-
-      <p style={{ color: '#a6b8ad', fontSize: 'clamp(0.875rem, 2vw, 1rem)' }}>
-        {project.description}
-      </p>
-    </a>
+    <div className="rounded-2xl border px-4 py-3" style={{ borderColor: '#22332b', backgroundColor: 'rgba(11, 18, 15, 0.45)' }}>
+      <div className="mb-1 text-xs uppercase tracking-[0.18em]" style={{ color: '#5e776a' }}>
+        {label}
+      </div>
+      <div style={{ color: '#dbe6df' }}>{value}</div>
+    </div>
   );
 }
