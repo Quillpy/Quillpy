@@ -1,168 +1,71 @@
-import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
-import { motion, AnimatePresence } from 'motion/react';
-import { useState, useEffect } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-const TIPS = [
-  { text: 'Try the address bar - type "projects" to navigate' },
-  { text: 'Use the purple icons for quick navigation' },
+const INTERESTS = [
+  'AI experiments',
+  'systems exploration',
+  'automation scripts and tools',
+  'Linux customization',
+  'unusual interfaces',
+  'understanding how things work internally',
 ];
 
 export function AboutTab() {
-  const [currentTip, setCurrentTip] = useState(0);
-
-  useEffect(() => {
-    const tipInterval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % TIPS.length);
-    }, 5000);
-    return () => clearInterval(tipInterval);
-  }, []);
   return (
-    <div className="max-w-2xl mx-auto py-6 sm:py-12">
-      <div className="flex justify-center mb-8">
-        <Avatar className="w-32 h-32">
+    <div className="mx-auto max-w-3xl py-6 sm:py-10">
+      <div className="mb-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+        <Avatar className="h-28 w-28 border" style={{ borderColor: '#22332b' }}>
           <AvatarImage src="/Quillpy.png" />
-          <AvatarFallback className="bg-[#1b2a24] text-[#7fbf9a] font-bold">QP</AvatarFallback>
+          <AvatarFallback className="bg-[#101814] text-[#7fbf9a] font-bold">QP</AvatarFallback>
         </Avatar>
+
+        <div>
+          <div className="mb-2 text-sm uppercase tracking-[0.2em]" style={{ color: '#7fbf9a' }}>
+            About
+          </div>
+          <h1 className="text-3xl sm:text-4xl" style={{ color: '#e6f0ea', fontWeight: 300 }}>
+            Quillpy
+          </h1>
+          <p className="mt-3 max-w-xl" style={{ color: '#9db0a5', lineHeight: '1.8' }}>
+            A student learning through projects, systems curiosity, and repeated experimentation.
+          </p>
+        </div>
       </div>
 
-      <p 
-        className="mb-4 sm:mb-6"
-        style={{ 
-          fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)',
-          color: '#e6f0ea',
-          fontWeight: '400'
-        }}
-      >
-        <span style={{ color: '#7fbf9a' }}>Alias:</span> Quillpy
-      </p>
+      <div className="space-y-4">
+        <AboutPanel>
+          I am a 16-year-old student who enjoys understanding how systems work and building small technical ideas around that curiosity. Programming feels less like a subject and more like a way to study structure.
+        </AboutPanel>
+        <AboutPanel>
+          My interest started in class 9 while wondering how games actually worked behind the screen. That question expanded into scripting, Linux, AI experiments, and the habit of learning by building.
+        </AboutPanel>
+        <AboutPanel>
+          Python is my main language for experiments and scripting. I also use C to understand lower-level ideas, and I want to keep moving toward C++ or Rust over time.
+        </AboutPanel>
+        <AboutPanel>
+          I use Linux as my main environment and enjoy reshaping the setup until it becomes quieter, faster, and more intentional.
+        </AboutPanel>
+      </div>
 
-      <p 
-        className="mb-4 sm:mb-6"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        I'm a 16-year-old student who enjoys exploring how systems work and building small
-        experimental tools around the ideas I discover. I see programming less as a subject
-        and more as a way to understand the structure behind things.
-      </p>
-
-      <p 
-        className="mb-6 sm:mb-8"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        My curiosity started in class 9 while wondering how games actually function behind
-        the screen. That question slowly expanded into systems, scripting, and AI experiments.
-        Since then, I’ve been learning by building — mostly small tools, ideas, and technical
-        explorations that help me understand computers better.
-      </p>
-
-      <p 
-        className="mb-6 sm:mb-8"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        The name <span style={{ color: '#7fbf9a' }}>Quillpy</span> started as an experiment.
-        I originally planned to use “Shubhampy”, but after discovering it already existed,
-        I explored alternatives and found “Quill”. It felt unique and expressive — so it stayed.
-        Since then, Quillpy has become my identity for building and experimenting with ideas.
-      </p>
-
-      <div className="mb-6 sm:mb-8">
-        <h3 
-          className="mb-3 sm:mb-4"
-          style={{ 
-            fontSize: 'clamp(1.125rem, 2.5vw, 1.25rem)',
-            color: '#7fbf9a',
-            fontWeight: '500'
-          }}
-        >
+      <div className="mt-6 rounded-[22px] border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
+        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
           Interests
-        </h3>
-
-        <ul className="space-y-2">
-          {[
-            'AI experiments 🤖',
-            'systems exploration 🧠',
-            'automation scripts & tools ⚙️',
-            'Linux customization 🐧',
-            'designing unusual interfaces 🎨',
-            'understanding how things work internally 🔍'
-          ].map((interest) => (
-            <li 
-              key={interest}
-              className="flex items-center gap-3"
-              style={{ color: '#a6b8ad', fontSize: 'clamp(1rem, 2vw, 1.125rem)' }}
-            >
-              <span style={{ color: '#6f9f84' }}>•</span>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {INTERESTS.map((interest) => (
+            <div key={interest} className="rounded-xl border px-3 py-2.5 text-sm" style={{ borderColor: '#22332b', color: '#a6b8ad' }}>
               {interest}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
+    </div>
+  );
+}
 
-      <p 
-        className="mb-4"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        Python is currently my primary language for experimentation and scripting,
-        and I use C for understanding low-level concepts. I'm also interested in
-        moving toward C++ or Rust in the future.
-      </p>
-
-      <p 
-        className="mb-6"
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        I use Linux as my main environment and currently run Kubuntu with KDE.
-        I enjoy modifying setups and learning how operating systems behave beneath
-        the interface.
-      </p>
-
-      <p 
-        style={{ 
-          fontSize: 'clamp(1rem, 2vw, 1.125rem)',
-          color: '#a6b8ad',
-          lineHeight: '1.8'
-        }}
-      >
-        Long term, I want to contribute something meaningful to human development —
-        whether through programming, systems thinking, or ideas that help people
-        understand and build better technology.
-      </p>
-
-      <div className="mt-8 pt-4 border-t" style={{ borderColor: '#1b2a24' }}>
-        <AnimatePresence mode="wait">
-          <motion.p 
-            key={currentTip}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.3 }}
-            style={{ color: '#6f9f84', fontSize: '0.8rem' }}
-          >
-            <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
-          </motion.p>
-        </AnimatePresence>
-      </div>
-
+function AboutPanel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="ui-hover rounded-[22px] border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714', color: '#a6b8ad', lineHeight: '1.85' }}>
+      {children}
     </div>
   );
 }

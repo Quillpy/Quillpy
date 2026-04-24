@@ -1,11 +1,5 @@
+import { useState } from 'react';
 import { Github, Mail } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-
-const TIPS = [
-  { text: 'Click the address bar to type commands directly' },
-  { text: 'The colored buttons work - try them!' },
-];
 
 interface SocialLink {
   name: string;
@@ -30,7 +24,7 @@ const socialLinks: SocialLink[] = [
       </svg>
     ),
     url: 'https://www.chess.com/member/quillpy',
-    label: 'quillpy ♟',
+    label: 'quillpy',
   },
   {
     name: 'Codeforces',
@@ -42,7 +36,7 @@ const socialLinks: SocialLink[] = [
       </svg>
     ),
     url: 'https://codeforces.com/profile/quillpy',
-    label: 'quillpy 💻',
+    label: 'quillpy',
   },
   {
     name: 'Instagram',
@@ -60,7 +54,7 @@ const socialLinks: SocialLink[] = [
     name: 'X',
     icon: () => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M4 4L20 20M20 4L4 20" stroke="currentColor" strokeWidth="2"/>
+        <path d="M4 4L20 20M20 4L4 20" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
     url: 'https://x.com/quillpy',
@@ -70,91 +64,38 @@ const socialLinks: SocialLink[] = [
     name: 'Email',
     icon: Mail,
     url: 'mailto:gm.goofy304@passinbox.com',
-    label: 'gm.goofy304@passinbox.com ✉️',
+    label: 'gm.goofy304@passinbox.com',
   },
 ];
 
 export function ConnectTab() {
-  const [currentTip, setCurrentTip] = useState(0);
-
-  useEffect(() => {
-    const tipInterval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % TIPS.length);
-    }, 5000);
-    return () => clearInterval(tipInterval);
-  }, []);
-
   return (
-    <div className="max-w-4xl mx-auto py-6 sm:py-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-        {/* Social Links */}
-        <div>
-          <h2 
-            className="mb-2"
-            style={{ 
-              fontSize: '1.5rem',
-              color: '#e6f0ea',
-              fontWeight: '500'
-            }}
-          >
-            Connect
-          </h2>
-
-          <p
-            style={{
-              color: '#a6b8ad',
-              fontSize: '0.95rem',
-              marginBottom: '1rem'
-            }}
-          >
-            You can find me around the internet here.
-          </p>
-
-          <div className="space-y-3">
-            {socialLinks.map((link) => (
-              <SocialLinkItem key={link.name} link={link} />
-            ))}
-          </div>
+    <div className="mx-auto max-w-5xl py-6 sm:py-10">
+      <div className="mb-8 max-w-2xl">
+        <div className="mb-3 text-sm uppercase tracking-[0.2em]" style={{ color: '#7fbf9a' }}>
+          Connect
         </div>
-
-        {/* Contact Form */}
-        <div>
-          <h2 
-            className="mb-4"
-            style={{ 
-              fontSize: '1.5rem',
-              color: '#e6f0ea',
-              fontWeight: '500'
-            }}
-          >
-            Send a Message
-          </h2>
-          <ContactForm />
-        </div>
-
+        <h1 className="mb-3 text-3xl sm:text-4xl" style={{ color: '#e6f0ea', fontWeight: 300 }}>
+          Find me on the internet or send a message.
+        </h1>
+        <p style={{ color: '#9db0a5', lineHeight: '1.8' }}>
+          A minimal contact page with the links I use most and a simple message form.
+        </p>
       </div>
 
-      <div className="mt-8 pt-4 border-t" style={{ borderColor: '#1b2a24' }}>
-        <AnimatePresence mode="wait">
-          <motion.p 
-            key={currentTip}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.3 }}
-            style={{ color: '#6f9f84', fontSize: '0.8rem' }}
-          >
-            <span style={{ color: '#8a5ca8' }}>💡</span> {TIPS[currentTip].text}
-          </motion.p>
-        </AnimatePresence>
+      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-3">
+          {socialLinks.map((link) => (
+            <SocialLinkItem key={link.name} link={link} />
+          ))}
+        </div>
+        <ContactForm />
       </div>
     </div>
   );
 }
 
 function SocialLinkItem({ link }: { link: SocialLink }) {
-  const [isHovered, setIsHovered] = useState(false);
   const Icon = link.icon;
 
   return (
@@ -162,36 +103,20 @@ function SocialLinkItem({ link }: { link: SocialLink }) {
       href={link.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-4 p-4 rounded-lg transition-all duration-200"
+      className="ui-hover flex items-center gap-4 rounded-[20px] border px-4 py-4"
       style={{
-        backgroundColor: isHovered ? '#1a1824' : 'transparent',
-        border: `1px solid ${isHovered ? '#8a5ca8' : '#1b2a24'}`,
-        boxShadow: isHovered ? '0 0 20px rgba(138, 92, 168, 0.1)' : 'none',
+        backgroundColor: '#0f1714',
+        borderColor: '#1f2f28',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      <div style={{ color: isHovered ? '#a78bda' : '#6f9f84' }}>
-        <Icon size={24} />
+      <div className="rounded-xl border p-3" style={{ borderColor: '#22332b', color: '#7fbf9a' }}>
+        <Icon size={20} />
       </div>
-
       <div className="flex-1">
-        <div 
-          style={{ 
-            fontSize: '1.125rem',
-            color: '#e6f0ea',
-            fontWeight: '500'
-          }}
-        >
+        <div className="mb-1 text-base" style={{ color: '#e6f0ea', fontWeight: 400 }}>
           {link.name}
         </div>
-
-        <div 
-          style={{ 
-            fontSize: '0.875rem',
-            color: '#a6b8ad'
-          }}
-        >
+        <div className="text-sm" style={{ color: '#9db0a5' }}>
           {link.label}
         </div>
       </div>
@@ -205,11 +130,10 @@ function ContactForm() {
     email: '',
     message: '',
   });
-
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     setIsSubmitted(true);
 
     setTimeout(() => {
@@ -218,133 +142,70 @@ function ContactForm() {
     }, 3000);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   if (isSubmitted) {
     return (
-      <div 
-        className="p-6 rounded-lg text-center"
-        style={{ 
-          backgroundColor: '#1b2a24',
-          border: '1px solid #6f9f84'
-        }}
-      >
-        <p style={{ color: '#7fbf9a', fontSize: '1.125rem' }}>
-          Message sent! I'll get back to you soon 🚀
-        </p>
+      <div className="rounded-[22px] border px-5 py-6 text-center" style={{ backgroundColor: '#101814', borderColor: '#294037' }}>
+        <p style={{ color: '#7fbf9a' }}>Message sent. I will get back to you soon.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-
+    <form onSubmit={handleSubmit} className="rounded-[22px] border px-5 py-5 space-y-4" style={{ backgroundColor: '#0f1714', borderColor: '#1f2f28' }}>
       <div>
-        <label 
-          htmlFor="name"
-          className="block mb-2"
-          style={{ color: '#a6b8ad', fontSize: '0.875rem' }}
-        >
+        <label htmlFor="name" className="mb-2 block text-sm" style={{ color: '#a6b8ad' }}>
           Name
         </label>
-
         <input
-          type="text"
           id="name"
           name="name"
+          type="text"
           value={formData.name}
-          onChange={handleChange}
+          onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+          className="w-full rounded-xl border px-3 py-2.5 outline-none"
+          style={{ backgroundColor: '#101814', borderColor: '#22332b', color: '#e6f0ea' }}
           required
-          className="w-full px-4 py-2 rounded-lg outline-none transition-all duration-200"
-          style={{
-            backgroundColor: '#1b2a24',
-            border: '1px solid #1b2a24',
-            color: '#e6f0ea',
-          }}
-          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
-          onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
 
       <div>
-        <label 
-          htmlFor="email"
-          className="block mb-2"
-          style={{ color: '#a6b8ad', fontSize: '0.875rem' }}
-        >
+        <label htmlFor="email" className="mb-2 block text-sm" style={{ color: '#a6b8ad' }}>
           Email
         </label>
-
         <input
-          type="email"
           id="email"
           name="email"
+          type="email"
           value={formData.email}
-          onChange={handleChange}
+          onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+          className="w-full rounded-xl border px-3 py-2.5 outline-none"
+          style={{ backgroundColor: '#101814', borderColor: '#22332b', color: '#e6f0ea' }}
           required
-          className="w-full px-4 py-2 rounded-lg outline-none transition-all duration-200"
-          style={{
-            backgroundColor: '#1b2a24',
-            border: '1px solid #1b2a24',
-            color: '#e6f0ea',
-          }}
-          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
-          onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
 
       <div>
-        <label 
-          htmlFor="message"
-          className="block mb-2"
-          style={{ color: '#a6b8ad', fontSize: '0.875rem' }}
-        >
+        <label htmlFor="message" className="mb-2 block text-sm" style={{ color: '#a6b8ad' }}>
           Message
         </label>
-
         <textarea
           id="message"
           name="message"
-          rows={4}
           value={formData.message}
-          onChange={handleChange}
+          onChange={(event) => setFormData({ ...formData, message: event.target.value })}
+          className="min-h-36 w-full rounded-xl border px-3 py-2.5 outline-none"
+          style={{ backgroundColor: '#101814', borderColor: '#22332b', color: '#e6f0ea' }}
           required
-          className="w-full px-4 py-2 rounded-lg outline-none transition-all duration-200 resize-none"
-          style={{
-            backgroundColor: '#1b2a24',
-            border: '1px solid #1b2a24',
-            color: '#e6f0ea',
-          }}
-          onFocus={(e) => e.target.style.borderColor = '#8a5ca8'}
-          onBlur={(e) => e.target.style.borderColor = '#1b2a24'}
         />
       </div>
 
       <button
         type="submit"
-        className="w-full px-6 py-3 rounded-lg transition-all duration-200"
-        style={{
-          backgroundColor: '#6f9f84',
-          color: '#0f1a16',
-          fontWeight: '500',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = '#8a5ca8';
-          e.currentTarget.style.boxShadow = '0 0 20px rgba(138, 92, 168, 0.3)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = '#6f9f84';
-          e.currentTarget.style.boxShadow = 'none';
-        }}
+        className="ui-hover w-full rounded-xl border px-4 py-3 text-sm"
+        style={{ backgroundColor: '#7fbf9a', borderColor: '#7fbf9a', color: '#0d1512' }}
       >
-        Send Message
+        Send message
       </button>
-
     </form>
   );
 }
