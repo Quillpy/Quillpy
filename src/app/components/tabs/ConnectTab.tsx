@@ -132,14 +132,21 @@ function ContactForm() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitted(true);
-
-    setTimeout(() => {
-      setIsSubmitted(false);
+    
+    const form = event.currentTarget;
+    fetch('https://formsubmit.co/ajax/gm.goofy304@passinbox.com', {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(() => {
+      setIsSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+      setTimeout(() => setIsSubmitted(false), 3000);
+    });
   };
 
   if (isSubmitted) {
@@ -151,7 +158,9 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border px-5 py-5 space-y-4 ui-panel-soft" style={{ backgroundColor: '#0f1714', borderColor: '#1f2f28' }}>
+    <form onSubmit={handleSubmit} action="https://formsubmit.co/gm.goofy304@passinbox.com" method="POST" className="border px-5 py-5 space-y-4 ui-panel-soft" style={{ backgroundColor: '#0f1714', borderColor: '#1f2f28' }}>
+      <input type="text" name="_gotcha" style={{ display: 'none' }} />
+      <input type="hidden" name="_subject" value="New message from Quillpy" />
       <div>
         <label htmlFor="name" className="mb-2 block text-sm" style={{ color: '#a6b8ad' }}>
           Name
