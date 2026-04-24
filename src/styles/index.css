@@ -17,19 +17,15 @@ body {
 :root,
 .dark {
   color-scheme: dark;
-  background:
-    radial-gradient(circle at top, rgba(41, 62, 54, 0.35), transparent 38%),
-    linear-gradient(180deg, #09100d 0%, #0d1512 100%);
-  color: #e4ece7;
+  background: var(--page-gradient);
+  color: var(--foreground);
 }
 
 :root.light,
 .light {
   color-scheme: light;
-  background:
-    radial-gradient(circle at top, rgba(90, 107, 90, 0.2), transparent 38%),
-    linear-gradient(180deg, #d4d2c8 0%, #D0CFC0 100%);
-  color: #1a2418;
+  background: var(--page-gradient);
+  color: var(--foreground);
 }
 
 button,
@@ -56,7 +52,7 @@ textarea {
 
 .browser-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #294037 transparent;
+  scrollbar-color: var(--brand) transparent;
 }
 
 .browser-scroll::-webkit-scrollbar {
@@ -68,7 +64,7 @@ textarea {
 }
 
 .browser-scroll::-webkit-scrollbar-thumb {
-  background: #294037;
+  background: var(--brand);
   border-radius: 0;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -95,12 +91,77 @@ textarea {
 
 .ui-panel {
   box-shadow:
-    0 0 0 1px rgba(43, 64, 54, 0.7),
-    0 14px 32px rgba(0, 0, 0, 0.18);
+    0 0 0 1px color-mix(in srgb, var(--border) 85%, transparent),
+    0 14px 32px var(--shadow-color);
 }
 
 .ui-panel-soft {
   box-shadow:
-    0 0 0 1px rgba(31, 47, 40, 0.9),
-    0 10px 22px rgba(0, 0, 0, 0.16);
+    0 0 0 1px color-mix(in srgb, var(--border) 82%, transparent),
+    0 10px 22px color-mix(in srgb, var(--shadow-color) 90%, transparent);
+}
+
+.theme-label {
+  color: var(--brand);
+}
+
+.theme-title {
+  color: var(--text-strong);
+}
+
+.theme-body {
+  color: var(--text-muted);
+}
+
+.theme-panel {
+  background-color: var(--surface-1);
+  border-color: var(--border);
+}
+
+.theme-panel-alt {
+  background-color: var(--surface-2);
+  border-color: var(--border);
+}
+
+.theme-panel-subtle {
+  background-color: var(--surface-overlay);
+  border-color: var(--border);
+}
+
+.theme-chip {
+  background-color: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+.theme-button-primary {
+  background-color: var(--brand);
+  border-color: var(--brand);
+  color: var(--primary-foreground);
+}
+
+.theme-button-primary:hover {
+  background-color: var(--brand-strong);
+  border-color: var(--brand-strong);
+}
+
+.theme-button-secondary {
+  background-color: var(--surface-2);
+  border-color: var(--border);
+  color: var(--text-strong);
+}
+
+.theme-button-secondary:hover {
+  background-color: var(--button-hover);
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--border));
+}
+
+.theme-input {
+  background-color: var(--input-background);
+  border-color: var(--border);
+  color: var(--text-strong);
+}
+
+.theme-input::placeholder {
+  color: var(--text-soft);
 }

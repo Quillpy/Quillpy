@@ -28,7 +28,7 @@ export function DevControlOverlay({ mode, onResume }: DevControlOverlayProps) {
           exit={{ opacity: 0 }}
           className="fixed inset-0 flex items-center justify-center z-50"
           style={{
-            backgroundColor: mode === 'sleep' ? 'rgba(15, 26, 22, 0.95)' : 'rgba(15, 26, 22, 0.98)',
+            backgroundColor: mode === 'sleep' ? 'color-mix(in srgb, var(--background) 95%, transparent)' : 'color-mix(in srgb, var(--background) 98%, transparent)',
             pointerEvents: mode === 'sleep' ? 'all' : 'none',
           }}
         >
@@ -49,14 +49,14 @@ function KillMode() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div style={{ color: '#a6b8ad', fontSize: '1rem', marginBottom: '1rem' }}>
+        <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '1rem' }}>
           $ kill quillpy.dev
         </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.3 }}
-          style={{ color: '#ff6b6b', fontSize: '0.875rem', marginBottom: '2rem' }}
+          style={{ color: 'var(--destructive)', fontSize: '0.875rem', marginBottom: '2rem' }}
         >
           process terminated...
         </motion.div>
@@ -66,10 +66,10 @@ function KillMode() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
-        style={{ color: '#7fbf9a', fontSize: '1.25rem', marginTop: '2rem' }}
+        style={{ color: 'var(--brand)', fontSize: '1.25rem', marginTop: '2rem' }}
       >
         <div>Session ended.</div>
-        <div style={{ color: '#a6b8ad', fontSize: '1rem', marginTop: '0.5rem' }}>
+        <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginTop: '0.5rem' }}>
           Reload to reconnect.
         </div>
       </motion.div>
@@ -85,13 +85,13 @@ function SleepMode() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div style={{ color: '#ffd93d', fontSize: '1.25rem', marginBottom: '1rem' }}>
+        <div style={{ color: '#c89a2b', fontSize: '1.25rem', marginBottom: '1rem' }}>
           system suspended...
         </div>
         <motion.div
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ color: '#a6b8ad', fontSize: '0.875rem' }}
+          style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}
         >
           press any key
         </motion.div>
@@ -108,7 +108,7 @@ function RunMode() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
       >
-        <div style={{ color: '#a6b8ad', fontSize: '1rem', marginBottom: '1rem' }}>
+        <div style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '1rem' }}>
           $ running portfolio...
         </div>
       </motion.div>
@@ -117,12 +117,12 @@ function RunMode() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.3 }}
-        style={{ color: '#7fbf9a', fontSize: '0.875rem', marginBottom: '0.5rem' }}
+        style={{ color: 'var(--brand)', fontSize: '0.875rem', marginBottom: '0.5rem' }}
       >
         loading modules...
       </motion.div>
 
-      <div style={{ color: '#6f9f84', fontSize: '0.75rem', fontFamily: 'monospace' }}>
+      <div style={{ color: 'var(--text-soft)', fontSize: '0.75rem', fontFamily: 'monospace' }}>
         {['[✓] react.js', '[✓] components.tsx', '[✓] styles.css', '[✓] animations.js'].map((item, index) => (
           <motion.div
             key={item}
@@ -140,7 +140,7 @@ function RunMode() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.3, duration: 0.3 }}
-        style={{ color: '#7fbf9a', fontSize: '0.875rem', marginTop: '1rem' }}
+        style={{ color: 'var(--brand)', fontSize: '0.875rem', marginTop: '1rem' }}
       >
         ✓ ready
       </motion.div>

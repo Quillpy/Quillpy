@@ -3,11 +3,11 @@ import { Browser } from './Browser';
 export function Monitor() {
   return (
     <div 
-      className="p-2 sm:p-3 shadow-2xl w-full max-w-6xl h-full"
+      className="w-full h-full sm:max-w-6xl sm:max-h-[calc(100vh-1rem)] p-0 sm:p-3 shadow-2xl"
       style={{ 
-        backgroundColor: '#121b17',
-        border: '1px solid #24362f',
-        boxShadow: '0 28px 90px rgba(0, 0, 0, 0.45)'
+        backgroundColor: 'var(--chrome-bg)',
+        border: '1px solid var(--chrome-border)',
+        boxShadow: '0 28px 90px var(--shadow-color)'
       }}
     >
       <Browser />

@@ -13,19 +13,19 @@ export function AboutTab() {
   return (
     <div className="mx-auto w-full max-w-5xl py-6 sm:py-10">
       <div className="mb-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-        <Avatar className="h-28 w-28 border" style={{ borderColor: '#22332b', borderRadius: 0, boxShadow: '0 12px 28px rgba(0, 0, 0, 0.18)' }}>
+        <Avatar className="h-28 w-28 border" style={{ borderColor: 'var(--border)', borderRadius: 0, boxShadow: '0 12px 28px var(--shadow-color)' }}>
           <AvatarImage src="/Quillpy.png" />
-          <AvatarFallback className="bg-[#101814] text-[#7fbf9a] font-bold">QP</AvatarFallback>
+          <AvatarFallback className="font-bold" style={{ backgroundColor: 'var(--surface-2)', color: 'var(--brand)' }}>QP</AvatarFallback>
         </Avatar>
 
         <div>
-          <div className="mb-2 text-sm uppercase tracking-[0.2em]" style={{ color: '#7fbf9a' }}>
+          <div className="mb-2 text-sm uppercase tracking-[0.2em]" style={{ color: 'var(--brand)' }}>
             About
           </div>
-          <h1 className="text-3xl sm:text-4xl" style={{ color: '#e6f0ea', fontWeight: 300 }}>
+          <h1 className="text-3xl sm:text-4xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
             Quillpy
           </h1>
-          <p className="mt-3 max-w-xl" style={{ color: '#9db0a5', lineHeight: '1.8' }}>
+          <p className="mt-3 max-w-xl" style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
             A student learning through projects, systems curiosity, and repeated experimentation.
           </p>
         </div>
@@ -46,13 +46,13 @@ export function AboutTab() {
         </AboutPanel>
       </div>
 
-      <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
-        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
+      <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
+        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
           Interests
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((interest) => (
-            <div key={interest} className="border px-3 py-2.5 text-sm ui-hover" style={{ borderColor: '#22332b', color: '#a6b8ad' }}>
+            <div key={interest} className="border px-3 py-2.5 text-sm ui-hover" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)', backgroundColor: 'var(--surface-2)' }}>
               {interest}
             </div>
           ))}
@@ -64,7 +64,7 @@ export function AboutTab() {
 
 function AboutPanel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ui-hover ui-panel-soft border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714', color: '#a6b8ad', lineHeight: '1.85' }}>
+    <div className="ui-hover ui-panel-soft border px-5 py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)', color: 'var(--text-muted)', lineHeight: '1.85' }}>
       {children}
     </div>
   );

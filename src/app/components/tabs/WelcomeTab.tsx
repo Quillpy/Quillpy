@@ -24,16 +24,16 @@ export function WelcomeTab() {
             style={{
               fontSize: 'clamp(2.25rem, 6vw, 4rem)',
               fontWeight: '300',
-              color: '#e6f0ea',
+              color: 'var(--text-strong)',
               lineHeight: '1.05',
               fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
             }}
           >
-            <span style={{ color: '#7fbf9a' }}>quillpy@dev</span>
-            <span style={{ color: '#a6b8ad' }}>:~$</span>
+            <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>
+            <span style={{ color: 'var(--text-muted)' }}>:~$</span>
             <span
               style={{
-                color: '#7fbf9a',
+                color: 'var(--brand)',
                 opacity: showCursor ? 1 : 0,
                 transition: 'opacity 0.1s',
                 marginLeft: '2px',
@@ -42,7 +42,7 @@ export function WelcomeTab() {
               _
             </span>
           </h1>
-          <p className="max-w-2xl" style={{ color: '#9db0a5', lineHeight: '1.9', fontSize: 'clamp(1rem, 2vw, 1.1rem)' }}>
+          <p className="max-w-2xl" style={{ color: 'var(--text-muted)', lineHeight: '1.9', fontSize: 'clamp(1rem, 2vw, 1.1rem)' }}>
             I build small tools, explore systems, and keep learning by making things that feel clean and useful.
           </p>
         </div>
@@ -68,11 +68,11 @@ export function WelcomeTab() {
 
 function WelcomeCard({ title, text }: { title: string; text: string }) {
   return (
-    <div className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
-      <div className="mb-2 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
+    <div className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
+      <div className="mb-2 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
         {title}
       </div>
-      <p style={{ color: '#a6b8ad', lineHeight: '1.8' }}>{text}</p>
+      <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>{text}</p>
     </div>
   );
 }

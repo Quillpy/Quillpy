@@ -32,8 +32,6 @@ interface BrowserControlsProps {
 export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [urlValue, setUrlValue] = useState('');
-  const [displayUrl, setDisplayUrl] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [hoveredWindowBtn, setHoveredWindowBtn] = useState<string | null>(null);
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
@@ -50,22 +48,6 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
 
   useEffect(() => {
     setUrlValue(getUrl());
-    setIsTyping(true);
-    let currentIndex = 0;
-    const targetUrl = getUrl();
-    setDisplayUrl('');
-
-    const interval = setInterval(() => {
-      if (currentIndex < targetUrl.length) {
-        setDisplayUrl(targetUrl.slice(0, currentIndex + 1));
-        currentIndex++;
-      } else {
-        setIsTyping(false);
-        clearInterval(interval);
-      }
-    }, 40);
-
-    return () => clearInterval(interval);
   }, [activeTab]);
 
   useEffect(() => {
@@ -104,36 +86,31 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
   };
 
   const navButtonStyle = (key: string, enabled = true) => {
-    const isLight = theme === 'light';
-    const baseColor = isLight ? '#3a4d3a' : '#6f9f84';
-    const hoverColor = isLight ? '#5a6b5a' : '#dbe6df';
-    const activeBg = isLight ? '#e8e6dc' : '#18231e';
     return {
-      color: hoveredIcon === key ? hoverColor : enabled ? baseColor : isLight ? '#9ea592' : '#2d3d34',
-      backgroundColor: hoveredIcon === key ? activeBg : 'transparent',
+      color: hoveredIcon === key ? 'var(--text-strong)' : enabled ? 'var(--text-muted)' : 'var(--text-soft)',
+      backgroundColor: hoveredIcon === key ? 'var(--button-hover)' : 'transparent',
       opacity: enabled ? 1 : 0.45,
       cursor: enabled ? 'pointer' : 'not-allowed',
     };
   };
 
-  const isLight = theme === 'light';
-  const urlBarBg = isLight ? '#e8e6dc' : '#18231e';
-  const urlBarBorder = isLight ? '#9ea592' : '#22332b';
-  const urlBarText = isLight ? '#3a4d3a' : '#a6b8ad';
-  const urlBarCaret = isLight ? '#5a6b5a' : '#7fbf9a';
-  const settingsBg = isLight ? '#e8e6dc' : isSettingsOpen ? '#18231e' : '#d8d6cc';
-  const settingsBorder = isLight ? '#9ea592' : '#22332b';
-  const settingsText = isLight ? '#5a6b5a' : '#a6b8ad';
-  const accentColor = isLight ? '#5a6b5a' : '#7fbf9a';
-  const headerColor = isLight ? '#5a6b5a' : '#7fbf9a';
-  const borderColor = isLight ? '#9ea592' : '#1f2f28';
+  const urlBarBg = 'var(--chrome-panel)';
+  const urlBarBorder = 'var(--border)';
+  const urlBarText = 'var(--text-muted)';
+  const urlBarCaret = 'var(--brand)';
+  const settingsBg = 'var(--surface-1)';
+  const settingsBorder = 'var(--border)';
+  const settingsText = 'var(--text-muted)';
+  const accentColor = 'var(--brand)';
+  const headerColor = 'var(--brand)';
+  const borderColor = 'var(--border)';
 
   return (
     <div
       className="px-3 sm:px-4 py-2.5"
       style={{
-        backgroundColor: isLight ? '#e0ded4' : '#121b17',
-        borderBottom: `1px solid ${isLight ? '#c7c5ba' : '#1d2c25'}`,
+        backgroundColor: 'var(--chrome-bg)',
+        borderBottom: '1px solid var(--chrome-border)',
       }}
     >
       <div className="flex items-center gap-2.5">
@@ -245,8 +222,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 borderColor: urlBarBorder,
               }}
             >
-              {displayUrl || getUrl()}
-              {isTyping && <span style={{ color: urlBarCaret }}>_</span>}
+              {getUrl()}
             </div>
           )}
 
@@ -263,8 +239,8 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   style={{
-                    color: hoveredIcon === item.tab ? item.color : (isLight ? '#5a6b5a' : '#6f9f84'),
-                    backgroundColor: hoveredIcon === item.tab ? urlBarBg : 'transparent',
+                    color: hoveredIcon === item.tab ? item.color : 'var(--text-muted)',
+                    backgroundColor: hoveredIcon === item.tab ? 'var(--button-hover)' : 'transparent',
                   }}
                   title={item.hint}
                 >
@@ -282,9 +258,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
               className="ui-hover ui-press p-2 border ui-panel-soft"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              style={{
-                color: hoveredIcon === 'settings' ? (isLight ? '#5a6b5a' : '#dbe6df') : (isLight ? '#3a4d3a' : '#6f9f84'),
-                backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? urlBarBg : (isLight ? '#d8d6cc' : '#101814'),
+                style={{
+                color: hoveredIcon === 'settings' ? 'var(--text-strong)' : 'var(--text-muted)',
+                backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? 'var(--button-hover)' : 'var(--chrome-panel-strong)',
                 borderColor: urlBarBorder,
               }}
               title="Settings"
@@ -300,7 +276,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 transition={{ duration: 0.18 }}
                 className="absolute right-0 top-[calc(100%+0.5rem)] w-52 border ui-panel z-20"
                 style={{
-                  backgroundColor: isLight ? '#f4f2e8' : '#101814',
+                  backgroundColor: settingsBg,
                   borderColor: settingsBorder,
                 }}
               >
@@ -329,9 +305,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         onClick={() => onBodyFontSizeChange(size)}
                         className="ui-hover px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: bodyFontSize === size ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          backgroundColor: bodyFontSize === size ? 'var(--button-hover)' : 'var(--surface-2)',
                           borderColor: bodyFontSize === size ? urlBarBorder : settingsBorder,
-                          color: bodyFontSize === size ? urlBarText : settingsText,
+                          color: bodyFontSize === size ? 'var(--text-strong)' : settingsText,
                         }}
                       >
                         {size}px
@@ -348,9 +324,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         onClick={() => onThemeChange('dark')}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: theme === 'dark' ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          backgroundColor: theme === 'dark' ? 'var(--button-hover)' : 'var(--surface-2)',
                           borderColor: theme === 'dark' ? urlBarBorder : settingsBorder,
-                          color: theme === 'dark' ? urlBarText : settingsText,
+                          color: theme === 'dark' ? 'var(--text-strong)' : settingsText,
                         }}
                       >
                         <Moon size={12} />
@@ -360,9 +336,9 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                         onClick={() => onThemeChange('light')}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: theme === 'light' ? urlBarBg : (isLight ? '#f4f2e8' : '#101814'),
+                          backgroundColor: theme === 'light' ? 'var(--button-hover)' : 'var(--surface-2)',
                           borderColor: theme === 'light' ? urlBarBorder : settingsBorder,
-                          color: theme === 'light' ? urlBarText : settingsText,
+                          color: theme === 'light' ? 'var(--text-strong)' : settingsText,
                         }}
                       >
                         <Sun size={12} />

@@ -20,7 +20,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
     <div 
       className="flex flex-col items-center justify-center px-4"
       style={{ 
-        backgroundColor: '#0f1a16',
+        backgroundColor: 'transparent',
         minHeight: '400px',
         height: '100%'
       }}
@@ -31,7 +31,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
           style={{ 
             fontSize: 'clamp(3rem, 8vw, 6rem)',
             fontWeight: 700,
-            color: '#7fbf9a',
+            color: 'var(--brand)',
             letterSpacing: '-0.02em'
           }}
         >
@@ -43,7 +43,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
             <Search 
               className="absolute left-4 top-1/2 transform -translate-y-1/2"
               size={20}
-              style={{ color: '#6f9f84' }}
+              style={{ color: 'var(--text-soft)' }}
             />
             <input
               type="text"
@@ -52,16 +52,16 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
               placeholder="Type anything to search or navigate..."
               className="w-full pl-12 pr-4 py-4 text-base outline-none transition-all duration-200 ui-panel-soft"
               style={{ 
-                backgroundColor: '#16221d',
-                color: '#e6f0ea',
-                border: '2px solid #1b2a24'
+                backgroundColor: 'var(--surface-1)',
+                color: 'var(--text-strong)',
+                border: '2px solid var(--border)'
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = '#6f9f84';
-                e.target.style.boxShadow = '0 0 0 4px rgba(111, 159, 132, 0.1)';
+                e.target.style.borderColor = 'var(--brand)';
+                e.target.style.boxShadow = '0 0 0 4px var(--brand-soft)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = '#1b2a24';
+                e.target.style.borderColor = 'var(--border)';
                 e.target.style.boxShadow = 'none';
               }}
             />
@@ -70,7 +70,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
 
         <p 
           className="text-center text-sm"
-          style={{ color: '#7a8f82' }}
+          style={{ color: 'var(--text-soft)' }}
         >
           Search the web or navigate to: welcome, about, projects, philosophy, connect
         </p>
@@ -88,17 +88,17 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
               onClick={() => onSearch(link.path)}
               className="ui-hover ui-panel-soft p-4 text-center transition-all duration-200 cursor-pointer"
               style={{ 
-                backgroundColor: '#16221d',
-                color: '#a6b8ad',
-                border: '1px solid #1b2a24'
+                backgroundColor: 'var(--surface-1)',
+                color: 'var(--text-muted)',
+                border: '1px solid var(--border)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#1b2a24';
-                e.currentTarget.style.borderColor = '#6f9f84';
+                e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+                e.currentTarget.style.borderColor = 'var(--brand)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#16221d";
-                e.currentTarget.style.borderColor = "#1b2a24";
+                e.currentTarget.style.backgroundColor = "var(--surface-1)";
+                e.currentTarget.style.borderColor = "var(--border)";
               }}
             >
               <div style={{ fontSize: '0.875rem' }}>{link.name}</div>
@@ -108,7 +108,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
 
         <p 
           className="text-center text-sm mt-4"
-          style={{ color: '#7a8f82' }}
+          style={{ color: 'var(--text-soft)' }}
         >
           Search the web or navigate to: welcome, about, projects, philosophy, terminal, connect
         </p>

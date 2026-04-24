@@ -164,12 +164,10 @@ export function Browser() {
 
   const activeTab = tabs.find(t => t.id === activeTabId);
 
-  const browserBg = theme === 'light' ? '#c7c5ba' : '#101814';
-
   return (
     <div 
       className="overflow-hidden relative flex flex-col"
-      style={{ backgroundColor: browserBg, height: '100%' }}
+      style={{ backgroundColor: 'var(--background)', height: '100%' }}
     >
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 
@@ -210,19 +208,19 @@ export function Browser() {
       <div 
         className="px-4 py-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
         style={{ 
-          backgroundColor: theme === 'light' ? '#c7c5ba' : '#0c120f',
-          borderColor: theme === 'light' ? '#9ea592' : '#1a2721',
-          color: theme === 'light' ? '#5a6b5a' : '#6f9f84'
+          backgroundColor: 'var(--chrome-panel-strong)',
+          borderColor: 'var(--chrome-border)',
+          color: 'var(--text-muted)'
         }}
       >
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1">
-            <span style={{ color: theme === 'light' ? '#5a6b5a' : '#7fbf9a' }}>●</span>
+            <span style={{ color: 'var(--brand)' }}>●</span>
             Connected
           </span>
-          <span style={{ color: theme === 'light' ? '#9ea592' : '#3a4d42' }}>|</span>
+          <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Linux</span>
-          <span style={{ color: '#3a4d42' }}>|</span>
+          <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Building things since 2024</span>
         </div>
         <div className="flex items-center gap-2">

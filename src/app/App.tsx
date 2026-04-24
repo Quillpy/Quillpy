@@ -10,7 +10,10 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen overflow-hidden flex items-center justify-center p-2 sm:p-4 relative" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div
+      className="h-screen overflow-hidden flex items-center justify-center p-0 sm:p-2 relative"
+      style={{ fontFamily: 'var(--font-sans)', backgroundColor: 'var(--shell-bg)' }}
+    >
       <Monitor />
     </div>
   );

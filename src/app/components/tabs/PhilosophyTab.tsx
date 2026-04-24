@@ -17,7 +17,7 @@ export function PhilosophyTab() {
         className="mb-6"
         style={{
           fontSize: 'clamp(1.8rem, 4vw, 2.3rem)',
-          color: '#e6f0ea',
+          color: 'var(--text-strong)',
           fontWeight: '300'
         }}
       >
@@ -26,7 +26,7 @@ export function PhilosophyTab() {
 
       <p
         style={{
-          color: '#a6b8ad',
+          color: 'var(--text-muted)',
           fontSize: '1rem',
           marginBottom: '2rem'
         }}
@@ -39,12 +39,12 @@ export function PhilosophyTab() {
           <div
             key={index}
             className="py-3 sm:py-4 border-l-2 pl-4 sm:pl-6"
-            style={{ borderColor: '#6f9f84' }}
+            style={{ borderColor: 'var(--brand)' }}
           >
             <p
               style={{
                 fontSize: 'clamp(1.125rem, 3vw, 1.5rem)',
-                color: '#e6f0ea',
+                color: 'var(--text-strong)',
                 fontWeight: '300',
                 lineHeight: '1.6'
               }}
@@ -57,7 +57,7 @@ export function PhilosophyTab() {
 
       <p
         style={{
-          color: '#7b8f86',
+          color: 'var(--text-soft)',
           marginTop: '2rem',
           fontSize: '0.9rem'
         }}

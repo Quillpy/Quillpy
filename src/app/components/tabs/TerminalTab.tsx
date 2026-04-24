@@ -43,8 +43,8 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       input: 'boot',
       output: (
         <div className="space-y-1">
-          <div style={{ color: '#7fbf9a' }}>quillpy shell ready</div>
-          <div style={{ color: '#5d7367' }}>Type help to inspect available commands.</div>
+          <div style={{ color: 'var(--brand)' }}>quillpy shell ready</div>
+          <div style={{ color: 'var(--text-soft)' }}>Type help to inspect available commands.</div>
         </div>
       ),
     },
@@ -65,23 +65,23 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
   const navigateToPage = (page: string) => {
     onNavigate(page as TabType);
-    return <div style={{ color: '#7fbf9a' }}>Opening {page}...</div>;
+    return <div style={{ color: 'var(--brand)' }}>Opening {page}...</div>;
   };
 
   const renderHelp = () => (
-    <div className="grid gap-2 sm:grid-cols-2" style={{ color: '#a6b8ad' }}>
-      <div><span style={{ color: '#7fbf9a' }}>help</span> list commands</div>
-      <div><span style={{ color: '#7fbf9a' }}>clear</span> reset terminal output</div>
-      <div><span style={{ color: '#7fbf9a' }}>neofetch</span> show system card</div>
-      <div><span style={{ color: '#7fbf9a' }}>whoami</span> short profile</div>
-      <div><span style={{ color: '#7fbf9a' }}>ls</span> list available pages</div>
-      <div><span style={{ color: '#7fbf9a' }}>pwd</span> show current path</div>
-      <div><span style={{ color: '#7fbf9a' }}>date</span> show local date</div>
-      <div><span style={{ color: '#7fbf9a' }}>history</span> show recent commands</div>
-      <div><span style={{ color: '#7fbf9a' }}>echo &lt;text&gt;</span> print text</div>
-      <div><span style={{ color: '#7fbf9a' }}>cd &lt;page&gt;</span> navigate to a page</div>
-      <div><span style={{ color: '#7fbf9a' }}>open &lt;page&gt;</span> open a page</div>
-      <div><span style={{ color: '#7fbf9a' }}>cat stack|contact|focus</span> read notes</div>
+    <div className="grid gap-2 sm:grid-cols-2" style={{ color: 'var(--text-muted)' }}>
+      <div><span style={{ color: 'var(--brand)' }}>help</span> list commands</div>
+      <div><span style={{ color: 'var(--brand)' }}>clear</span> reset terminal output</div>
+      <div><span style={{ color: 'var(--brand)' }}>neofetch</span> show system card</div>
+      <div><span style={{ color: 'var(--brand)' }}>whoami</span> short profile</div>
+      <div><span style={{ color: 'var(--brand)' }}>ls</span> list available pages</div>
+      <div><span style={{ color: 'var(--brand)' }}>pwd</span> show current path</div>
+      <div><span style={{ color: 'var(--brand)' }}>date</span> show local date</div>
+      <div><span style={{ color: 'var(--brand)' }}>history</span> show recent commands</div>
+      <div><span style={{ color: 'var(--brand)' }}>echo &lt;text&gt;</span> print text</div>
+      <div><span style={{ color: 'var(--brand)' }}>cd &lt;page&gt;</span> navigate to a page</div>
+      <div><span style={{ color: 'var(--brand)' }}>open &lt;page&gt;</span> open a page</div>
+      <div><span style={{ color: 'var(--brand)' }}>cat stack|contact|focus</span> read notes</div>
     </div>
   );
 
@@ -97,9 +97,9 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{
-              backgroundColor: '#111a16',
-              borderColor: '#22332b',
-              color: '#7fbf9a',
+              backgroundColor: 'var(--surface-2)',
+              borderColor: 'var(--border)',
+              color: 'var(--brand)',
             }}
           >
             <Icon size={12} />
@@ -113,7 +113,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   const renderCat = (topic: string) => {
     if (topic === 'stack') {
       return (
-        <div style={{ color: '#a6b8ad' }}>
+        <div style={{ color: 'var(--text-muted)' }}>
           Primary stack: Python, C, Linux, small experiments, interface design.
         </div>
       );
@@ -121,21 +121,21 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
     if (topic === 'contact') {
       return (
-        <div style={{ color: '#a6b8ad' }}>
-          Best route: open the <span style={{ color: '#7fbf9a' }}>connect</span> page.
+        <div style={{ color: 'var(--text-muted)' }}>
+          Best route: open the <span style={{ color: 'var(--brand)' }}>connect</span> page.
         </div>
       );
     }
 
     if (topic === 'focus') {
       return (
-        <div style={{ color: '#a6b8ad' }}>
+        <div style={{ color: 'var(--text-muted)' }}>
           Current focus: building clean tools, learning systems, and shipping more often.
         </div>
       );
     }
 
-    return <div style={{ color: '#ff7d7d' }}>cat: {topic}: no such file</div>;
+    return <div style={{ color: 'var(--destructive)' }}>cat: {topic}: no such file</div>;
   };
 
   const executeCommand = (rawInput: string) => {
@@ -161,7 +161,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       output = renderHelp();
     } else if (lowerCommand === 'neofetch') {
       output = (
-        <pre className="text-xs sm:text-sm" style={{ color: '#7fbf9a' }}>
+        <pre className="text-xs sm:text-sm" style={{ color: 'var(--brand)' }}>
 {`   quillpy@dev
    -----------
    os      linux
@@ -173,27 +173,27 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       );
     } else if (lowerCommand === 'whoami') {
       output = (
-        <div style={{ color: '#a6b8ad' }}>
+        <div style={{ color: 'var(--text-muted)' }}>
           Quillpy. Student, builder, Linux user, and curious systems explorer.
         </div>
       );
     } else if (lowerCommand === 'pwd') {
-      output = <div style={{ color: '#a6b8ad' }}>/home/quillpy</div>;
+      output = <div style={{ color: 'var(--text-muted)' }}>/home/quillpy</div>;
     } else if (lowerCommand === 'date') {
-      output = <div style={{ color: '#a6b8ad' }}>{new Date().toLocaleString()}</div>;
+      output = <div style={{ color: 'var(--text-muted)' }}>{new Date().toLocaleString()}</div>;
     } else if (lowerCommand === 'echo') {
-      output = <div style={{ color: '#a6b8ad' }}>{args.join(' ')}</div>;
+      output = <div style={{ color: 'var(--text-muted)' }}>{args.join(' ')}</div>;
     } else if (lowerCommand === 'history') {
       output = history.length ? (
-        <div className="space-y-1" style={{ color: '#a6b8ad' }}>
+        <div className="space-y-1" style={{ color: 'var(--text-muted)' }}>
           {history.map((item, index) => (
             <div key={`${item}-${index}`}>
-              <span style={{ color: '#5d7367' }}>{String(index + 1).padStart(2, '0')}</span> {item}
+              <span style={{ color: 'var(--text-soft)' }}>{String(index + 1).padStart(2, '0')}</span> {item}
             </div>
           ))}
         </div>
       ) : (
-        <div style={{ color: '#5d7367' }}>No commands in history.</div>
+        <div style={{ color: 'var(--text-soft)' }}>No commands in history.</div>
       );
     } else if (lowerCommand === 'ls') {
       output = renderLs();
@@ -202,7 +202,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
       if (target && PAGES.some((page) => page.cmd === target)) {
         output = navigateToPage(target);
       } else {
-        output = <div style={{ color: '#ff7d7d' }}>{lowerCommand}: invalid target</div>;
+        output = <div style={{ color: 'var(--destructive)' }}>{lowerCommand}: invalid target</div>;
       }
     } else if (lowerCommand === 'cat') {
       output = renderCat((args[0] || '').toLowerCase());
@@ -211,8 +211,8 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
     } else {
       output = (
         <div className="space-y-1">
-          <div style={{ color: '#ff7d7d' }}>command not found: {rawInput}</div>
-          <div style={{ color: '#5d7367' }}>Try help.</div>
+          <div style={{ color: 'var(--destructive)' }}>command not found: {rawInput}</div>
+          <div style={{ color: 'var(--text-soft)' }}>Try help.</div>
         </div>
       );
     }
@@ -273,11 +273,11 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
     >
       <div
         className="overflow-hidden border ui-panel"
-        style={{ backgroundColor: '#0b120f', borderColor: '#1c2a23' }}
+        style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}
       >
         <div
           className="flex items-center justify-between border-b px-4 py-3"
-          style={{ backgroundColor: '#101814', borderColor: '#1c2a23' }}
+          style={{ backgroundColor: 'var(--surface-2)', borderColor: 'var(--border)' }}
         >
           <div className="flex gap-1.5">
             {[0, 1, 2].map((button) => (
@@ -287,17 +287,17 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
                 onMouseLeave={() => setHoveredWindowBtn(null)}
                 className="ui-hover h-3 w-3 rounded-full"
                 style={{
-                  backgroundColor: hoveredWindowBtn === button ? ['#ff5f57', '#febc2e', '#28c840'][button] : '#566861',
+                  backgroundColor: hoveredWindowBtn === button ? ['#ff5f57', '#febc2e', '#28c840'][button] : 'var(--text-soft)',
                 }}
               />
             ))}
           </div>
-          <span className="text-xs" style={{ color: '#6f9f84' }}>
+          <span className="text-xs" style={{ color: 'var(--brand)' }}>
             quillpy@dev / shell
           </span>
         </div>
 
-        <div className="border-b px-4 py-3" style={{ borderColor: '#1c2a23' }}>
+        <div className="border-b px-4 py-3" style={{ borderColor: 'var(--border)' }}>
           <div className="flex flex-wrap gap-2">
             {PAGES.map((page) => {
               const Icon = page.icon;
@@ -307,9 +307,9 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
                   onClick={() => onNavigate(page.cmd as TabType)}
                   className="ui-hover ui-panel-soft flex items-center gap-1.5 border px-2.5 py-1.5 text-xs"
                   style={{
-                    backgroundColor: '#101814',
-                    borderColor: '#22332b',
-                    color: '#8ea99a',
+                    backgroundColor: 'var(--surface-2)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text-muted)',
                   }}
                 >
                   <Icon size={12} />
@@ -323,16 +323,16 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
         <div className="space-y-4 px-4 py-4 sm:px-5 sm:py-5">
           {entries.map((entry, index) => (
             <div key={`${entry.input}-${index}`} className="space-y-1.5">
-              <div className="text-xs" style={{ color: '#5d7367' }}>
-                <span style={{ color: '#7fbf9a' }}>quillpy@dev</span>:~$ {entry.input}
+              <div className="text-xs" style={{ color: 'var(--text-soft)' }}>
+                <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>:~$ {entry.input}
               </div>
               <div className="pl-4 text-sm">{entry.output}</div>
             </div>
           ))}
 
           <div className="flex items-center text-sm">
-            <span style={{ color: '#7fbf9a' }}>quillpy@dev</span>
-            <span style={{ color: '#5d7367' }}>:~$</span>
+            <span style={{ color: 'var(--brand)' }}>quillpy@dev</span>
+            <span style={{ color: 'var(--text-soft)' }}>:~$</span>
             <input
               ref={inputRef}
               type="text"
@@ -340,7 +340,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
               onChange={(event) => setInput(event.target.value)}
               onKeyDown={handleKeyDown}
               className="ml-2 flex-1 bg-transparent outline-none"
-              style={{ color: '#dbe6df', caretColor: '#7fbf9a' }}
+              style={{ color: 'var(--text-strong)', caretColor: 'var(--brand)' }}
               autoFocus
               spellCheck={false}
               placeholder="type a command"

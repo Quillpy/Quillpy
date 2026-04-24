@@ -21,8 +21,8 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
       style={{
-        borderColor: '#1a2721',
-        backgroundColor: '#0d1411',
+        borderColor: 'var(--chrome-border)',
+        backgroundColor: 'var(--chrome-panel-strong)',
         paddingLeft: '0.75rem',
         paddingRight: '0.75rem',
         paddingTop: '0.55rem',
@@ -41,15 +41,15 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
             whileHover={{ scale: 1.015 }}
             whileTap={{ scale: 0.985 }}
             style={{
-              color: isActive ? '#e6f0ea' : '#6f9f84',
-              backgroundColor: isActive ? '#141f1a' : '#0f1714',
-              borderColor: isActive ? '#30483d' : '#18241f',
-              boxShadow: isActive ? 'inset 0 1px 0 rgba(127, 191, 154, 0.06)' : 'none',
+              color: isActive ? 'var(--text-strong)' : 'var(--text-muted)',
+              backgroundColor: isActive ? 'var(--surface-2)' : 'var(--surface-1)',
+              borderColor: isActive ? 'var(--brand)' : 'var(--border)',
+              boxShadow: isActive ? 'inset 0 1px 0 var(--brand-soft)' : 'none',
               minWidth: '120px',
               maxWidth: '180px',
             }}
           >
-            {isActive && <Terminal size={14} style={{ color: '#7fbf9a' }} />}
+            {isActive && <Terminal size={14} style={{ color: 'var(--brand)' }} />}
             <span className="flex-1 truncate">{tab.title}</span>
             {tabs.length > 1 && (
               <button
@@ -59,14 +59,14 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
                   onCloseTab(tab.id);
                 }}
                 className="ui-hover p-1 opacity-0 group-hover:opacity-100"
-                style={{ color: '#6f9f84' }}
+                style={{ color: 'var(--text-soft)' }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(111, 159, 132, 0.12)';
-                  e.currentTarget.style.color = '#ff6b6b';
+                  e.currentTarget.style.backgroundColor = 'var(--brand-soft)';
+                  e.currentTarget.style.color = '#d4183d';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#6f9f84';
+                  e.currentTarget.style.color = 'var(--text-soft)';
                 }}
                 title="Close tab"
               >
@@ -83,19 +83,19 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         style={{
-          color: '#6f9f84',
-          backgroundColor: '#0f1714',
-          borderColor: '#18241f',
+          color: 'var(--text-muted)',
+          backgroundColor: 'var(--surface-1)',
+          borderColor: 'var(--border)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.color = '#7fbf9a';
-          e.currentTarget.style.backgroundColor = '#16201b';
-          e.currentTarget.style.borderColor = '#2b4036';
+          e.currentTarget.style.color = 'var(--brand)';
+          e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+          e.currentTarget.style.borderColor = 'var(--brand)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.color = '#6f9f84';
-          e.currentTarget.style.backgroundColor = '#0f1714';
-          e.currentTarget.style.borderColor = '#18241f';
+          e.currentTarget.style.color = 'var(--text-muted)';
+          e.currentTarget.style.backgroundColor = 'var(--surface-1)';
+          e.currentTarget.style.borderColor = 'var(--border)';
         }}
         title="New Terminal Tab"
       >

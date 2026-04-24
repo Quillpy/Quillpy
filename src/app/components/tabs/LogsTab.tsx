@@ -49,20 +49,20 @@ export function LogsTab() {
       className="mx-auto w-full max-w-5xl py-6 sm:py-10"
     >
       <div className="mb-10 max-w-2xl">
-        <div className="mb-4 inline-flex items-center gap-2 border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+        <div className="mb-4 inline-flex items-center gap-2 border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: 'var(--border)', color: 'var(--brand)' }}>
           <BookOpenText size={14} />
           Timeline
         </div>
-        <h1 className="mb-3 text-3xl sm:text-5xl" style={{ color: '#e6f0ea', fontWeight: 300 }}>
+        <h1 className="mb-3 text-3xl sm:text-5xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
           Life logs
         </h1>
-        <p style={{ color: '#9db0a5', lineHeight: '1.8' }}>
+        <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
           A linear record of the moments that moved me from curiosity into actual building.
         </p>
       </div>
 
       <div className="relative pl-7 sm:pl-10">
-        <div className="absolute bottom-0 left-[11px] top-0 w-px sm:left-[15px]" style={{ background: 'linear-gradient(180deg, rgba(127, 191, 154, 0.45) 0%, rgba(127, 191, 154, 0.08) 100%)' }} />
+        <div className="absolute bottom-0 left-[11px] top-0 w-px sm:left-[15px]" style={{ background: 'linear-gradient(180deg, color-mix(in srgb, var(--brand) 50%, transparent) 0%, color-mix(in srgb, var(--brand) 10%, transparent) 100%)' }} />
 
         <div className="space-y-5">
           {LOGS.map((log, index) => (
@@ -76,31 +76,31 @@ export function LogsTab() {
               <div
                 className="absolute left-[-27px] top-4 h-3 w-3 rounded-full border sm:left-[-31px]"
                 style={{
-                  backgroundColor: '#101814',
-                  borderColor: '#7fbf9a',
-                  boxShadow: '0 0 0 6px rgba(127, 191, 154, 0.08)',
+                  backgroundColor: 'var(--surface-1)',
+                  borderColor: 'var(--brand)',
+                  boxShadow: '0 0 0 6px var(--brand-soft)',
                 }}
               />
 
               <div
                 className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5"
                 style={{
-                  backgroundColor: '#0f1714',
-                  borderColor: '#1f2f28',
+                  backgroundColor: 'var(--surface-1)',
+                  borderColor: 'var(--border)',
                 }}
               >
                 <div className="mb-3 flex flex-wrap items-center gap-3">
                   <span
                     className="border px-2.5 py-1 text-xs font-mono"
-                    style={{ borderColor: '#22332b', color: '#7fbf9a' }}
+                    style={{ borderColor: 'var(--border)', color: 'var(--brand)', backgroundColor: 'var(--surface-2)' }}
                   >
                     {log.date}
                   </span>
                 </div>
-                <h3 className="mb-2 text-lg sm:text-xl" style={{ color: '#e6f0ea', fontWeight: 400 }}>
+                <h3 className="mb-2 text-lg sm:text-xl" style={{ color: 'var(--text-strong)', fontWeight: 400 }}>
                   {log.title}
                 </h3>
-                <p style={{ color: '#a6b8ad', lineHeight: '1.8' }}>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
                   {log.content}
                 </p>
               </div>
