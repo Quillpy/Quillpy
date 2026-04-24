@@ -27,8 +27,8 @@ export function TabContent({ activeTab, onSearch }: TabContentProps) {
 
   return (
     <div 
-      className="overflow-hidden"
-      style={{ backgroundColor: '#16221d' }}
+      className="min-h-0 flex-1 overflow-y-auto browser-scroll"
+      style={{ backgroundColor: '#101814' }}
     >
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -38,7 +38,7 @@ export function TabContent({ activeTab, onSearch }: TabContentProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="p-4 sm:p-8 min-h-[400px] sm:min-h-[500px] flex items-center justify-center"
+            className="p-5 sm:p-8 min-h-full flex items-center justify-center"
           >
             <p 
               className="font-mono text-sm"
@@ -54,7 +54,7 @@ export function TabContent({ activeTab, onSearch }: TabContentProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="p-4 sm:p-8 min-h-[400px] sm:min-h-[500px]"
+            className="p-5 sm:p-8 min-h-full"
           >
             {activeTab === 'welcome' && <WelcomeTab />}
             {activeTab === 'about' && <AboutTab />}

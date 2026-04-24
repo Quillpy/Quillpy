@@ -3,10 +3,11 @@ import { Browser } from './Browser';
 export function Monitor() {
   return (
     <div 
-      className="rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-2xl w-full max-w-5xl"
+      className="rounded-[24px] p-2.5 sm:p-4 shadow-2xl w-full max-w-6xl"
       style={{ 
-        backgroundColor: '#1b2a24',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+        backgroundColor: '#121b17',
+        border: '1px solid #24362f',
+        boxShadow: '0 28px 90px rgba(0, 0, 0, 0.45)'
       }}
     >
       <Browser />

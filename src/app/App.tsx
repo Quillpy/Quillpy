@@ -10,7 +10,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative" style={{ backgroundColor: '#0f1a16', fontFamily: 'Inter, sans-serif' }}>
+    <div className="min-h-screen flex items-center justify-center p-3 sm:p-5 relative" style={{ fontFamily: 'Inter, sans-serif' }}>
       <Monitor />
     </div>
   );

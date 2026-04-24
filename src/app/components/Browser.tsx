@@ -92,13 +92,12 @@ export function Browser() {
   };
 
   const handleCloseTab = (tabId: string) => {
-    if (tabs.length === 1) return; // Don't close the last tab
+    if (tabs.length === 1) return;
     
     const tabIndex = tabs.findIndex(t => t.id === tabId);
     const newTabs = tabs.filter(t => t.id !== tabId);
     setTabs(newTabs);
 
-    // If closing active tab, switch to adjacent tab
     if (tabId === activeTabId) {
       const newActiveIndex = tabIndex > 0 ? tabIndex - 1 : 0;
       setActiveTabId(newTabs[newActiveIndex].id);
@@ -160,8 +159,8 @@ export function Browser() {
 
   return (
     <div 
-      className="rounded-lg overflow-hidden relative"
-      style={{ backgroundColor: '#16221d' }}
+      className="rounded-[18px] overflow-hidden relative flex flex-col"
+      style={{ backgroundColor: '#101814', minHeight: 'min(860px, calc(100vh - 4rem))', maxHeight: 'calc(100vh - 2rem)' }}
     >
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 
@@ -177,6 +176,7 @@ export function Browser() {
       <motion.div
         animate={{ opacity: showContent ? 1 : 0 }}
         transition={{ duration: 0.3 }}
+        className="flex min-h-0 flex-1 flex-col"
       >
         <TabBar 
           tabs={tabs}
@@ -194,10 +194,10 @@ export function Browser() {
       <DevControlOverlay mode={controlMode} onResume={handleResume} />
       
       <div 
-        className="px-4 py-2 border-t flex items-center justify-between text-xs font-mono"
+        className="px-4 py-2.5 border-t flex items-center justify-between text-xs font-mono"
         style={{ 
-          backgroundColor: '#0f1a16',
-          borderColor: '#1b2a24',
+          backgroundColor: '#0c120f',
+          borderColor: '#1a2721',
           color: '#6f9f84'
         }}
       >
