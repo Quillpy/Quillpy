@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { BookOpen, Folder, Heart, Link, Sparkles, User } from 'lucide-react';
-import { TabType } from './Browser';
+import type { TabType } from '../Browser';
 
 interface TerminalTabProps {
   onNavigate: (tab: TabType) => void;
+  onVoid: () => void;
 }
 
 interface CommandEntry {
@@ -15,9 +16,12 @@ const PAGES = [
   { cmd: 'welcome', label: 'Welcome', icon: Sparkles },
   { cmd: 'projects', label: 'Projects', icon: Folder },
   { cmd: 'about', label: 'About', icon: User },
+  { cmd: 'philosophy', label: 'Philosophy', icon: BookOpen },
   { cmd: 'connect', label: 'Connect', icon: Link },
+  { cmd: 'terminal', label: 'Terminal', icon: Sparkles },
   { cmd: 'support', label: 'Support', icon: Heart },
   { cmd: 'logs', label: 'Logs', icon: BookOpen },
+  { cmd: 'newtab', label: 'New Tab', icon: Sparkles },
 ] as const;
 
 const ALL_COMMANDS = [
@@ -39,32 +43,10 @@ const ALL_COMMANDS = [
   'sl',
   'figlet',
   'aafire',
-  'asciiview',
   'sudo',
 ];
 
-const VISIBLE_COMMANDS = [
-  'help',
-  'clear',
-  'neofetch',
-  'whoami',
-  'ls',
-  'pwd',
-  'date',
-  'echo',
-  'history',
-  'open',
-  'cd',
-  'cat',
-  'cowsay',
-  'fortune',
-  'cmatrix',
-  'sl',
-  'figlet',
-  'aafire',
-];
-
-export function TerminalTab({ onNavigate }: TerminalTabProps) {
+export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
   const [input, setInput] = useState('');
   const [entries, setEntries] = useState<CommandEntry[]>([
     {
@@ -79,6 +61,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
   ]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [history, setHistory] = useState<string[]>([]);
+  const [isVoid, setIsVoid] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -250,8 +233,8 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
   };
 
   const handleSudo = () => {
-    localStorage.setItem('quillpy_void', 'true');
     setIsVoid(true);
+    onVoid();
   };
 
   const executeCommand = (rawInput: string) => {
@@ -345,7 +328,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
           Just kidding! YOU HAVE BEEN VOIDED! :D
         </div>
       );
-    } else if (lower === 'about' || lower === 'projects' || lower === 'welcome' || lower === 'connect' || lower === 'support' || lower === 'logs') {
+    } else if (PAGES.some((page) => page.cmd === lower)) {
       output = navigateToPage(lower);
     } else {
       output = (
@@ -401,8 +384,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
   if (isVoid) {
     return (
       <div
-        onClick={() => window.location.reload()}
-        className="flex h-full w-full cursor-pointer items-center justify-center"
+        className="flex h-full w-full items-center justify-center"
         style={{ 
           backgroundColor: '#000', 
           color: '#00ff00', 
@@ -439,6 +421,9 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
 |   Click anywhere to reincarnate.     |
 |____________________________________| `}
           </pre>
+          <div className="mt-4 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(0, 255, 0, 0.5)' }}>
+            no mouse exits here
+          </div>
         </div>
       </div>
     );

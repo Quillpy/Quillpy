@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
 import { CheckCircle2, Github, Mail, RotateCcw, SendHorizontal } from 'lucide-react';
 
 interface SocialLink {
   name: string;
-  icon: any;
+  icon: ComponentType<{ size?: number }>;
   url: string;
   label: string;
 }
@@ -146,7 +146,7 @@ function ContactForm() {
       formDataToSend.append('_subject', 'New message from Quillpy');
       formDataToSend.append('_gotcha', '');
 
-      const response = await fetch('https://formsubmit.co/gm.goofy304@passinbox.com', {
+      await fetch('https://formsubmit.co/gm.goofy304@passinbox.com', {
         method: 'POST',
         body: formDataToSend,
         mode: 'no-cors',

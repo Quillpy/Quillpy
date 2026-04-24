@@ -12,7 +12,7 @@ interface TabBarProps {
 }
 
 export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }: TabBarProps) {
-  const playClick = useClickSound();
+  const { playClick } = useClickSound();
 
   return (
     <motion.div

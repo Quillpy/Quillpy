@@ -16,12 +16,14 @@ const FUNNY_MESSAGES = [
 ];
 
 const SUB_MESSAGES = [
-  "Click anywhere to restart your life choices",
-  "Tap to undo your chaos (we wish)",
-  "Click to respawn. Try not to break it again.",
-  "Any click = fresh start. Use wisely.",
-  "Just click. We'll pretend this never happened.",
+  "Pointer input won't save you now.",
+  "The fix is still in the system. Find the right word.",
+  "Some recoveries happen through keys, not clicks.",
+  "The shell broke it. The shell can probably unbreak it.",
+  "There is a way back. It is not a button.",
 ];
+
+const RESTORE_WORD = 'restore';
 
 export function VoidOverlay() {
   const [messageIndex, setMessageIndex] = useState(0);
@@ -49,15 +51,29 @@ export function VoidOverlay() {
     };
   }, []);
 
-  const handleClick = () => {
-    localStorage.removeItem('quillpy_void');
-    window.location.reload();
-  };
+  useEffect(() => {
+    let buffer = '';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.length !== 1) {
+        return;
+      }
+
+      buffer = `${buffer}${event.key.toLowerCase()}`.slice(-RESTORE_WORD.length);
+
+      if (buffer === RESTORE_WORD) {
+        localStorage.removeItem('quillpy_void');
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div
-      onClick={handleClick}
-      className="fixed inset-0 z-[9999] flex cursor-pointer items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at center, #0a0014 0%, #000000 70%)',
         opacity,
@@ -123,6 +139,10 @@ export function VoidOverlay() {
         <p className="text-sm tracking-wide sm:text-base" style={{ color: '#64748b' }}>
           {SUB_MESSAGES[subIndex]}
         </p>
+
+        <p className="mt-4 text-[11px] uppercase tracking-[0.22em]" style={{ color: 'rgba(148, 163, 184, 0.55)' }}>
+          hint: stdin is still listening
+        </p>
       </div>
 
       {/* CSS for floating animation */}
@@ -141,4 +161,3 @@ export function VoidOverlay() {
     </div>
   );
 }
-

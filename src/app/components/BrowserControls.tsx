@@ -37,7 +37,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
-  const playClick = useClickSound();
+  const { playClick, isEnabled, setEnabled } = useClickSound();
 
   const getUrl = () => {
     if (activeTab === 'newtab') {
@@ -349,27 +349,27 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                   <div className="mt-4 pt-3 border-t" style={{ borderColor }}>
                     <div className="mb-2 flex items-center justify-between text-xs" style={{ color: settingsText }}>
                       <span>Sounds</span>
-                      <span style={{ color: accentColor }}>{playClick.isEnabled ? 'On' : 'Off'}</span>
+                      <span style={{ color: accentColor }}>{isEnabled ? 'On' : 'Off'}</span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
-                        onClick={() => playClick.setEnabled(true)}
+                        onClick={() => setEnabled(true)}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: playClick.isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
-                          borderColor: playClick.isEnabled ? urlBarBorder : settingsBorder,
-                          color: playClick.isEnabled ? 'var(--text-strong)' : settingsText,
+                          backgroundColor: isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
+                          borderColor: isEnabled ? urlBarBorder : settingsBorder,
+                          color: isEnabled ? 'var(--text-strong)' : settingsText,
                         }}
                       >
                         On
                       </button>
                       <button
-                        onClick={() => playClick.setEnabled(false)}
+                        onClick={() => setEnabled(false)}
                         className="ui-hover flex items-center justify-center gap-2 px-2 py-1.5 border text-xs"
                         style={{
-                          backgroundColor: !playClick.isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
-                          borderColor: !playClick.isEnabled ? urlBarBorder : settingsBorder,
-                          color: !playClick.isEnabled ? 'var(--text-strong)' : settingsText,
+                          backgroundColor: !isEnabled ? 'var(--button-hover)' : 'var(--surface-2)',
+                          borderColor: !isEnabled ? urlBarBorder : settingsBorder,
+                          color: !isEnabled ? 'var(--text-strong)' : settingsText,
                         }}
                       >
                         Off

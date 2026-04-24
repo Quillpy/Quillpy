@@ -6,8 +6,9 @@ import { DevControlOverlay, ControlMode } from './DevControlOverlay';
 import { VoidOverlay } from './VoidOverlay';
 import { motion } from 'motion/react';
 import { useClickSound } from '../../hooks/useClickSound';
+import { useTheme } from '../../hooks/useTheme';
 
-export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'support' | 'logs';
+export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'support' | 'logs' | 'newtab';
 
 export interface Tab {
   id: string;
@@ -28,7 +29,8 @@ const DEFAULT_TAB_TITLES: Record<TabType, string> = {
   connect: 'Connect',
   terminal: 'Terminal',
   support: 'Support',
-  logs: 'Logs'
+  logs: 'Logs',
+  newtab: 'New Tab'
 };
 
 export function Browser() {
@@ -39,11 +41,26 @@ export function Browser() {
   const [controlMode, setControlMode] = useState<ControlMode>(null);
   const [showContent, setShowContent] = useState(true);
   const [bodyFontSize, setBodyFontSize] = useState(16);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const { theme, setTheme } = useTheme();
   const [tabHistory, setTabHistory] = useState<TabHistory[]>([{ type: 'welcome', title: 'Welcome' }]);
   const [isVoid, setIsVoid] = useState(false);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const playClick = useClickSound();
+  const [historyIndex, setHistoryIndex] = useState(0);
+  const { playClick } = useClickSound();
+
+  const openTab = (type: TabType, activate = true) => {
+    const newTab: Tab = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      type,
+      title: DEFAULT_TAB_TITLES[type]
+    };
+
+    setTabs((prev) => [...prev, newTab]);
+    if (activate) {
+      setActiveTabId(newTab.id);
+    }
+    setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type, title: DEFAULT_TAB_TITLES[type] }]);
+    setHistoryIndex(prev => prev + 1);
+  };
 
   useEffect(() => {
     const voided = localStorage.getItem('quillpy_void');
@@ -86,6 +103,20 @@ export function Browser() {
     }
   }, [controlMode]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!event.altKey || event.key.toLowerCase() !== 't') {
+        return;
+      }
+
+      event.preventDefault();
+      openTab('terminal');
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [historyIndex]);
+
   const handleResume = () => {
     setShowContent(true);
     setControlMode(null);
@@ -105,15 +136,7 @@ export function Browser() {
   };
 
   const handleAddTab = () => {
-    const newTab: Tab = {
-      id: Date.now().toString(),
-      type: 'terminal',
-      title: 'Terminal'
-    };
-    setTabs([...tabs, newTab]);
-    setActiveTabId(newTab.id);
-    setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type: 'terminal', title: 'Terminal' }]);
-    setHistoryIndex(prev => prev + 1);
+    openTab('newtab');
   };
 
   const handleCloseTab = (tabId: string) => {
@@ -130,11 +153,15 @@ export function Browser() {
   };
 
   const handleSearch = (query: string) => {
-    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal', 'support', 'logs'];
-    const lowerQuery = query.toLowerCase().replace('quillpy.com/', '');
+    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal', 'support', 'logs', 'newtab'];
+    const lowerQuery = query.toLowerCase().replace('quillpy.com/', '').trim();
+
+    if (!lowerQuery) {
+      return;
+    }
     
     if (validTabs.includes(lowerQuery as TabType)) {
-      setTabs(tabs.map(tab => 
+      setTabs((prev) => prev.map(tab => 
         tab.id === activeTabId 
           ? { ...tab, type: lowerQuery as TabType, title: DEFAULT_TAB_TITLES[lowerQuery as TabType] }
           : tab
@@ -147,7 +174,7 @@ export function Browser() {
   };
 
   const handleNavigate = (type: TabType) => {
-    setTabs(tabs.map(tab => 
+    setTabs((prev) => prev.map(tab => 
       tab.id === activeTabId 
         ? { ...tab, type, title: DEFAULT_TAB_TITLES[type] }
         : tab
@@ -159,7 +186,7 @@ export function Browser() {
   const handleBack = () => {
     if (historyIndex > 0) {
       const prevState = tabHistory[historyIndex - 1];
-      setTabs(tabs.map(tab => 
+      setTabs((prev) => prev.map(tab => 
         tab.id === activeTabId 
           ? { ...tab, type: prevState.type, title: prevState.title }
           : tab
@@ -171,7 +198,7 @@ export function Browser() {
   const handleForward = () => {
     if (historyIndex < tabHistory.length - 1) {
       const nextState = tabHistory[historyIndex + 1];
-      setTabs(tabs.map(tab => 
+      setTabs((prev) => prev.map(tab => 
         tab.id === activeTabId 
           ? { ...tab, type: nextState.type, title: nextState.title }
           : tab
