@@ -14,9 +14,10 @@ import { useState, useEffect } from 'react';
 interface TabContentProps {
   activeTab: TabType;
   onSearch: (query: string) => void;
+  bodyFontSize: number;
 }
 
-export function TabContent({ activeTab, onSearch }: TabContentProps) {
+export function TabContent({ activeTab, onSearch, bodyFontSize }: TabContentProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export function TabContent({ activeTab, onSearch }: TabContentProps) {
   return (
     <div 
       className="min-h-0 flex-1 overflow-y-auto browser-scroll"
-      style={{ backgroundColor: '#101814' }}
+      style={{ backgroundColor: '#101814', fontSize: `${bodyFontSize}px` }}
     >
       <AnimatePresence mode="wait">
         {isLoading ? (

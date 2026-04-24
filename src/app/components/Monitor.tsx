@@ -3,7 +3,7 @@ import { Browser } from './Browser';
 export function Monitor() {
   return (
     <div 
-      className="p-2.5 sm:p-4 shadow-2xl w-full max-w-6xl"
+      className="p-2 sm:p-3 shadow-2xl w-full max-w-6xl h-full"
       style={{ 
         backgroundColor: '#121b17',
         border: '1px solid #24362f',

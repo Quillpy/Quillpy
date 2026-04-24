@@ -1,5 +1,5 @@
 import { TabType } from './Browser';
-import { ChevronLeft, ChevronRight, Home, Sparkles, Folder, User, Link, Heart, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Settings2, Sparkles, Folder, User, Link, Heart, BookOpen } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { ControlMode } from './DevControlOverlay';
 import { useClickSound } from '../../hooks/useClickSound';
@@ -23,16 +23,20 @@ interface BrowserControlsProps {
   onForward: () => void;
   canGoBack: boolean;
   canGoForward: boolean;
+  bodyFontSize: number;
+  onBodyFontSizeChange: (size: number) => void;
 }
 
-export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward }: BrowserControlsProps) {
+export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [urlValue, setUrlValue] = useState('');
   const [displayUrl, setDisplayUrl] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [hoveredWindowBtn, setHoveredWindowBtn] = useState<string | null>(null);
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const settingsRef = useRef<HTMLDivElement>(null);
   const playClick = useClickSound();
 
   const getUrl = () => {
@@ -61,6 +65,17 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
 
     return () => clearInterval(interval);
   }, [activeTab]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (!settingsRef.current?.contains(event.target as Node)) {
+        setIsSettingsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
 
   const handleUrlClick = () => {
     setIsEditing(true);
@@ -181,7 +196,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           </motion.button>
         </div>
 
-        <div className="mx-1 flex flex-1 items-center gap-2 sm:mx-2">
+        <div className="mx-1 flex flex-1 items-center gap-2 sm:mx-2 min-w-0">
           {isEditing ? (
             <input
               ref={inputRef}
@@ -237,6 +252,74 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 </motion.button>
               );
             })}
+          </div>
+
+          <div className="relative ml-1 flex-shrink-0" ref={settingsRef}>
+            <motion.button
+              onClick={() => setIsSettingsOpen((prev) => !prev)}
+              onMouseEnter={() => setHoveredIcon('settings')}
+              onMouseLeave={() => setHoveredIcon(null)}
+              className="ui-hover ui-press p-2 border ui-panel-soft"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              style={{
+                color: hoveredIcon === 'settings' ? '#dbe6df' : '#6f9f84',
+                backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? '#18231e' : '#101814',
+                borderColor: '#22332b',
+              }}
+              title="Settings"
+            >
+              <Settings2 size={14} />
+            </motion.button>
+
+            {isSettingsOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.18 }}
+                className="absolute right-0 top-[calc(100%+0.5rem)] w-52 border ui-panel z-20"
+                style={{
+                  backgroundColor: '#101814',
+                  borderColor: '#22332b',
+                }}
+              >
+                <div className="px-3 py-2.5 border-b text-[11px] uppercase tracking-[0.16em]" style={{ borderColor: '#1f2f28', color: '#7fbf9a' }}>
+                  Settings
+                </div>
+                <div className="px-3 py-3">
+                  <div className="mb-2 flex items-center justify-between text-xs" style={{ color: '#a6b8ad' }}>
+                    <span>Body font size</span>
+                    <span style={{ color: '#7fbf9a' }}>{bodyFontSize}px</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="14"
+                    max="20"
+                    step="1"
+                    value={bodyFontSize}
+                    onChange={(e) => onBodyFontSizeChange(Number(e.target.value))}
+                    className="w-full accent-[#7fbf9a]"
+                  />
+                  <div className="mt-3 grid grid-cols-3 gap-2">
+                    {[14, 16, 18].map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => onBodyFontSizeChange(size)}
+                        className="ui-hover px-2 py-1.5 border text-xs"
+                        style={{
+                          backgroundColor: bodyFontSize === size ? '#18231e' : '#101814',
+                          borderColor: bodyFontSize === size ? '#355246' : '#22332b',
+                          color: bodyFontSize === size ? '#e6f0ea' : '#8ea99a',
+                        }}
+                      >
+                        {size}px
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>

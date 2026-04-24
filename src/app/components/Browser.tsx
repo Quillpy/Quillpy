@@ -37,6 +37,7 @@ export function Browser() {
   const [activeTabId, setActiveTabId] = useState('1');
   const [controlMode, setControlMode] = useState<ControlMode>(null);
   const [showContent, setShowContent] = useState(true);
+  const [bodyFontSize, setBodyFontSize] = useState(16);
   const [tabHistory, setTabHistory] = useState<TabHistory[]>([{ type: 'welcome', title: 'Welcome' }]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const playClick = useClickSound();
@@ -160,7 +161,7 @@ export function Browser() {
   return (
     <div 
       className="overflow-hidden relative flex flex-col"
-      style={{ backgroundColor: '#101814', height: 'min(860px, calc(100vh - 2rem))' }}
+      style={{ backgroundColor: '#101814', height: '100%' }}
     >
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 
@@ -171,6 +172,8 @@ export function Browser() {
         onForward={handleForward}
         canGoBack={historyIndex > 0}
         canGoForward={historyIndex < tabHistory.length - 1}
+        bodyFontSize={bodyFontSize}
+        onBodyFontSizeChange={setBodyFontSize}
       />
       
       <motion.div
@@ -188,13 +191,14 @@ export function Browser() {
         <TabContent 
           activeTab={activeTab?.type || 'welcome'} 
           onSearch={handleSearch}
+          bodyFontSize={bodyFontSize}
         />
       </motion.div>
 
       <DevControlOverlay mode={controlMode} onResume={handleResume} />
       
       <div 
-        className="px-4 py-2.5 border-t flex items-center justify-between text-xs font-mono"
+        className="px-4 py-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
         style={{ 
           backgroundColor: '#0c120f',
           borderColor: '#1a2721',
