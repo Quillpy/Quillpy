@@ -11,7 +11,7 @@ const principles = [
 
 export function PhilosophyTab() {
   return (
-    <div className="max-w-2xl mx-auto py-6 sm:py-12">
+    <div className="max-w-5xl mx-auto py-6 sm:py-12 w-full">
 
       <h1
         className="mb-6"

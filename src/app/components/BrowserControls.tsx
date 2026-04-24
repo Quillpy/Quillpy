@@ -144,7 +144,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
             disabled={!canGoBack}
             onMouseEnter={() => canGoBack && setHoveredIcon('back')}
             onMouseLeave={() => setHoveredIcon(null)}
-            className="ui-hover rounded-md p-2"
+            className="ui-hover ui-press p-2"
             whileHover={canGoBack ? { scale: 1.03 } : {}}
             whileTap={canGoBack ? { scale: 0.97 } : {}}
             style={navButtonStyle('back', canGoBack)}
@@ -158,7 +158,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
             disabled={!canGoForward}
             onMouseEnter={() => canGoForward && setHoveredIcon('forward')}
             onMouseLeave={() => setHoveredIcon(null)}
-            className="ui-hover rounded-md p-2"
+            className="ui-hover ui-press p-2"
             whileHover={canGoForward ? { scale: 1.03 } : {}}
             whileTap={canGoForward ? { scale: 0.97 } : {}}
             style={navButtonStyle('forward', canGoForward)}
@@ -171,7 +171,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
             onClick={() => { playClick(); onSearch('welcome'); }}
             onMouseEnter={() => setHoveredIcon('home')}
             onMouseLeave={() => setHoveredIcon(null)}
-            className="ui-hover rounded-md p-2"
+            className="ui-hover ui-press p-2"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             style={navButtonStyle('home')}
@@ -193,7 +193,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                 setIsEditing(false);
                 setUrlValue(getUrl());
               }}
-              className="flex-1 rounded-lg border px-3 py-2 font-mono text-xs sm:text-sm outline-none"
+              className="flex-1 border px-3 py-2 font-mono text-xs sm:text-sm outline-none ui-panel-soft"
               style={{
                 backgroundColor: '#18231e',
                 color: '#e6f0ea',
@@ -203,7 +203,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           ) : (
             <div
               onClick={handleUrlClick}
-              className="ui-hover flex-1 cursor-text rounded-lg border px-3 py-2 font-mono text-xs sm:text-sm"
+              className="ui-hover ui-panel-soft flex-1 cursor-text border px-3 py-2 font-mono text-xs sm:text-sm"
               style={{
                 backgroundColor: '#18231e',
                 color: '#a6b8ad',
@@ -224,7 +224,7 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
                   onClick={() => { playClick(); onNavigate(item.tab); }}
                   onMouseEnter={() => setHoveredIcon(item.tab)}
                   onMouseLeave={() => setHoveredIcon(null)}
-                  className="ui-hover rounded-md p-2"
+                  className="ui-hover ui-press p-2"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   style={{

@@ -159,8 +159,8 @@ export function Browser() {
 
   return (
     <div 
-      className="rounded-[18px] overflow-hidden relative flex flex-col"
-      style={{ backgroundColor: '#101814', minHeight: 'min(860px, calc(100vh - 4rem))', maxHeight: 'calc(100vh - 2rem)' }}
+      className="overflow-hidden relative flex flex-col"
+      style={{ backgroundColor: '#101814', height: 'min(860px, calc(100vh - 2rem))' }}
     >
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 

@@ -46,10 +46,10 @@ export function LogsTab() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="mx-auto max-w-4xl py-6 sm:py-10"
+      className="mx-auto w-full max-w-5xl py-6 sm:py-10"
     >
       <div className="mb-10 max-w-2xl">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+        <div className="mb-4 inline-flex items-center gap-2 border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
           <BookOpenText size={14} />
           Timeline
         </div>
@@ -83,7 +83,7 @@ export function LogsTab() {
               />
 
               <div
-                className="ui-hover rounded-[22px] border px-4 py-4 sm:px-5 sm:py-5"
+                className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5"
                 style={{
                   backgroundColor: '#0f1714',
                   borderColor: '#1f2f28',
@@ -91,7 +91,7 @@ export function LogsTab() {
               >
                 <div className="mb-3 flex flex-wrap items-center gap-3">
                   <span
-                    className="rounded-full border px-2.5 py-1 text-xs font-mono"
+                    className="border px-2.5 py-1 text-xs font-mono"
                     style={{ borderColor: '#22332b', color: '#7fbf9a' }}
                   >
                     {log.date}

@@ -26,7 +26,6 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
       }}
     >
       <div className="w-full max-w-2xl">
-        {/* Logo */}
         <div 
           className="text-center mb-8"
           style={{ 
@@ -39,7 +38,6 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
           Quillpy
         </div>
 
-        {/* Search Bar */}
         <form onSubmit={handleSearch} className="relative mb-6">
           <div className="relative">
             <Search 
@@ -52,7 +50,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Type anything to search or navigate..."
-              className="w-full pl-12 pr-4 py-4 rounded-full text-base outline-none transition-all duration-200"
+              className="w-full pl-12 pr-4 py-4 text-base outline-none transition-all duration-200 ui-panel-soft"
               style={{ 
                 backgroundColor: '#16221d',
                 color: '#e6f0ea',
@@ -70,7 +68,6 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
           </div>
         </form>
 
-        {/* Helper Text */}
         <p 
           className="text-center text-sm"
           style={{ color: '#7a8f82' }}
@@ -78,7 +75,6 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
           Search the web or navigate to: welcome, about, projects, philosophy, connect
         </p>
 
-{/* Quick Links */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-8">
           {[
             { name: 'Welcome', path: 'welcome' },
@@ -90,7 +86,7 @@ export function NewTabPage({ onSearch }: NewTabPageProps) {
             <button
               key={link.path}
               onClick={() => onSearch(link.path)}
-              className="p-4 rounded-lg text-center transition-all duration-200 cursor-pointer"
+              className="ui-hover ui-panel-soft p-4 text-center transition-all duration-200 cursor-pointer"
               style={{ 
                 backgroundColor: '#16221d',
                 color: '#a6b8ad',

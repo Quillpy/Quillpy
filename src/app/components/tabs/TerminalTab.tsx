@@ -93,7 +93,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
           <motion.button
             key={page.cmd}
             onClick={() => onNavigate(page.cmd as TabType)}
-            className="ui-hover flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs"
+            className="ui-hover ui-panel-soft flex items-center gap-1.5 border px-2.5 py-1.5 text-xs"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             style={{
@@ -267,12 +267,12 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
 
   return (
     <div
-      className="mx-auto max-w-4xl py-4 sm:py-8"
+      className="mx-auto w-full max-w-5xl py-4 sm:py-8"
       style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}
       onClick={() => inputRef.current?.focus()}
     >
       <div
-        className="overflow-hidden rounded-2xl border"
+        className="overflow-hidden border ui-panel"
         style={{ backgroundColor: '#0b120f', borderColor: '#1c2a23' }}
       >
         <div
@@ -305,7 +305,7 @@ export function TerminalTab({ onNavigate }: TerminalTabProps) {
                 <button
                   key={page.cmd}
                   onClick={() => onNavigate(page.cmd as TabType)}
-                  className="ui-hover flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs"
+                  className="ui-hover ui-panel-soft flex items-center gap-1.5 border px-2.5 py-1.5 text-xs"
                   style={{
                     backgroundColor: '#101814',
                     borderColor: '#22332b',

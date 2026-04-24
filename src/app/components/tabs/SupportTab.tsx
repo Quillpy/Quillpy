@@ -6,7 +6,7 @@ export function SupportTab() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="mx-auto max-w-3xl py-8 sm:py-12"
+      className="mx-auto w-full max-w-5xl py-8 sm:py-12"
     >
       <div className="mb-8 text-center">
         <div className="mb-3 text-sm uppercase tracking-[0.2em]" style={{ color: '#7fbf9a' }}>
@@ -20,15 +20,15 @@ export function SupportTab() {
         </p>
       </div>
 
-      <div className="mb-6 rounded-[22px] border px-5 py-5" style={{ backgroundColor: '#0f1714', borderColor: '#1f2f28' }}>
+      <div className="mb-6 border px-5 py-5 ui-panel-soft" style={{ backgroundColor: '#0f1714', borderColor: '#1f2f28' }}>
         <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
           What it supports
         </div>
         <div className="grid gap-3 sm:grid-cols-2" style={{ color: '#a6b8ad' }}>
-          <div className="rounded-xl border px-4 py-3" style={{ borderColor: '#22332b' }}>Hosting and domain costs</div>
-          <div className="rounded-xl border px-4 py-3" style={{ borderColor: '#22332b' }}>More open-source experiments</div>
-          <div className="rounded-xl border px-4 py-3" style={{ borderColor: '#22332b' }}>Time spent on content and notes</div>
-          <div className="rounded-xl border px-4 py-3" style={{ borderColor: '#22332b' }}>Longer late-night build sessions</div>
+          <div className="border px-4 py-3 ui-hover" style={{ borderColor: '#22332b' }}>Hosting and domain costs</div>
+          <div className="border px-4 py-3 ui-hover" style={{ borderColor: '#22332b' }}>More open-source experiments</div>
+          <div className="border px-4 py-3 ui-hover" style={{ borderColor: '#22332b' }}>Time spent on content and notes</div>
+          <div className="border px-4 py-3 ui-hover" style={{ borderColor: '#22332b' }}>Longer late-night build sessions</div>
         </div>
       </div>
 
@@ -36,7 +36,7 @@ export function SupportTab() {
         href="https://quillpy.gumroad.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="ui-hover block w-full rounded-[18px] border px-6 py-4 text-center text-sm"
+        className="ui-hover ui-panel-soft block w-full border px-6 py-4 text-center text-sm"
         style={{
           backgroundColor: '#7fbf9a',
           color: '#0f1a16',

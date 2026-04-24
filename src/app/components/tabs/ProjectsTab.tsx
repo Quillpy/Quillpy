@@ -50,9 +50,9 @@ export function ProjectsTab() {
   const remainingProjects = projects.slice(1);
 
   return (
-    <div className="mx-auto max-w-5xl py-6 sm:py-10">
+    <div className="mx-auto w-full max-w-5xl py-6 sm:py-10">
       <div className="mb-8 flex flex-col gap-3 sm:mb-10">
-        <div className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+        <div className="inline-flex w-fit items-center gap-2 border px-3 py-1 text-xs uppercase tracking-[0.24em]" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
           <FolderGit2 size={14} />
           Project Gallery
         </div>
@@ -82,7 +82,7 @@ export function ProjectsTab() {
         href={featured.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="ui-hover mb-4 block rounded-[24px] border p-5 sm:mb-5 sm:p-7"
+        className="ui-hover ui-panel mb-4 block border p-5 sm:mb-5 sm:p-7"
         whileHover={{ y: -4 }}
         style={{
           background: 'linear-gradient(180deg, rgba(19, 29, 24, 0.96) 0%, rgba(12, 18, 15, 0.96) 100%)',
@@ -92,7 +92,7 @@ export function ProjectsTab() {
       >
         <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs" style={{ borderColor: '#2c443a', color: '#7fbf9a' }}>
+            <div className="inline-flex items-center gap-2 border px-3 py-1 text-xs" style={{ borderColor: '#2c443a', color: '#7fbf9a' }}>
               <Sparkles size={12} />
               Featured
             </div>
@@ -105,7 +105,7 @@ export function ProjectsTab() {
               </p>
             </div>
           </div>
-          <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm" style={{ borderColor: '#22332b', color: '#c6d4cc' }}>
+          <div className="inline-flex items-center gap-2 border px-3 py-1.5 text-sm ui-hover" style={{ borderColor: '#22332b', color: '#c6d4cc' }}>
             View project
             <ArrowUpRight size={16} />
           </div>
@@ -125,7 +125,7 @@ export function ProjectsTab() {
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="ui-hover block rounded-[22px] border p-5"
+            className="ui-hover ui-panel-soft block border p-5"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 * index, duration: 0.35 }}
@@ -137,7 +137,7 @@ export function ProjectsTab() {
           >
             <div className="mb-4 flex items-start justify-between gap-3">
               <div>
-                <div className="mb-2 inline-flex rounded-full border px-2.5 py-1 text-xs" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
+                <div className="mb-2 inline-flex border px-2.5 py-1 text-xs" style={{ borderColor: '#22332b', color: '#6f9f84' }}>
                   {project.type}
                 </div>
                 <h3 className="text-xl" style={{ color: '#e6f0ea', fontWeight: 400 }}>
@@ -155,7 +155,7 @@ export function ProjectsTab() {
               {project.stack.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border px-2.5 py-1 text-xs"
+                  className="border px-2.5 py-1 text-xs ui-hover"
                   style={{ borderColor: '#22332b', color: '#8ea99a' }}
                 >
                   {item}
@@ -175,7 +175,7 @@ export function ProjectsTab() {
 
 function ProjectMeta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border px-4 py-3" style={{ borderColor: '#22332b', backgroundColor: 'rgba(11, 18, 15, 0.45)' }}>
+    <div className="border px-4 py-3 ui-panel-soft" style={{ borderColor: '#22332b', backgroundColor: 'rgba(11, 18, 15, 0.45)' }}>
       <div className="mb-1 text-xs uppercase tracking-[0.18em]" style={{ color: '#5e776a' }}>
         {label}
       </div>

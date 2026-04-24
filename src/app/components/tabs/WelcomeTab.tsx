@@ -12,7 +12,7 @@ export function WelcomeTab() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-4xl py-8 sm:py-12">
+    <div className="mx-auto w-full max-w-5xl py-8 sm:py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export function WelcomeTab() {
 
 function WelcomeCard({ title, text }: { title: string; text: string }) {
   return (
-    <div className="ui-hover rounded-[22px] border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
+    <div className="ui-hover ui-panel-soft border px-4 py-4 sm:px-5 sm:py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
       <div className="mb-2 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
         {title}
       </div>

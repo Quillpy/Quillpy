@@ -37,7 +37,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
           <motion.div
             key={tab.id}
             onClick={() => { playClick(); onTabChange(tab.id); }}
-            className="ui-hover group relative flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap rounded-xl border px-4 py-2.5 text-xs sm:text-sm"
+            className="ui-hover ui-panel-soft group relative flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap border px-4 py-2.5 text-xs sm:text-sm"
             whileHover={{ scale: 1.015 }}
             whileTap={{ scale: 0.985 }}
             style={{
@@ -58,7 +58,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
                   playClick();
                   onCloseTab(tab.id);
                 }}
-                className="ui-hover rounded-md p-1 opacity-0 group-hover:opacity-100"
+                className="ui-hover p-1 opacity-0 group-hover:opacity-100"
                 style={{ color: '#6f9f84' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = 'rgba(111, 159, 132, 0.12)';
@@ -79,7 +79,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
 
       <motion.button
         onClick={() => { playClick(); onAddTab(); }}
-        className="ui-hover ml-1 flex shrink-0 items-center justify-center rounded-xl border p-2.5"
+        className="ui-hover ui-panel-soft ml-1 flex shrink-0 items-center justify-center border p-2.5"
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         style={{

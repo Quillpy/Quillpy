@@ -11,9 +11,9 @@ const INTERESTS = [
 
 export function AboutTab() {
   return (
-    <div className="mx-auto max-w-3xl py-6 sm:py-10">
+    <div className="mx-auto w-full max-w-5xl py-6 sm:py-10">
       <div className="mb-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-        <Avatar className="h-28 w-28 border" style={{ borderColor: '#22332b' }}>
+        <Avatar className="h-28 w-28 border" style={{ borderColor: '#22332b', borderRadius: 0, boxShadow: '0 12px 28px rgba(0, 0, 0, 0.18)' }}>
           <AvatarImage src="/Quillpy.png" />
           <AvatarFallback className="bg-[#101814] text-[#7fbf9a] font-bold">QP</AvatarFallback>
         </Avatar>
@@ -46,13 +46,13 @@ export function AboutTab() {
         </AboutPanel>
       </div>
 
-      <div className="mt-6 rounded-[22px] border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
+      <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714' }}>
         <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: '#7fbf9a' }}>
           Interests
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((interest) => (
-            <div key={interest} className="rounded-xl border px-3 py-2.5 text-sm" style={{ borderColor: '#22332b', color: '#a6b8ad' }}>
+            <div key={interest} className="border px-3 py-2.5 text-sm ui-hover" style={{ borderColor: '#22332b', color: '#a6b8ad' }}>
               {interest}
             </div>
           ))}
@@ -64,7 +64,7 @@ export function AboutTab() {
 
 function AboutPanel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="ui-hover rounded-[22px] border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714', color: '#a6b8ad', lineHeight: '1.85' }}>
+    <div className="ui-hover ui-panel-soft border px-5 py-5" style={{ borderColor: '#1f2f28', backgroundColor: '#0f1714', color: '#a6b8ad', lineHeight: '1.85' }}>
       {children}
     </div>
   );
