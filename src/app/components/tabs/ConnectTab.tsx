@@ -1,5 +1,6 @@
-import { useState, type ComponentType } from 'react';
-import { CheckCircle2, Github, Mail, RotateCcw, SendHorizontal } from 'lucide-react';
+import { useState, useEffect, type ComponentType } from 'react';
+import { CheckCircle2, Github, Mail, RotateCcw, SendHorizontal, PartyPopper } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface SocialLink {
   name: string;
@@ -161,46 +162,91 @@ function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div
-        className="ui-panel border px-6 py-6 sm:px-7 sm:py-8"
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="border px-6 py-8 sm:px-8 sm:py-10 text-center"
         style={{
           background: 'var(--success-surface)',
           borderColor: 'var(--brand)',
         }}
       >
-        <div className="mb-5 inline-flex items-center gap-2 border px-3 py-1 text-xs uppercase tracking-[0.22em]" style={{ borderColor: 'color-mix(in srgb, var(--brand) 45%, var(--border))', color: 'var(--brand)' }}>
-          <CheckCircle2 size={14} />
-          Sent
-        </div>
-        <h2 className="mb-3 text-2xl sm:text-3xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
-          Message delivered successfully.
-        </h2>
-        <p className="max-w-xl" style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
-          Thanks for reaching out. I&apos;ve got your note and will get back to you soon. If you want to keep browsing, the links on the left are still here.
-        </p>
+        <AnimatePresence>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 20 }}
+            className="mb-6 inline-flex items-center justify-center"
+          >
+            <div
+              className="relative flex h-20 w-20 items-center justify-center"
+              style={{ color: 'var(--brand)' }}
+            >
+              <motion.div
+                animate={{ rotate: [0, -10, 10, -5, 5, 0] }}
+                transition={{ delay: 0.5, duration: 0.6, ease: 'easeInOut' }}
+              >
+                <PartyPopper size={48} />
+              </motion.div>
+              <motion.div
+                className="absolute -right-2 -top-2"
+                initial={{ opacity: 0, scale: 0, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <CheckCircle2 size={28} />
+              </motion.div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <motion.h2
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-3 text-2xl sm:text-3xl"
+          style={{ color: 'var(--text-strong)', fontWeight: 300 }}
+        >
+          Message sent!
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28 }}
+          className="mb-8 max-w-md mx-auto"
+          style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}
+        >
+          Thanks for reaching out. I&apos;ll get back to you soon.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.36 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center"
+        >
+          <button
+            type="button"
+            onClick={() => setStatus('idle')}
+            className="ui-hover ui-panel-soft flex items-center justify-center gap-2 border px-5 py-3"
+            style={{ backgroundColor: 'var(--brand)', borderColor: 'var(--brand)', color: 'var(--primary-foreground)' }}
+          >
+            <RotateCcw size={16} />
+            Send another
+          </button>
           <a
             href="https://github.com/Quillpy"
             target="_blank"
             rel="noopener noreferrer"
-            className="ui-hover ui-panel-soft flex items-center justify-between border px-4 py-3"
+            className="ui-hover ui-panel-soft flex items-center justify-center gap-2 border px-5 py-3"
             style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)', color: 'var(--text-strong)' }}
           >
-            <span>Open GitHub</span>
             <Github size={16} style={{ color: 'var(--brand)' }} />
+            View GitHub
           </a>
-          <button
-            type="button"
-            onClick={() => setStatus('idle')}
-            className="ui-hover ui-panel-soft flex items-center justify-between border px-4 py-3"
-            style={{ backgroundColor: 'var(--brand)', borderColor: 'var(--brand)', color: 'var(--primary-foreground)' }}
-          >
-            <span>Send another message</span>
-            <RotateCcw size={16} />
-          </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     );
   }
 
