@@ -42,10 +42,9 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
         <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
           <div className="mb-2">Pro tips:</div>
           <div className="space-y-1">
-            <div><span style={{ color: 'var(--brand)' }}>cd welcome</span> - say hi</div>
+            <div><span style={{ color: 'var(--brand)' }}>cd welcome</span> - go to welcome</div>
             <div><span style={{ color: 'var(--brand)' }}>ls</span> - explore pages</div>
             <div><span style={{ color: 'var(--brand)' }}>cat focus</span> - what I'm working on</div>
-            <div><span style={{ color: 'var(--text-soft)' }}>psst: the address bar and X button are real. Try them.</span></div>
           </div>
         </div>
       ),
@@ -265,14 +264,14 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
 \\_| |_/\\___||\\_| |_/\\___/ \\___/|___/\\_| |_/\\___
 
  __________________________________________
-|                                        |
+|                                          |
 |   YOU HAVE ENTERED THE VOID.             |
-|                                        |
+|                                          |
 |   Every click reloads your fate.         |
-|   There is no escape, only restart.       |
-|                                        |
+|   There is no escape, only restart.      |
+|                                          |
 |   Click anywhere to reincarnate.         |
-|________________________________________|`}
+|_________________________________________ |`}
           </pre>
           <div className="mt-4 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(0, 255, 0, 0.5)' }}>no mouse exits here</div>
         </div>
