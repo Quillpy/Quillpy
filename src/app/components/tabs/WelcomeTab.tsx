@@ -43,22 +43,22 @@ export function WelcomeTab() {
             </span>
           </h1>
           <p className="max-w-2xl" style={{ color: 'var(--text-muted)', lineHeight: '1.9', fontSize: 'clamp(1rem, 2vw, 1.1rem)' }}>
-            I build small tools, explore systems, and keep learning by making things that feel clean and useful.
+            16 year old builder from India. I break things to understand them, then build something better.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           <WelcomeCard
             title="Build"
-            text="Projects and experiments shaped around simplicity, speed, and curiosity."
+            text="Tools and projects that solve real problems, not just exercises."
           />
           <WelcomeCard
-            title="Explore"
-            text="Linux, interfaces, and lower-level ideas that explain how computers really behave."
+            title="Learn"
+            text="CS50, Linux, and digging into how things actually work under the hood."
           />
           <WelcomeCard
-            title="Share"
-            text="A personal browser-style space for notes, logs, contact, and ongoing work."
+            title="Connect"
+            text="Grab coffee (virtual), collaborate, or just say hi."
           />
         </div>
       </motion.div>

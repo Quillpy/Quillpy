@@ -9,6 +9,12 @@ const INTERESTS = [
   'history and strategy',
 ];
 
+const SKILLS = [
+  { category: 'Languages', items: ['Python', 'C', 'JavaScript', 'SQL', 'HTML/CSS'] },
+  { category: 'Tools', items: ['Linux', 'Git', 'VS Code', 'Vim', 'Docker'] },
+  { category: 'Concepts', items: ['CS50', 'Data Structures', 'Algorithms', 'Memory Management'] },
+];
+
 const SYSTEM_SPECS = {
   os: 'Kubuntu 25.10',
   kernel: '6.17.0-22-generic',
@@ -92,6 +98,32 @@ export function AboutTab() {
           {INTERESTS.map((interest) => (
             <div key={interest} className="border px-3 py-2.5 text-sm" style={{ borderColor: 'var(--border)', color: 'var(--text-muted)', backgroundColor: 'var(--surface-2)' }}>
               {interest}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
+        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
+          Skills & Tools
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {SKILLS.map((skill) => (
+            <div key={skill.category}>
+              <div className="mb-2 text-xs uppercase tracking-[0.15em]" style={{ color: 'var(--text-soft)' }}>
+                {skill.category}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {skill.items.map((item) => (
+                  <span
+                    key={item}
+                    className="border px-2.5 py-1.5 text-xs"
+                    style={{ borderColor: 'var(--border)', color: 'var(--text-muted)', backgroundColor: 'var(--surface-2)' }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
