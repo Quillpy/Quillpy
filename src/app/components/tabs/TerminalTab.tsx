@@ -14,36 +14,17 @@ interface CommandEntry {
 
 const PAGES = [
   { cmd: 'welcome', label: 'Welcome', icon: Sparkles },
-  { cmd: 'projects', label: 'Projects', icon: Folder },
   { cmd: 'about', label: 'About', icon: User },
+  { cmd: 'projects', label: 'Projects', icon: Folder },
   { cmd: 'philosophy', label: 'Philosophy', icon: BookOpen },
-  { cmd: 'connect', label: 'Connect', icon: Link },
-  { cmd: 'terminal', label: 'Terminal', icon: Sparkles },
-  { cmd: 'support', label: 'Support', icon: Heart },
   { cmd: 'logs', label: 'Logs', icon: BookOpen },
-  { cmd: 'newtab', label: 'New Tab', icon: Sparkles },
+  { cmd: 'connect', label: 'Connect', icon: Link },
+  { cmd: 'support', label: 'Support', icon: Heart },
+  { cmd: 'terminal', label: 'Terminal', icon: Sparkles },
 ] as const;
 
 const ALL_COMMANDS = [
-  'help',
-  'clear',
-  'neofetch',
-  'whoami',
-  'ls',
-  'pwd',
-  'date',
-  'echo',
-  'history',
-  'open',
-  'cd',
-  'cat',
-  'cowsay',
-  'fortune',
-  'cmatrix',
-  'sl',
-  'figlet',
-  'aafire',
-  'sudo',
+  'help', 'clear', 'neofetch', 'whoami', 'ls', 'pwd', 'date', 'echo', 'history', 'open', 'cd', 'cat', 'cowsay', 'fortune', 'cmatrix', 'sl', 'figlet', 'sudo',
 ];
 
 export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
@@ -52,10 +33,7 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
     {
       input: 'boot',
       output: (
-        <div className="space-y-1">
-          <div style={{ color: 'var(--brand)' }}>shubham@dev:~$ shell ready</div>
-          <div style={{ color: 'var(--text-soft)' }}>Type help to see available commands.</div>
-        </div>
+        <div style={{ color: 'var(--brand)' }}>shubham@dev:~$ shell ready</div>
       ),
     },
   ]);
@@ -65,13 +43,8 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    outputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }, [entries]);
+  useEffect(() => { inputRef.current?.focus(); }, []);
+  useEffect(() => { outputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); }, [entries]);
 
   const navigateToPage = (page: string) => {
     onNavigate(page as TabType);
@@ -87,7 +60,6 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       <div><span style={{ color: 'var(--brand)' }}>ls</span> - list pages</div>
       <div><span style={{ color: 'var(--brand)' }}>pwd</span> - current path</div>
       <div><span style={{ color: 'var(--brand)' }}>date</span> - show date</div>
-      <div><span style={{ color: 'var(--brand)' }}>history</span> - command history</div>
       <div><span style={{ color: 'var(--brand)' }}>echo [text]</span> - print text</div>
       <div><span style={{ color: 'var(--brand)' }}>cd [page]</span> - go to page</div>
       <div><span style={{ color: 'var(--brand)' }}>open [page]</span> - open page</div>
@@ -97,63 +69,40 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       <div><span style={{ color: 'var(--brand)' }}>cmatrix</span> - matrix rain</div>
       <div><span style={{ color: 'var(--brand)' }}>sl</span> - steam locomotive</div>
       <div><span style={{ color: 'var(--brand)' }}>figlet [text]</span> - big letters</div>
-      <div><span style={{ color: 'var(--brand)' }}>aafire</span> - fire animation</div>
       <div><span style={{ color: 'var(--destructive)' }}>sudo rm -rf /</span> - don't. seriously. don't.</div>
     </div>
   );
 
   const renderLs = () => (
     <div style={{ color: 'var(--text-muted)' }}>
-      <div className="mb-1">Pages in /app:</div>
       {PAGES.map((page) => (
-        <div key={page.cmd} className="flex items-center gap-2 pl-4">
-          <span style={{ color: 'var(--brand)' }}>d</span>
-          <span style={{ color: 'var(--text-strong)' }}>{page.label}</span>
-        </div>
+        <div key={page.cmd} className="pl-4">{page.label}</div>
       ))}
     </div>
   );
 
   const renderCat = (topic: string) => {
-    if (topic === 'stack') {
-      return (
-        <div style={{ color: 'var(--text-muted)' }}>
-          Primary stack: Python, C, Linux, small experiments, interface design.
-        </div>
-      );
-    }
-    if (topic === 'contact') {
-      return (
-        <div style={{ color: 'var(--text-muted)' }}>
-          Best route: use <span style={{ color: 'var(--brand)' }}>open connect</span> command.
-        </div>
-      );
-    }
-    if (topic === 'focus') {
-      return (
-        <div style={{ color: 'var(--text-muted)' }}>
-          Current focus: building clean tools, learning systems, shipping more often.
-        </div>
-      );
-    }
+    if (topic === 'stack') return <div style={{ color: 'var(--text-muted)' }}>Primary stack: Python, C, Linux.</div>;
+    if (topic === 'contact') return <div style={{ color: 'var(--text-muted)' }}>Best route: use <span style={{ color: 'var(--brand)' }}>open connect</span>.</div>;
+    if (topic === 'focus') return <div style={{ color: 'var(--text-muted)' }}>Current focus: building clean tools, shipping more often.</div>;
     return <div style={{ color: 'var(--destructive)' }}>cat: {topic}: No such file or directory</div>;
   };
 
   const renderCowsay = (msg: string) => {
     const text = msg || 'Moo!';
     const lines = text.match(/.{1,20}/g) || [text];
-    const maxLen = Math.max(...lines.map((l: string) => l.length));
-    const top = '_' .repeat(maxLen + 2);
+    const maxLen = Math.max(...lines.map((l) => l.length));
+    const top = '_'.repeat(maxLen + 2);
     return (
       <pre style={{ color: 'var(--text-muted)', fontSize: '0.75rem', lineHeight: '1.4' }}>
 {` ${top}
 < ${lines[0]} >
  ${'-'.repeat(maxLen + 2)}
-        \\   ^__^
-         \\  (oo)\\_______
-            (__)\\       )\\/\\
-                ||----w |
-                ||     ||`}
+      \\   ^__^
+       \\  (oo)\\_______
+          (__)\\       )\\/\\
+              ||----w |
+              ||     ||`}
       </pre>
     );
   };
@@ -164,15 +113,12 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       'Class 10 ending: the last time I touched grass voluntarily.',
       'CS50: because class 9 curiosity demanded a proper answer.',
       'KDE Plasma: making my 2014 laptop look like a spaceship since 2024.',
-      'There are 10 types of people: those who understand binary, those who dont, and those who are still waiting for their RAM upgrade.',
-      '4GB RAM but KDE Plasma? Bold strategy cotton.',
+      'There are 10 types of people: those who understand binary, those who dont.',
       'I shift to Delhi soon. My laptop is more excited than I am.',
       'AIIMS saved my kidney. CS50 saved my sanity.',
       'Linux: Because Windows asked if I am a pirate.',
-      'First program took a year. Now I break things faster.',
     ];
-    const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-    return <div style={{ color: 'var(--text-muted)' }}>{fortune}</div>;
+    return <div style={{ color: 'var(--text-muted)' }}>{fortunes[Math.floor(Math.random() * fortunes.length)]}</div>;
   };
 
   const renderCmatrix = () => {
@@ -181,25 +127,23 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
     for (let i = 0; i < 15; i++) {
       output += Array(40).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('') + '\n';
     }
-    return (
-      <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1' }}>{output}</pre>
-    );
+    return <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1' }}>{output}</pre>;
   };
 
   const renderSl = () => (
     <pre style={{ color: 'var(--brand)', fontSize: '0.6rem', lineHeight: '1.1' }}>
 {`      ====        ________        ___________
   _DQQ|      _DQQ|        _DQQ|        _DQQ|
-QQ|       QQ|       QQ|       QQ|       QQ|
-QQ|       QQ|       QQ|       QQ|       QQ|
-QQ| _____QQ| _____QQ| _____QQ| _____QQ| _____QQ|____
-QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ||_DQQ|
-  |_DQQ|     |_DQQ|       |_DQQ|       |_DQQ|    |_DQQ|
-QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
-QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
-Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
- |___|QQ|  |___|QQ|  |___|QQ|  |___|QQ|   |___|
-    |_|      |_|       |_|       |_|        |_|`}
+ QQ|       QQ|       QQ|       QQ|       QQ|
+ QQ|       QQ|       QQ|       QQ|       QQ|
+ QQ| _____QQ| _____QQ| _____QQ| _____QQ| _____QQ|____
+ QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ||_DQQ|
+   |_DQQ|     |_DQQ|       |_DQQ|       |_DQQ|    |_DQQ|
+ QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
+ QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
+ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
+  |___|QQ|  |___|QQ|  |___|QQ|  |___|QQ|   |___|
+      |_|      |_|       |_|       |_|        |_|`}
     </pre>
   );
 
@@ -207,58 +151,40 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
     const msg = text || 'quillpy';
     return (
       <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1.2' }}>
-  ____                 _    __  __               
- / ___|__   __|  _ \ |  __||  _ \ |__   __|| __ |
-| (_ || '__|/ _` ||  _| | (_ ||  |_ || '__||  _|  
- \___||_||_|\___,||_|   \___||_| \_||_|   |_|   
-      _______                   _                  
-     |__   __|                 | |                 
-        | |  ___ |__   __|  _ \  __|  _ \  _ |_ 
-        | | / _ \ '__|/ _` ||  _| |  __/| | | || _|  
-        | ||  __/| | | (_) || |   | |   | |   |_|   
-        |_|\___||_| |__,_||_|   |_|   |_|  (_|   
+{`  ____                 _    __  __               
+ / ___|__   __|  _ \\ |  __||  _ \\ |__   __|| __ |
+| (_ || '__|/ _\\ ||  _| | (_ ||  |_ || '__||  _|  
+ \\___||_||_\___,||_|   \\___||_| \\_||_|   |_|   
+    _______                   _                  
+   |__   __|                 | |                 
+      | |  ___ |__   __|  _ \\  __|  _ \\  _ |_ 
+      | | / _ \\ '__|/ _\\ ||  _| |  __/| | | || _|  
+      | ||  __/| | | (_) || |   | |   | |   |_|   
+      |_|\___||_| |__,_||_|   |_|   |_|  (_| `}
       </pre>
     );
   };
 
-  const renderAafire = () => {
-    let fire = '';
-    const chars = ' .,:!i1tfLCG0@#';
-    for (let i = 0; i < 20; i++) {
-      fire += Array(50).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('') + '\n';
-    }
-    return (
-      <pre style={{ color: '#ff6600', fontSize: '0.5rem', lineHeight: '1' }}>{fire}</pre>
-    );
-  };
-
-  const handleSudo = () => {
-    setIsVoid(true);
-    onVoid();
-  };
+  const handleSudo = () => { setIsVoid(true); onVoid(); };
 
   const executeCommand = (rawInput: string) => {
     const trimmed = rawInput.trim();
-    const lower = trimmed.toLowerCase();
-
-    if (!trimmed) {
-      return;
-    }
+    if (!trimmed) return;
 
     const [command, ...args] = trimmed.split(/\s+/);
-    const lowerCommand = command.toLowerCase();
+    const lower = command.toLowerCase();
     let output: React.ReactNode;
 
-    if (lowerCommand === 'clear') {
+    if (lower === 'clear') {
       setEntries([]);
       setHistory((prev) => [...prev, rawInput]);
       setHistoryIndex(-1);
       return;
     }
 
-    if (lowerCommand === 'help') {
+    if (lower === 'help') {
       output = renderHelp();
-    } else if (lowerCommand === 'neofetch') {
+    } else if (lower === 'neofetch') {
       output = (
         <pre className="text-xs sm:text-sm" style={{ color: 'var(--brand)' }}>
 {`   shubham@dev
@@ -270,21 +196,18 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
     ram     3.7 GiB / 4 GiB (tragic)
     gpu     Intel HD Graphics 4400
     shell   bash
-    editor  vim
-    age     16 years young`}
+    editor  vim`}
         </pre>
       );
-    } else if (lowerCommand === 'whoami') {
-      output = (
-        <div style={{ color: 'var(--text-muted)' }}>shubham - 16 year old, student, Kubuntu enthusiast</div>
-      );
-    } else if (lowerCommand === 'pwd') {
+    } else if (lower === 'whoami') {
+      output = <div style={{ color: 'var(--text-muted)' }}>shubham - 16 year old, student, Kubuntu enthusiast</div>;
+    } else if (lower === 'pwd') {
       output = <div style={{ color: 'var(--text-muted)' }}>/home/shubham</div>;
-    } else if (lowerCommand === 'date') {
+    } else if (lower === 'date') {
       output = <div style={{ color: 'var(--text-muted)' }}>{new Date().toLocaleString()}</div>;
-    } else if (lowerCommand === 'echo') {
+    } else if (lower === 'echo') {
       output = <div style={{ color: 'var(--text-muted)' }}>{args.join(' ')}</div>;
-    } else if (lowerCommand === 'history') {
+    } else if (lower === 'history') {
       output = history.length ? (
         <div className="space-y-1" style={{ color: 'var(--text-muted)' }}>
           {history.map((item, index) => (
@@ -296,30 +219,28 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
       ) : (
         <div style={{ color: 'var(--text-soft)' }}>No commands in history.</div>
       );
-    } else if (lowerCommand === 'ls') {
+    } else if (lower === 'ls') {
       output = renderLs();
-    } else if (lowerCommand === 'cd' || lowerCommand === 'open') {
+    } else if (lower === 'cd' || lower === 'open') {
       const target = args[0]?.toLowerCase();
       if (target && PAGES.some((page) => page.cmd === target)) {
         output = navigateToPage(target);
       } else {
         output = <div style={{ color: 'var(--destructive)' }}>{lowerCommand}: no such page: {target}</div>;
       }
-    } else if (lowerCommand === 'cat') {
+    } else if (lower === 'cat') {
       output = renderCat((args[0] || '').toLowerCase());
-    } else if (lowerCommand === 'cowsay') {
+    } else if (lower === 'cowsay') {
       output = renderCowsay(args.join(' '));
-    } else if (lowerCommand === 'fortune') {
+    } else if (lower === 'fortune') {
       output = renderFortune();
-    } else if (lowerCommand === 'cmatrix') {
+    } else if (lower === 'cmatrix') {
       output = renderCmatrix();
-    } else if (lowerCommand === 'sl') {
+    } else if (lower === 'sl') {
       output = renderSl();
-    } else if (lowerCommand === 'figlet') {
+    } else if (lower === 'figlet') {
       output = renderFiglet(args.join(' '));
-    } else if (lowerCommand === 'aafire') {
-      output = renderAafire();
-    } else if (lowerCommand === 'sudo' && args[0] === 'rm' && args[1] === '-rf' && args[2] === '/') {
+    } else if (lower === 'sudo' && args[0] === 'rm' && args[1] === '-rf' && args[2] === '/') {
       handleSudo();
       output = (
         <div style={{ color: 'var(--destructive)' }}>
@@ -332,7 +253,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
       output = navigateToPage(lower);
     } else {
       output = (
-        <div className="space-y-1">
+        <div>
           <div style={{ color: 'var(--destructive)' }}>{command}: command not found</div>
           <div style={{ color: 'var(--text-soft)' }}>Type help for available commands.</div>
         </div>
@@ -345,12 +266,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      executeCommand(input);
-      setInput('');
-      return;
-    }
-
+    if (event.key === 'Enter') { executeCommand(input); setInput(''); return; }
     if (event.key === 'ArrowUp') {
       event.preventDefault();
       if (!history.length) return;
@@ -359,21 +275,14 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
       setInput(history[nextIndex]);
       return;
     }
-
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       if (historyIndex === -1) return;
       const nextIndex = historyIndex + 1;
-      if (nextIndex >= history.length) {
-        setHistoryIndex(-1);
-        setInput('');
-      } else {
-        setHistoryIndex(nextIndex);
-        setInput(history[nextIndex]);
-      }
+      if (nextIndex >= history.length) { setHistoryIndex(-1); setInput(''); }
+      else { setHistoryIndex(nextIndex); setInput(history[nextIndex]); }
       return;
     }
-
     if (event.key === 'Tab') {
       event.preventDefault();
       const match = ALL_COMMANDS.find((cmd) => cmd.startsWith(input.toLowerCase()));
@@ -383,14 +292,7 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
 
   if (isVoid) {
     return (
-      <div
-        className="flex h-full w-full items-center justify-center"
-        style={{ 
-          backgroundColor: '#000', 
-          color: '#00ff00', 
-          fontFamily: "'JetBrains Mono', monospace",
-        }}
-      >
+      <div className="flex h-full w-full items-center justify-center" style={{ backgroundColor: '#000', color: '#00ff00', fontFamily: "'JetBrains Mono', monospace" }}>
         <div className="text-center select-none">
           <pre style={{ color: '#0f0' }}>
 {`
@@ -398,15 +300,15 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
  |  ___|                         | |            
  | |__ _ __ __   __ ___  _ __  _| | _ __  _ 
  |  _|| '__| _ \\ / __/ _ \\| '__|| __|| __||    
- | |  | | |  __/| ||  __/| |   | |  | |  __|
+ |  |  | | |  __/| ||  __/| |   | |  |  __|
  |_|  |_| |_|\\___||___||_|   |_|  |_|  |_|  
-                                            
+                                             
  _   _        _   _                 _   _      
 | | | |      | | | |               | | | |     
 | |_| | ___ | |_| | __  _   _ ___ | |_| | ___ 
 |  _  |/ _ \\|  _  |/ _ \\| | | _ \\|  _  |/ _ \\
 | | | |  __/| | | | (_) | |_| (_)|| | | |  __|
-\\_| |_/\\___||\_| |_/\\___/ \\___/|___/\\_| |_/\\___
+\\_| |_/\\___||\\_| |_/\\___/ \\___/|___/\\_| |_/\\___
 
  __________________________________________
 |                                        |
@@ -415,61 +317,32 @@ Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
 |   Every click reloads your fate.         |
 |   There is no escape, only restart.       |
 |                                        |
-|   The void remembers your choice.     |
-|   But fresh start... awaits.           |
-|                                        |
-|   Click anywhere to reincarnate.     |
-|____________________________________| `}
+|   Click anywhere to reincarnate.         |
+|________________________________________|`}
           </pre>
-          <div className="mt-4 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(0, 255, 0, 0.5)' }}>
-            no mouse exits here
-          </div>
+          <div className="mt-4 text-[11px] uppercase tracking-[0.2em]" style={{ color: 'rgba(0, 255, 0, 0.5)' }}>no mouse exits here</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div
-      className="mx-auto w-full max-w-5xl py-4 sm:py-8"
-      style={{ fontFamily: "'JetBrains Mono', monospace" }}
-      onClick={() => inputRef.current?.focus()}
-    >
-      <div
-        className="overflow-hidden border"
-        style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}
-      >
+    <div className="mx-auto w-full max-w-5xl py-4 sm:py-8" style={{ fontFamily: "'JetBrains Mono', monospace" }} onClick={() => inputRef.current?.focus()}>
+      <div className="overflow-hidden border" style={{ backgroundColor: 'var(--surface-1)', borderColor: 'var(--border)' }}>
         <div className="border-b px-4 py-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-2)' }}>
-          <span className="text-xs" style={{ color: 'var(--brand)' }}>
-            shubham@dev:~/app$ ls
-          </span>
+          <span className="text-xs" style={{ color: 'var(--brand)' }}>shubham@dev:~/app$ ls</span>
         </div>
-
         <div className="space-y-4 px-4 py-4 sm:px-5 sm:py-5">
           {entries.map((entry, index) => (
             <div key={`${entry.input}-${index}`} className="space-y-1">
-              <div className="text-xs" style={{ color: 'var(--text-soft)' }}>
-                <span style={{ color: 'var(--brand)' }}>shubham@dev</span>:~$ {entry.input}
-              </div>
+              <div className="text-xs" style={{ color: 'var(--text-soft)' }}><span style={{ color: 'var(--brand)' }}>shubham@dev</span>:~$ {entry.input}</div>
               <div className="pl-4 text-sm">{entry.output}</div>
             </div>
           ))}
-
           <div className="flex items-center text-sm">
             <span style={{ color: 'var(--brand)' }}>shubham@dev</span>
             <span style={{ color: 'var(--text-soft)' }}>:~$</span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={handleKeyDown}
-              className="ml-2 flex-1 bg-transparent outline-none"
-              style={{ color: 'var(--text-strong)', caretColor: 'var(--brand)' }}
-              autoFocus
-              spellCheck={false}
-              placeholder="type a command"
-            />
+            <input ref={inputRef} type="text" value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={handleKeyDown} className="ml-2 flex-1 bg-transparent outline-none" style={{ color: 'var(--text-strong)', caretColor: 'var(--brand)' }} autoFocus spellCheck={false} placeholder="type a command" />
           </div>
           <div ref={outputRef} />
         </div>

@@ -1,12 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'motion/react';
 
 interface BootScreenProps {
   onComplete: () => void;
 }
 
+const TERMINAL_MESSAGES = [
+  { text: 'Initializing system...', delay: 0 },
+  { text: 'Loading kernel modules...', delay: 180 },
+  { text: 'Mounting file systems...', delay: 380 },
+  { text: 'Starting services...', delay: 560 },
+  { text: 'Loading user environment...', delay: 740 },
+  { text: 'Boot complete.', delay: 920, highlight: true },
+];
+
 export function BootScreen({ onComplete }: BootScreenProps) {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [currentLine, setCurrentLine] = useState(-1);
+  const [showCursor, setShowCursor] = useState(true);
+  const timerRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
     const stored = localStorage.getItem('quillpy_theme');
@@ -16,92 +28,95 @@ export function BootScreen({ onComplete }: BootScreenProps) {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(onComplete, 1200);
-    return () => clearTimeout(timer);
+    TERMINAL_MESSAGES.forEach((msg) => {
+      const timer = setTimeout(() => {
+        setCurrentLine((prev) => prev + 1);
+        if (msg.highlight) {
+          const finishTimer = setTimeout(onComplete, 500);
+          timerRef.current.push(finishTimer);
+        }
+      }, msg.delay);
+      timerRef.current.push(timer);
+    });
+
+    return () => {
+      timerRef.current.forEach(clearTimeout);
+    };
   }, [onComplete]);
 
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 400);
+    return () => clearInterval(cursorInterval);
+  }, []);
+
   const isDark = theme === 'dark';
+  const terminalBg = isDark ? '#0a0f0d' : '#f7f3eb';
+  const textColor = isDark ? '#7fbf9a' : '#204832';
+  const accentColor = isDark ? '#5a9a74' : '#2d5a42';
+  const cursorColor = textColor;
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      className="fixed inset-0 flex items-center justify-center z-50"
-      style={{
-        backgroundColor: isDark ? '#0a0f0d' : '#f7f3eb',
-      }}
+      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      className="fixed inset-0 flex flex-col z-50"
+      style={{ backgroundColor: terminalBg, padding: '2.5rem' }}
     >
-      <div className="text-center">
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0, y: 8 }}
-          animate={{ scale: 1, opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
-        >
-          <div
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl"
-            style={{
-              backgroundColor: isDark ? 'rgba(127, 191, 154, 0.15)' : 'rgba(32, 72, 50, 0.1)',
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="flex-1 font-mono text-sm leading-relaxed"
+        style={{ color: textColor }}
+      >
+        <div className="mb-4 text-xs opacity-60" style={{ color: accentColor }}>
+          Quillpy Portfolio {isDark ? 'v2.6.0' : 'v2.6.0'}
+          <br />
+          {new Date().getFullYear()} Built with care
+        </div>
+
+        {TERMINAL_MESSAGES.map((msg, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{
+              opacity: currentLine >= index ? 1 : 0,
+              x: currentLine >= index ? 0 : -8,
             }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            className="flex items-center gap-2"
           >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              style={{ color: isDark ? '#7fbf9a' : '#204832' }}
-            >
-              <path
-                d="M12 2L2 7L12 12L22 7L12 2Z"
-                fill="currentColor"
-                fillOpacity="0.2"
-              />
-              <path
-                d="M2 17L12 22L22 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M2 12L12 17L22 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </motion.div>
+            <span style={{ color: msg.highlight ? accentColor : 'inherit' }}>
+              {msg.text}
+            </span>
+            {currentLine === index && (
+              <motion.span
+                animate={{ opacity: showCursor ? 1 : 0 }}
+                transition={{ duration: 0.05 }}
+                style={{
+                  color: cursorColor,
+                  fontWeight: 700,
+                }}
+              >
+                █
+              </motion.span>
+            )}
+          </motion.div>
+        ))}
+      </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-        >
-          <h1
-            className="text-2xl font-medium tracking-tight mb-1"
-            style={{ color: isDark ? '#e6f0ea' : '#1e2821' }}
-          >
-            Quillpy
-          </h1>
-          <p
-            className="text-sm tracking-wide"
-            style={{ color: isDark ? '#7c9186' : '#728077' }}
-          >
-            Portfolio
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 0.3, duration: 0.5, ease: 'easeOut' }}
-          className="mx-auto mt-6 h-px w-16 origin-center"
-          style={{ backgroundColor: isDark ? '#2a453a' : '#c7bcaa' }}
-        />
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: currentLine >= TERMINAL_MESSAGES.length - 1 ? 1 : 0 }}
+        transition={{ delay: 0.3, duration: 0.3 }}
+        className="text-xs opacity-50"
+        style={{ color: accentColor }}
+      >
+        Press any key to continue...
+      </motion.div>
     </motion.div>
   );
 }

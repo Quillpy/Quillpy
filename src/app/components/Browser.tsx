@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 import { useClickSound } from '../../hooks/useClickSound';
 import { useTheme } from '../../hooks/useTheme';
 
-export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'support' | 'logs' | 'newtab';
+export type TabType = 'welcome' | 'about' | 'projects' | 'philosophy' | 'connect' | 'terminal' | 'support' | 'logs';
 
 export interface Tab {
   id: string;
@@ -29,8 +29,7 @@ const DEFAULT_TAB_TITLES: Record<TabType, string> = {
   connect: 'Connect',
   terminal: 'Terminal',
   support: 'Support',
-  logs: 'Logs',
-  newtab: 'New Tab'
+  logs: 'Logs'
 };
 
 export function Browser() {
@@ -136,7 +135,7 @@ export function Browser() {
   };
 
   const handleAddTab = () => {
-    openTab('newtab');
+    openTab('terminal');
   };
 
   const handleCloseTab = (tabId: string) => {
@@ -153,7 +152,7 @@ export function Browser() {
   };
 
   const handleSearch = (query: string) => {
-    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal', 'support', 'logs', 'newtab'];
+    const validTabs: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'connect', 'terminal', 'support', 'logs'];
     const lowerQuery = query.toLowerCase().replace('quillpy.com/', '').trim();
 
     if (!lowerQuery) {
