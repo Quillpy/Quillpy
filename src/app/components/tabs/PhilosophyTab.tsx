@@ -1,18 +1,29 @@
 const principles = [
-  'Curiosity is more valuable than certainty.',
-  'Understand systems instead of memorizing tools.',
-  'Simplicity beats unnecessary complexity.',
-  'Progress happens when people question what is.',
-  'Human nature matters more than ideal theories.',
-  'Technology should feel elegant.',
-  'We are citizens of one world.',
-  'Build things that make you curious.',
+  'Truth matters more than comfort.',
+  'Question everything—systems, leaders, and accepted norms.',
+  'History is shaped by human nature more than ideology.',
+  'Power often hides behind narratives, propaganda, and selective morality.',
+  'Peace is admirable, but peace without strength is fragile.',
+  'Aggression wins battles; restraint wins legitimacy.',
+  'Revolution inspires emotion; strategy sustains nations.',
+  'Leaders are judged differently in war and peace.',
+  'India and Pakistan reflect the long-term consequences of political psychology.',
+  'Societies inherit trauma, pride, and fear across generations.',
+  'Military power can defend borders but can also shape politics.',
+  'Human emotion influences politics more than logic admits.',
+  'Most people follow systems; few question why systems exist.',
+  'Simplicity is intelligence; unnecessary complexity is often insecurity.',
+  'Speed, elegance, and precision create delight.',
+  'Technology should feel magical yet useful.',
+  'Curiosity is the engine of progress.',
+  'Build things so good they feel inevitable.',
+  'National borders are political; humanity is larger.',
+  'Every system can be redesigned.',
 ];
 
 export function PhilosophyTab() {
   return (
     <div className="max-w-5xl mx-auto py-6 sm:py-12 w-full">
-
       <h1
         className="mb-6"
         style={{
@@ -31,7 +42,7 @@ export function PhilosophyTab() {
           marginBottom: '2rem'
         }}
       >
-        A few ideas that shape how I think and build.
+        Thoughts that shape how I see history, power, people, and the things I build.
       </p>
 
       <div className="space-y-6 sm:space-y-8">
@@ -62,9 +73,8 @@ export function PhilosophyTab() {
           fontSize: '0.9rem'
         }}
       >
-        Inspired by philosophy, systems thinking, and curiosity about the world.
+        Built on curiosity, realism, design, and the belief that history and systems can be understood—and improved.
       </p>
-
     </div>
   );
 }
