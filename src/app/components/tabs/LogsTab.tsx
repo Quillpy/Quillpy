@@ -9,34 +9,34 @@ interface LogEntry {
 
 const LOGS: LogEntry[] = [
   {
-    date: '2025-11-18',
+    date: '2024-09',
     title: 'Started Learning Python',
-    content: 'This is where everything began. Started exploring Python out of curiosity and quickly realized programming felt like solving puzzles.',
+    content: 'First time programming clicked. Started with Python in class 9 and realized writing code felt like solving puzzles.',
   },
   {
-    date: '2025-12-02',
+    date: '2024-12',
     title: 'Discovered CS50',
-    content: 'Started Harvard CS50. It completely changed how I see computers and problem solving. First time I understood what computer science actually is.',
+    content: 'Started Harvard CS50 after 10th exams. It changed how I see computers — finally understanding what computer science is.',
   },
   {
-    date: '2025-12-20',
+    date: '2025-01',
     title: 'Created My GitHub Account',
-    content: 'Started using GitHub to store my experiments and code. Felt like stepping into the real developer world.',
+    content: 'Set up GitHub to store experiments and code. Felt like stepping into the real developer world.',
   },
   {
-    date: '2026-01-05',
-    title: 'Built First Small Scripts',
-    content: 'Started writing small automation scripts and experimenting with ideas instead of just following tutorials.',
+    date: '2025-03',
+    title: 'First Scripts',
+    content: 'Started writing small automation scripts instead of just following tutorials. Things finally started making sense.',
   },
   {
-    date: '2026-01-18',
-    title: 'Shifted Toward Systems Curiosity',
-    content: 'Became more interested in how computers actually work internally. Started exploring Linux and lower-level programming concepts.',
+    date: '2025-06',
+    title: 'Linux Curiosity',
+    content: 'Got more interested in how computers actually work. Switched to Linux and started exploring lower-level ideas.',
   },
   {
-    date: '2026-02-02',
-    title: 'Started Building Real Projects',
-    content: 'Moved from learning syntax to building actual tools and experiments. This is when programming started feeling natural.',
+    date: '2025-10',
+    title: 'Started This Portfolio',
+    content: 'Bought the domain and started building this space. First time building something for myself, not as exercise.',
   },
 ];
 

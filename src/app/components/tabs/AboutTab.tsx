@@ -1,12 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 const INTERESTS = [
-  'breaking things to fix them',
-  'Linux ricing',
-  'building tools no one asked for',
-  'AI experiments',
-  'figuring out how stuff works under the hood',
-  'collecting terminal commands',
+  'building websites and tools',
+  'user experience and design',
+  'how things work under the hood',
+  'tech that matters',
+  'psychology and human behavior',
+  'history and strategy',
 ];
 
 const SYSTEM_SPECS = {
