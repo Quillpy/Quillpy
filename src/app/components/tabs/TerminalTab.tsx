@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, Folder, Heart, Link, Sparkles, User } from 'lucide-react';
+import { BookOpen, Folder, Heart, Link, Sparkles, User, X, Globe } from 'lucide-react';
 import type { TabType } from '../Browser';
 
 interface TerminalTabProps {
@@ -24,7 +24,7 @@ const PAGES = [
 ] as const;
 
 const ALL_COMMANDS = [
-  'help', 'clear', 'neofetch', 'whoami', 'ls', 'pwd', 'date', 'echo', 'history', 'open', 'cd', 'cat', 'cowsay', 'fortune', 'cmatrix', 'sl', 'figlet', 'sudo',
+  'help', 'clear', 'neofetch', 'whoami', 'ls', 'pwd', 'date', 'echo', 'history', 'cd', 'cat', 'cowsay', 'sudo', 'tips',
 ];
 
 export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
@@ -34,6 +34,20 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       input: 'boot',
       output: (
         <div style={{ color: 'var(--brand)' }}>shubham@dev:~$ shell ready</div>
+      ),
+    },
+    {
+      input: 'tips',
+      output: (
+        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+          <div className="mb-2">Pro tips:</div>
+          <div className="space-y-1">
+            <div><span style={{ color: 'var(--brand)' }}>cd welcome</span> - say hi</div>
+            <div><span style={{ color: 'var(--brand)' }}>ls</span> - explore pages</div>
+            <div><span style={{ color: 'var(--brand)' }}>cat focus</span> - what I'm working on</div>
+            <div><span style={{ color: 'var(--text-soft)' }}>psst: the address bar and X button are real. Try them.</span></div>
+          </div>
+        </div>
       ),
     },
   ]);
@@ -62,14 +76,9 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       <div><span style={{ color: 'var(--brand)' }}>date</span> - show date</div>
       <div><span style={{ color: 'var(--brand)' }}>echo [text]</span> - print text</div>
       <div><span style={{ color: 'var(--brand)' }}>cd [page]</span> - go to page</div>
-      <div><span style={{ color: 'var(--brand)' }}>open [page]</span> - open page</div>
       <div><span style={{ color: 'var(--brand)' }}>cat [topic]</span> - read notes</div>
       <div><span style={{ color: 'var(--brand)' }}>cowsay [msg]</span> - cow says</div>
-      <div><span style={{ color: 'var(--brand)' }}>fortune</span> - wise words</div>
-      <div><span style={{ color: 'var(--brand)' }}>cmatrix</span> - matrix rain</div>
-      <div><span style={{ color: 'var(--brand)' }}>sl</span> - steam locomotive</div>
-      <div><span style={{ color: 'var(--brand)' }}>figlet [text]</span> - big letters</div>
-      <div><span style={{ color: 'var(--destructive)' }}>sudo rm -rf /</span> - don't. seriously. don't.</div>
+      <div><span style={{ color: 'var(--brand)' }}>sudo rm -rf /</span> - don't do it</div>
     </div>
   );
 
@@ -107,65 +116,6 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
     );
   };
 
-  const renderFortune = () => {
-    const fortunes = [
-      'My left kidney is smaller than my right one. And somehow I still beat you at chess.',
-      'Class 10 ending: the last time I touched grass voluntarily.',
-      'CS50: because class 9 curiosity demanded a proper answer.',
-      'KDE Plasma: making my 2014 laptop look like a spaceship since 2024.',
-      'There are 10 types of people: those who understand binary, those who dont.',
-      'I shift to Delhi soon. My laptop is more excited than I am.',
-      'AIIMS saved my kidney. CS50 saved my sanity.',
-      'Linux: Because Windows asked if I am a pirate.',
-    ];
-    return <div style={{ color: 'var(--text-muted)' }}>{fortunes[Math.floor(Math.random() * fortunes.length)]}</div>;
-  };
-
-  const renderCmatrix = () => {
-    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
-    let output = '';
-    for (let i = 0; i < 15; i++) {
-      output += Array(40).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('') + '\n';
-    }
-    return <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1' }}>{output}</pre>;
-  };
-
-  const renderSl = () => (
-    <pre style={{ color: 'var(--brand)', fontSize: '0.6rem', lineHeight: '1.1' }}>
-{`      ====        ________        ___________
-  _DQQ|      _DQQ|        _DQQ|        _DQQ|
- QQ|       QQ|       QQ|       QQ|       QQ|
- QQ|       QQ|       QQ|       QQ|       QQ|
- QQ| _____QQ| _____QQ| _____QQ| _____QQ| _____QQ|____
- QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ| QQ|_DQ|_DQQ||_DQQ|
-   |_DQQ|     |_DQQ|       |_DQQ|       |_DQQ|    |_DQQ|
- QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
- QQ|       QQ|       QQ|       QQ|       QQ|       QQ|
- Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ| Q||_DQQ|  |_DQQ|
-  |___|QQ|  |___|QQ|  |___|QQ|  |___|QQ|   |___|
-      |_|      |_|       |_|       |_|        |_|`}
-    </pre>
-  );
-
-  const renderFiglet = (text: string) => {
-    const msg = text || 'quillpy';
-    return (
-      <pre style={{ color: 'var(--brand)', fontSize: '0.5rem', lineHeight: '1.2' }}>
-{`  ____                 _    __  __               
- / ___|__   __|  _ \\ |  __||  _ \\ |__   __|| __ |
-| (_ || '__|/ _\\ ||  _| | (_ ||  |_ || '__||  _|  
- \\___||_||_\___,||_|   \\___||_| \\_||_|   |_|   
-    _______                   _                  
-   |__   __|                 | |                 
-      | |  ___ |__   __|  _ \\  __|  _ \\  _ |_ 
-      | | / _ \\ '__|/ _\\ ||  _| |  __/| | | || _|  
-      | ||  __/| | | (_) || |   | |   | |   |_|   
-      |_|\___||_| |__,_||_|   |_|   |_|  (_| `}
-      </pre>
-    );
-  };
-
-  const handleSudo = () => { setIsVoid(true); onVoid(); };
 
   const executeCommand = (rawInput: string) => {
     const trimmed = rawInput.trim();
@@ -232,18 +182,22 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       output = renderCat((args[0] || '').toLowerCase());
     } else if (lower === 'cowsay') {
       output = renderCowsay(args.join(' '));
-    } else if (lower === 'fortune') {
-      output = renderFortune();
-    } else if (lower === 'cmatrix') {
-      output = renderCmatrix();
-    } else if (lower === 'sl') {
-      output = renderSl();
-    } else if (lower === 'figlet') {
-      output = renderFiglet(args.join(' '));
+    } else if (lower === 'tips') {
+      output = (
+        <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+          <div className="mb-2">Pro tips:</div>
+          <div className="space-y-1">
+            <div><span style={{ color: 'var(--brand)' }}>cd welcome</span> - say hi</div>
+            <div><span style={{ color: 'var(--brand)' }}>ls</span> - explore pages</div>
+            <div><span style={{ color: 'var(--brand)' }}>cat focus</span> - what I'm working on</div>
+            <div><span style={{ color: 'var(--text-soft)' }}>psst: the address bar and X button are real. Try them.</span></div>
+          </div>
+        </div>
+      );
     } else if (lower === 'sudo' && args[0] === 'rm' && args[1] === '-rf' && args[2] === '/') {
       handleSudo();
       output = (
-        <div style={{ color: 'var(--destructive)' }}>
+        <div style={{ color: 'var(--text-muted)' }}>
           root@quillpy:~# rm -rf /<br />
           rm: cannot remove '/': Device or resource busy<br />
           Just kidding! YOU HAVE BEEN VOIDED! :D

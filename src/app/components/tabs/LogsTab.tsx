@@ -9,12 +9,12 @@ interface LogEntry {
 
 const LOGS: LogEntry[] = [
   {
-    date: '2024-09',
+    date: '2025-02-11',
     title: 'Started Learning Python',
     content: 'First time programming clicked. Started with Python in class 9 and realized writing code felt like solving puzzles.',
   },
   {
-    date: '2024-12',
+    date: '2025-12-25',
     title: 'Discovered CS50',
     content: 'Started Harvard CS50 after 10th exams. It changed how I see computers — finally understanding what computer science is.',
   },

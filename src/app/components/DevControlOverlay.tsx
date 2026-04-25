@@ -42,6 +42,11 @@ export function DevControlOverlay({ mode, onResume }: DevControlOverlayProps) {
 }
 
 function KillMode() {
+  useEffect(() => {
+    const timer = setTimeout(() => window.location.reload(), 10000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="font-mono text-center">
       <motion.div

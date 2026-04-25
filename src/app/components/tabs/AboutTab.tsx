@@ -6,13 +6,13 @@ const INTERESTS = [
   'how things work under the hood',
   'tech that matters',
   'psychology and human behavior',
-  'history and strategy',
+  'math and science',
 ];
 
 const SKILLS = [
   { category: 'Languages', items: ['Python', 'C', 'JavaScript', 'SQL', 'HTML/CSS'] },
-  { category: 'Tools', items: ['Linux', 'Git', 'VS Code', 'Vim', 'Docker'] },
-  { category: 'Concepts', items: ['CS50', 'Data Structures', 'Algorithms', 'Memory Management'] },
+  { category: 'Tools', items: ['Linux', 'Git', 'VS Code', 'Vim', 'Github'] },
+  { category: 'Concepts', items: ['Data Structures', 'Algorithms', 'Memory Management'] },
 ];
 
 const SYSTEM_SPECS = {
@@ -48,13 +48,15 @@ export function AboutTab() {
 
       <div className="space-y-4">
         <AboutPanel>
-          So here's the deal — I grew up in a village so small it had less than 100 people. Before I turned 5, we moved to a slightly bigger town (still tiny by any reasonable measure, but hey, it had a computer lab). I've got a fun little health situation: my left kidney decided to stay small since childhood, which means I can't go crazy with physical activities. But hey, I'm alive and that's what matters! Blood pressure likes to play jump rope sometimes but it's all good.
+          So here’s the deal — I grew up in a village so small it had less than 100 people. Before I turned 5, we moved to a slightly bigger town (still tiny by any normal standard).
+
+          I’ve also got a bit of a health situation: my left kidney has been smaller and less functional than the right one since childhood, so I cannot go all out with heavy physical activities. But I mm doing fine overall — still here, still going. My blood pressure likes to fluctuate sometimes, but it is manageable.
         </AboutPanel>
         <AboutPanel>
-          First time I touched a computer was in school lab, class 3. Couldn't even use a mouse properly (true story). Then in class 7 or 8, I got my own PC and that's when things got interesting. Started with online classes (school computers were basically vintage artifacts), but by class 9 I was deep into exploring everything. Found programming and went full curious mode. Took about a year before I made my first project. Class 10 hit and studies happened. After 10th, I did CS50, YouTube'd my way through the rest, and here we are.
+          First time I touched a computer was in school lab, class 3. Couldn't even use a mouse properly (true story). Now, I know that those computers on school were trash. Then, in class 7 or 8, I got my own PC and that's when things got interesting. Started with online classes, but by class 9 I was deep into exploring everything. I found programming and went full curious mode. Took about a year before I made my first project. Class 10 hit and studies happened. After 10th, I did CS50, YouTube'd my way through the rest, and here we are.
         </AboutPanel>
         <AboutPanel>
-          Currently running the show on Kubuntu 25.10 with KDE Plasma. It's a 2014-era machine with an Intel i3-4160, 4GB RAM (usable: 3.7GB, thanks biology), and Intel HD Graphics 4400. Yes, it runs. Barely, but it runs. Waiting for class 11 and will probably upgrade soon. Also will shift to Delhi soon — watch this space.
+          Currently running the show on Kubuntu 25.10 with KDE Plasma. It's a 2014-era machine with an Intel i3-4160, 4GB RAM (usable: 3.7GB, thanks biology), and Intel HD Graphics 4400. Yes, it runs. Barely, but it runs. I am waiting for class 11 schools to start and will probably upgrade soon. Also will shift to Delhi soon — watch this space.
         </AboutPanel>
       </div>
 
