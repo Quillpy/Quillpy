@@ -8,8 +8,12 @@
 - 🧠 Philosophy: **Learn, Build, Break (Intentionally), Repeat**
 
 ### Projects
-- **[Maggie-Man](https://github.com/Quillpy/Maggie-Man)** — A Discord bot to give updates about chess tournaments
-- **[FastCR](https://github.com/Quillpy/FastCR)** — A shell script to compile and run any source code with one command
+- **[Chess Heaven](https://github.com/Quillpy/chess-heaven)** — A premium chess platform for enthusiasts
+- **[FastCR](https://github.com/Quillpy/fastcr)** — A lightweight CLI tool for running code quickly
+- **[TruthGuard](https://github.com/Quillpy/truthguard)** — An AI-powered fact-checking tool
+- **[Chess EloPredictor](https://github.com/Quillpy/chess-elo-predictor)** — ML model to predict chess ratings
+- **[Maggie-Man](https://github.com/Quillpy/Maggie-Man)** — Discord bot for chess tournament updates
+- **[Portfolio](https://github.com/Quillpy/Quillpy)** — My personal browser-style workspace
 
 ### Currently Learning
 - Deepening my understanding of C programming and how machines work under the hood
