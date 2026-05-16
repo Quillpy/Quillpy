@@ -1,9 +1,15 @@
 import { TabType } from './Browser';
-import { ChevronLeft, ChevronRight, Home, Settings2, Sparkles, Folder, User, Link, Heart, BookOpen, Moon, Sun } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Settings2, Sparkles, Folder, User, Link, Heart, BookOpen, Moon, Sun, Clock, RefreshCw } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { ControlMode } from './DevControlOverlay';
 import { useClickSound } from '../../hooks/useClickSound';
 import { motion, AnimatePresence } from 'motion/react';
+
+interface VisitedEntry {
+  type: TabType;
+  title: string;
+  timestamp: number;
+}
 
 const PAGE_ORDER: TabType[] = ['welcome', 'about', 'projects', 'philosophy', 'logs', 'connect', 'support', 'terminal'];
 
@@ -23,22 +29,27 @@ interface BrowserControlsProps {
   onSearch: (query: string) => void;
   onBack: () => void;
   onForward: () => void;
+  onRefresh?: () => void;
   canGoBack: boolean;
   canGoForward: boolean;
   bodyFontSize: number;
   onBodyFontSizeChange: (size: number) => void;
   theme: 'dark' | 'light';
   onThemeChange: (theme: 'dark' | 'light') => void;
+  recentlyVisited: VisitedEntry[];
+  favicon?: string;
 }
 
-export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange }: BrowserControlsProps) {
+export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, onRefresh, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange, recentlyVisited, favicon }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [urlValue, setUrlValue] = useState('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [hoveredWindowBtn, setHoveredWindowBtn] = useState<string | null>(null);
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
+  const historyRef = useRef<HTMLDivElement>(null);
   const { playClick, isEnabled, setEnabled } = useClickSound();
 
   const getUrl = () => `quillpy.com/${activeTab}`;
@@ -47,8 +58,11 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (!settingsRef.current?.contains(event.target as Node)) {
+      if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
         setIsSettingsOpen(false);
+      }
+      if (historyRef.current && !historyRef.current.contains(event.target as Node)) {
+        setIsHistoryOpen(false);
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
@@ -90,44 +104,109 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
   const borderColor = 'var(--border)';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+    <div
       className="px-3 sm:px-4 py-2.5"
       style={{ backgroundColor: 'var(--chrome-bg)', borderBottom: '1px solid var(--chrome-border)' }}
     >
       <div className="flex items-center gap-2.5">
         <div className="flex gap-1.5 sm:gap-2">
-          <motion.button onClick={() => { playClick(); onControlClick('kill'); }} onMouseEnter={() => setHoveredWindowBtn('kill')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }} style={{ backgroundColor: hoveredWindowBtn === 'kill' ? '#ff5f57' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'kill' ? '0 0 0 5px rgba(255, 95, 87, 0.12)' : 'none' }} title="Kill Process" />
-          <motion.button onClick={() => { playClick(); onControlClick('sleep'); }} onMouseEnter={() => setHoveredWindowBtn('sleep')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }} style={{ backgroundColor: hoveredWindowBtn === 'sleep' ? '#febc2e' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'sleep' ? '0 0 0 5px rgba(254, 188, 46, 0.12)' : 'none' }} title="Sleep Mode" />
-          <motion.button onClick={() => { playClick(); onControlClick('run'); }} onMouseEnter={() => setHoveredWindowBtn('run')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }} style={{ backgroundColor: hoveredWindowBtn === 'run' ? '#28c840' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'run' ? '0 0 0 5px rgba(40, 200, 64, 0.12)' : 'none' }} title="Run" />
+          <button onClick={() => { playClick(); onControlClick('kill'); }} onMouseEnter={() => setHoveredWindowBtn('kill')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" style={{ backgroundColor: hoveredWindowBtn === 'kill' ? '#ff5f57' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'kill' ? '0 0 0 5px rgba(255, 95, 87, 0.12)' : 'none' }} title="Kill Process" />
+          <button onClick={() => { playClick(); onControlClick('sleep'); }} onMouseEnter={() => setHoveredWindowBtn('sleep')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" style={{ backgroundColor: hoveredWindowBtn === 'sleep' ? '#febc2e' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'sleep' ? '0 0 0 5px rgba(254, 188, 46, 0.12)' : 'none' }} title="Sleep Mode" />
+          <button onClick={() => { playClick(); onControlClick('run'); }} onMouseEnter={() => setHoveredWindowBtn('run')} onMouseLeave={() => setHoveredWindowBtn(null)} className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full cursor-pointer" style={{ backgroundColor: hoveredWindowBtn === 'run' ? '#28c840' : '#5c5c5c', boxShadow: hoveredWindowBtn === 'run' ? '0 0 0 5px rgba(40, 200, 64, 0.12)' : 'none' }} title="Run" />
         </div>
 
         <div className="ml-1 flex gap-1 sm:ml-2">
-          <motion.button onClick={() => { playClick(); onBack(); }} disabled={!canGoBack} onMouseEnter={() => canGoBack && setHoveredIcon('back')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" whileHover={canGoBack ? { scale: 1.08, backgroundColor: 'var(--button-hover)' } : {}} whileTap={canGoBack ? { scale: 0.92 } : {}} style={navButtonStyle('back', canGoBack)} title="Go Back (Alt+Left)"><ChevronLeft size={16} /></motion.button>
-          <motion.button onClick={() => { playClick(); onForward(); }} disabled={!canGoForward} onMouseEnter={() => canGoForward && setHoveredIcon('forward')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" whileHover={canGoForward ? { scale: 1.08, backgroundColor: 'var(--button-hover)' } : {}} whileTap={canGoForward ? { scale: 0.92 } : {}} style={navButtonStyle('forward', canGoForward)} title="Go Forward (Alt+Right)"><ChevronRight size={16} /></motion.button>
-          <motion.button onClick={() => { playClick(); onSearch('welcome'); }} onMouseEnter={() => setHoveredIcon('home')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" whileHover={{ scale: 1.08, backgroundColor: 'var(--button-hover)' }} whileTap={{ scale: 0.92 }} style={navButtonStyle('home')} title="Go Home"><Home size={16} /></motion.button>
+          <button onClick={() => { playClick(); onBack(); }} disabled={!canGoBack} onMouseEnter={() => canGoBack && setHoveredIcon('back')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" style={navButtonStyle('back', canGoBack)} title="Go Back (Alt+Left)"><ChevronLeft size={16} /></button>
+          <button onClick={() => { playClick(); onForward(); }} disabled={!canGoForward} onMouseEnter={() => canGoForward && setHoveredIcon('forward')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" style={navButtonStyle('forward', canGoForward)} title="Go Forward (Alt+Right)"><ChevronRight size={16} /></button>
+          <button onClick={() => { playClick(); onRefresh?.(); }} onMouseEnter={() => setHoveredIcon('refresh')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" style={navButtonStyle('refresh')} title="Refresh (Ctrl+R)"><RefreshCw size={16} /></button>
+          <button onClick={() => { playClick(); onSearch('welcome'); }} onMouseEnter={() => setHoveredIcon('home')} onMouseLeave={() => setHoveredIcon(null)} className="p-2" style={navButtonStyle('home')} title="Go Home"><Home size={16} /></button>
         </div>
 
         <div className="mx-1 flex flex-1 items-center gap-2 sm:mx-2 min-w-0">
-          {isEditing ? (
-            <motion.input ref={inputRef} type="text" value={urlValue} onChange={(e) => setUrlValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={() => { setIsEditing(false); setUrlValue(getUrl()); }} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} className="flex-1 border px-3 py-2 font-mono text-xs sm:text-sm outline-none" style={{ backgroundColor: urlBarBg, color: urlBarText, borderColor: urlBarBorder }} />
-          ) : (
-            <motion.div onClick={handleUrlClick} initial={{ opacity: 0 }} animate={{ opacity: 1 }} whileHover={{ backgroundColor: 'var(--button-hover)', borderColor: 'var(--brand)' }} whileTap={{ scale: 0.99 }} className="flex-1 cursor-text border px-3 py-2 font-mono text-xs sm:text-sm" style={{ backgroundColor: urlBarBg, color: urlBarText, borderColor: urlBarBorder, transition: 'all 0.15s ease' }}>{getUrl()}</motion.div>
-          )}
+          <div className="relative flex-1">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-soft)' }}>
+              {favicon || ''}
+            </div>
+            {isEditing ? (
+              <input ref={inputRef} type="text" value={urlValue} onChange={(e) => setUrlValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={() => { setIsEditing(false); setUrlValue(getUrl()); }} className="url-bar-input flex-1 border px-3 py-2 font-mono text-xs sm:text-sm outline-none" style={{ backgroundColor: urlBarBg, color: urlBarText, borderColor: urlBarBorder }} />
+            ) : (
+              <div onClick={handleUrlClick} className="url-bar-input flex-1 cursor-text border px-3 py-2 font-mono text-xs sm:text-sm" style={{ backgroundColor: urlBarBg, color: urlBarText, borderColor: urlBarBorder, transition: 'all 0.15s ease' }}>{getUrl()}</div>
+            )}
+
+            <AnimatePresence>
+              {recentlyVisited.length > 0 && !isEditing && (
+                <motion.button
+                  onClick={() => setIsHistoryOpen(prev => !prev)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.5 }}
+                  whileHover={{ opacity: 1 }}
+                  style={{ color: 'var(--text-soft)' }}
+                  title="Recently visited"
+                >
+                  <Clock size={12} />
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {isHistoryOpen && recentlyVisited.length > 0 && (
+                <motion.div
+                  ref={historyRef}
+                  initial={{ opacity: 0, y: 4, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-0 right-0 top-full z-20 mt-1 max-h-56 overflow-y-auto border"
+                  style={{
+                    backgroundColor: settingsBg,
+                    borderColor: settingsBorder,
+                  }}
+                >
+                  <div className="px-3 py-2 border-b text-[11px] uppercase tracking-[0.16em]" style={{ borderColor, color: headerColor }}>
+                    Recently Visited
+                  </div>
+                  {recentlyVisited.map((entry) => {
+                    const Icon = QUICK_NAV_ICONS.find(q => q.tab === entry.type)?.icon || Sparkles;
+                    const iconColor = QUICK_NAV_ICONS.find(q => q.tab === entry.type)?.color || 'var(--brand)';
+                    return (
+                      <button
+                        key={`${entry.type}-${entry.timestamp}`}
+                        onClick={() => {
+                          onNavigate(entry.type);
+                          setIsHistoryOpen(false);
+                        }}
+                        className="flex w-full items-center gap-2.5 border-b px-3 py-2 text-left text-xs last:border-b-0"
+                        style={{
+                          borderColor: 'var(--border)',
+                          color: 'var(--text-muted)',
+                          backgroundColor: entry.type === activeTab ? 'var(--button-hover)' : 'transparent',
+                        }}
+                      >
+                        <Icon size={12} style={{ color: iconColor }} />
+                        <span className="flex-1 truncate">{entry.title}</span>
+                        <span style={{ color: 'var(--text-soft)', fontSize: '10px' }}>
+                          {new Date(entry.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <div className="flex gap-1 border-l pl-2" style={{ borderColor: urlBarBorder }}>
             {QUICK_NAV_ICONS.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.button key={item.tab} onClick={() => { playClick(); onNavigate(item.tab); }} onMouseEnter={() => setHoveredIcon(item.tab)} onMouseLeave={() => setHoveredIcon(null)} className="p-2" whileHover={{ scale: 1.08, backgroundColor: 'var(--button-hover)' }} whileTap={{ scale: 0.92 }} style={{ color: hoveredIcon === item.tab ? item.color : 'var(--text-muted)', transition: 'color 0.15s ease' }} title={item.hint}><Icon size={14} /></motion.button>
+                <button key={item.tab} onClick={() => { playClick(); onNavigate(item.tab); }} onMouseEnter={() => setHoveredIcon(item.tab)} onMouseLeave={() => setHoveredIcon(null)} className="p-2" style={{ color: hoveredIcon === item.tab ? item.color : 'var(--text-muted)', transition: 'color 0.15s ease' }} title={item.hint}><Icon size={14} /></button>
               );
             })}
           </div>
 
           <div className="relative ml-1 flex-shrink-0" ref={settingsRef}>
-            <motion.button onClick={() => setIsSettingsOpen((prev) => !prev)} onMouseEnter={() => setHoveredIcon('settings')} onMouseLeave={() => setHoveredIcon(null)} className="p-2 border" whileHover={{ scale: 1.08, backgroundColor: 'var(--button-hover)', borderColor: 'var(--brand)' }} whileTap={{ scale: 0.92 }} style={{ color: hoveredIcon === 'settings' || isSettingsOpen ? 'var(--text-strong)' : 'var(--text-muted)', backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? 'var(--button-hover)' : 'var(--chrome-panel-strong)', borderColor: urlBarBorder, transition: 'all 0.15s ease' }} title="Settings"><Settings2 size={14} /></motion.button>
+            <button onClick={() => setIsSettingsOpen((prev) => !prev)} onMouseEnter={() => setHoveredIcon('settings')} onMouseLeave={() => setHoveredIcon(null)} className="p-2 border" style={{ color: hoveredIcon === 'settings' || isSettingsOpen ? 'var(--text-strong)' : 'var(--text-muted)', backgroundColor: hoveredIcon === 'settings' || isSettingsOpen ? 'var(--button-hover)' : 'var(--chrome-panel-strong)', borderColor: urlBarBorder, transition: 'all 0.15s ease' }} title="Settings"><Settings2 size={14} /></button>
 
             <AnimatePresence>
               {isSettingsOpen && (
@@ -160,6 +239,6 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

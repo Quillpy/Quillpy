@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BrowserControls } from './BrowserControls';
 import { TabBar } from './TabBar';
 import { TabContent } from './TabContent';
 import { DevControlOverlay, ControlMode } from './DevControlOverlay';
 import { VoidOverlay } from './VoidOverlay';
-import { motion } from 'motion/react';
+import { BookmarksBar } from './BookmarksBar';
+import { KeyboardShortcutsModal } from './KeyboardShortcutsModal';
+import { motion, AnimatePresence } from 'motion/react';
 import { useClickSound } from '../../hooks/useClickSound';
 import { useTheme } from '../../hooks/useTheme';
 
@@ -19,6 +21,12 @@ export interface Tab {
 interface TabHistory {
   type: TabType;
   title: string;
+}
+
+interface VisitedEntry {
+  type: TabType;
+  title: string;
+  timestamp: number;
 }
 
 const DEFAULT_TAB_TITLES: Record<TabType, string> = {
@@ -45,6 +53,22 @@ export function Browser() {
   const [isVoid, setIsVoid] = useState(false);
   const [historyIndex, setHistoryIndex] = useState(0);
   const { playClick } = useClickSound();
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(() => {
+    const stored = localStorage.getItem('quillpy_show_bookmarks');
+    return stored !== null ? stored === 'true' : true;
+  });
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [recentlyVisited, setRecentlyVisited] = useState<VisitedEntry[]>([]);
+  const [readProgress, setReadProgress] = useState(0);
+  const konamiBuffer = useRef<number[]>([]);
+  const [showKonami, setShowKonami] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [favicon, setFavicon] = useState('');
+  const [zoom, setZoom] = useState(100);
+
+  const KONAMI_CODE = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
   const openTab = (type: TabType, activate = true) => {
     const newTab: Tab = {
@@ -59,6 +83,14 @@ export function Browser() {
     }
     setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type, title: DEFAULT_TAB_TITLES[type] }]);
     setHistoryIndex(prev => prev + 1);
+    addRecentlyVisited(type, DEFAULT_TAB_TITLES[type]);
+  };
+
+  const addRecentlyVisited = (type: TabType, title: string) => {
+    setRecentlyVisited(prev => {
+      const filtered = prev.filter(v => v.type !== type);
+      return [{ type, title, timestamp: Date.now() }, ...filtered].slice(0, 8);
+    });
   };
 
   useEffect(() => {
@@ -104,17 +136,125 @@ export function Browser() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!event.altKey || event.key.toLowerCase() !== 't') {
+      if (event.altKey && event.key.toLowerCase() === 't') {
+        event.preventDefault();
+        openTab('terminal');
         return;
       }
 
-      event.preventDefault();
-      openTab('terminal');
+      if (event.ctrlKey && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        document.querySelector<HTMLInputElement>('.url-bar-input')?.focus();
+        return;
+      }
+
+      if (event.ctrlKey && event.key.toLowerCase() === 'b') {
+        event.preventDefault();
+        setShowBookmarks(prev => {
+          const next = !prev;
+          localStorage.setItem('quillpy_show_bookmarks', String(next));
+          return next;
+        });
+        return;
+      }
+
+      if (event.key === '?') {
+        event.preventDefault();
+        setShowShortcuts(prev => !prev);
+        return;
+      }
+
+      if (event.ctrlKey && event.key.toLowerCase() === 'd') {
+        event.preventDefault();
+        const bookmarkEvent = new CustomEvent('quillpy_bookmark');
+        window.dispatchEvent(bookmarkEvent);
+        return;
+      }
+
+      if (event.ctrlKey && event.key.toLowerCase() === 'r') {
+        event.preventDefault();
+        handleRefresh();
+        return;
+      }
+
+      if (event.ctrlKey && (event.key === '+' || event.key === '=')) {
+        event.preventDefault();
+        setZoom(prev => Math.min(prev + 10, 150));
+        return;
+      }
+
+      if (event.ctrlKey && event.key === '-') {
+        event.preventDefault();
+        setZoom(prev => Math.max(prev - 10, 50));
+        return;
+      }
+
+      if (event.ctrlKey && event.key === '0') {
+        event.preventDefault();
+        setZoom(100);
+        return;
+      }
+
+      const buffer = konamiBuffer.current;
+      if (KONAMI_CODE.includes(event.keyCode)) {
+        buffer.push(event.keyCode);
+        if (buffer.length > KONAMI_CODE.length) buffer.shift();
+        if (buffer.length === KONAMI_CODE.length && buffer.every((code, i) => code === KONAMI_CODE[i])) {
+          setShowKonami(true);
+          setTimeout(() => setShowKonami(false), 3000);
+          buffer.length = 0;
+        }
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [historyIndex]);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const progress = scrollHeight > clientHeight ? (scrollTop / (scrollHeight - clientHeight)) * 100 : 0;
+      setReadProgress(Math.min(progress, 100));
+    };
+    el.addEventListener('scroll', handleScroll);
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, [activeTabId]);
+
+  useEffect(() => {
+    const favicons: Record<TabType, string> = {
+      welcome: '🌲',
+      about: '🦊',
+      projects: '',
+      philosophy: '💭',
+      connect: '🔗',
+      terminal: '⌨️',
+      support: '❤️',
+      logs: '📝'
+    };
+    const activeTab = tabs.find(t => t.id === activeTabId);
+    if (activeTab) {
+      setFavicon(favicons[activeTab.type] || '');
+    }
+  }, [activeTabId, tabs]);
+
+  const handleRefresh = () => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 500);
+  };
 
   const handleResume = () => {
     setShowContent(true);
@@ -167,6 +307,7 @@ export function Browser() {
       ));
       setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type: lowerQuery as TabType, title: DEFAULT_TAB_TITLES[lowerQuery as TabType] }]);
       setHistoryIndex(prev => prev + 1);
+      addRecentlyVisited(lowerQuery as TabType, DEFAULT_TAB_TITLES[lowerQuery as TabType]);
     } else {
       window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     }
@@ -180,6 +321,7 @@ export function Browser() {
     ));
     setTabHistory(prev => [...prev.slice(0, historyIndex + 1), { type, title: DEFAULT_TAB_TITLES[type] }]);
     setHistoryIndex(prev => prev + 1);
+    addRecentlyVisited(type, DEFAULT_TAB_TITLES[type]);
   };
 
   const handleBack = () => {
@@ -207,12 +349,35 @@ export function Browser() {
   };
 
   const activeTab = tabs.find(t => t.id === activeTabId);
+  const timeStr = currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   return (
     <div 
       className="overflow-hidden relative flex flex-col"
       style={{ backgroundColor: 'var(--background)', height: '100%' }}
     >
+      {readProgress > 0 && readProgress < 100 && (
+        <div className="absolute left-0 right-0 top-0 z-50 h-0.5" style={{ backgroundColor: 'var(--brand-soft)' }}>
+          <motion.div
+            className="h-full"
+            style={{ backgroundColor: 'var(--brand)' }}
+            animate={{ width: `${readProgress}%` }}
+            transition={{ duration: 0.15 }}
+          />
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="absolute left-0 right-0 top-0 z-50 h-0.5" style={{ backgroundColor: 'var(--brand-soft)' }}>
+          <motion.div
+            className="h-full"
+            style={{ backgroundColor: 'var(--brand)', width: '30%' }}
+            animate={{ x: ['-100%', '400%'] }}
+            transition={{ duration: 0.8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
+      )}
+
       <BrowserControls 
         activeTab={activeTab?.type || 'welcome'} 
         onNavigate={handleNavigate}
@@ -220,18 +385,30 @@ export function Browser() {
         onSearch={handleSearch}
         onBack={handleBack}
         onForward={handleForward}
+        onRefresh={handleRefresh}
         canGoBack={historyIndex > 0}
         canGoForward={historyIndex < tabHistory.length - 1}
         bodyFontSize={bodyFontSize}
         onBodyFontSizeChange={setBodyFontSize}
         theme={theme}
         onThemeChange={setTheme}
+        recentlyVisited={recentlyVisited}
+        favicon={favicon}
       />
       
+      {showBookmarks && (
+        <BookmarksBar 
+          onNavigate={handleNavigate} 
+          currentTab={activeTab?.type || 'welcome'} 
+        />
+      )}
+      
       <motion.div
+        ref={contentRef}
         animate={{ opacity: showContent ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         className="flex min-h-0 flex-1 flex-col"
+        style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top left' }}
       >
         <TabBar 
           tabs={tabs}
@@ -240,7 +417,7 @@ export function Browser() {
           onCloseTab={handleCloseTab}
           onAddTab={handleAddTab}
         />
-      <TabContent
+        <TabContent
           activeTab={activeTab?.type || 'welcome'}
           onSearch={handleSearch}
           bodyFontSize={bodyFontSize}
@@ -253,7 +430,7 @@ export function Browser() {
       {isVoid && <VoidOverlay />}
 
       <div
-        className="px-4 py-2.5 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
+        className="px-4 py-2 border-t flex flex-wrap items-center justify-between gap-2 text-xs font-mono"
         style={{
           backgroundColor: 'var(--chrome-panel-strong)',
           borderColor: 'var(--chrome-border)',
@@ -270,10 +447,33 @@ export function Browser() {
           <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Building things since 2026</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span>quillpy.com</span>
+        <div className="flex items-center gap-3">
+          <span style={{ color: 'var(--text-soft)' }}>Press ? for shortcuts</span>
+          <span style={{ color: 'var(--text-soft)' }}>|</span>
+          <span style={{ color: 'var(--text-soft)' }}>{zoom}%</span>
+          <span style={{ color: 'var(--text-soft)' }}>|</span>
+          <span style={{ color: 'var(--brand)', fontVariantNumeric: 'tabular-nums' }}>{timeStr}</span>
         </div>
       </div>
+
+      <KeyboardShortcutsModal isOpen={showShortcuts} onClose={() => setShowShortcuts(false)} />
+
+      {showKonami && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed bottom-16 left-1/2 z-[200] -translate-x-1/2 border px-4 py-2 text-sm"
+          style={{
+            backgroundColor: 'var(--surface-overlay)',
+            borderColor: 'var(--brand)',
+            color: 'var(--brand)',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          🎮 Konami code activated. You found it.
+        </motion.div>
+      )}
     </div>
   );
 }

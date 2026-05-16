@@ -1,5 +1,5 @@
-import { Tab } from './Browser';
-import { Terminal, X } from 'lucide-react';
+import { Tab, TabType } from './Browser';
+import { Terminal, X, Sparkles, User, Folder, BookOpen, Link, Heart, MessageSquare } from 'lucide-react';
 import { useClickSound } from '../../hooks/useClickSound';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -11,15 +11,34 @@ interface TabBarProps {
   onAddTab: () => void;
 }
 
+const TAB_ICONS: Record<TabType, typeof Terminal> = {
+  welcome: Sparkles,
+  about: User,
+  projects: Folder,
+  philosophy: BookOpen,
+  connect: Link,
+  terminal: Terminal,
+  support: Heart,
+  logs: MessageSquare,
+};
+
+const TAB_COLORS: Record<TabType, string> = {
+  welcome: '#a78bda',
+  about: '#6f9f84',
+  projects: '#7fbf9a',
+  philosophy: '#ffd166',
+  connect: '#67bcf0',
+  terminal: 'var(--brand)',
+  support: '#f06b8a',
+  logs: '#ffd166',
+};
+
 export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }: TabBarProps) {
   const { playClick } = useClickSound();
 
   return (
-    <motion.div
+    <div
       className="scrollbar-hide flex items-center overflow-x-auto border-b"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
       style={{
         borderColor: 'var(--chrome-border)',
         backgroundColor: 'var(--chrome-panel-strong)',
@@ -33,29 +52,24 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
       <AnimatePresence mode="popLayout">
         {tabs.map((tab) => {
           const isActive = activeTabId === tab.id;
+          const Icon = TAB_ICONS[tab.type] || Terminal;
+          const iconColor = TAB_COLORS[tab.type] || 'var(--brand)';
 
           return (
-            <motion.div
+            <div
               key={tab.id}
-              layout
-              initial={{ opacity: 0, scale: 0.95, x: -10 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.95, x: -10 }}
-              transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               onClick={() => { playClick(); onTabChange(tab.id); }}
-              className="ui-hover ui-panel-soft group relative flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap border px-4 py-2.5 text-xs sm:text-sm"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
+              className="group relative flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap border px-4 py-2.5 text-xs sm:text-sm"
               style={{
                 color: isActive ? 'var(--text-strong)' : 'var(--text-muted)',
                 backgroundColor: isActive ? 'var(--surface-2)' : 'var(--surface-1)',
-                borderColor: isActive ? 'var(--brand)' : 'var(--border)',
-                boxShadow: isActive ? 'inset 0 1px 0 var(--brand-soft)' : 'none',
+                borderColor: isActive ? iconColor : 'var(--border)',
+                boxShadow: isActive ? `inset 0 1px 0 ${iconColor}20` : 'none',
                 minWidth: '120px',
                 maxWidth: '180px',
               }}
             >
-              {isActive && <Terminal size={14} style={{ color: 'var(--brand)' }} />}
+              <Icon size={14} style={{ color: isActive ? iconColor : 'var(--text-soft)' }} />
               <span className="flex-1 truncate">{tab.title}</span>
               {tabs.length > 1 && (
                 <motion.button
@@ -81,16 +95,14 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
                   <X size={14} />
                 </motion.button>
               )}
-            </motion.div>
+            </div>
           );
         })}
       </AnimatePresence>
 
-      <motion.button
+      <button
         onClick={() => { playClick(); onAddTab(); }}
-        className="ui-hover ui-panel-soft ml-1 flex shrink-0 items-center justify-center border p-2.5"
-        whileHover={{ scale: 1.05, backgroundColor: 'var(--button-hover)', borderColor: 'var(--brand)' }}
-        whileTap={{ scale: 0.95 }}
+        className="ml-1 flex shrink-0 items-center justify-center border p-2.5"
         style={{
           color: 'var(--text-muted)',
           backgroundColor: 'var(--surface-1)',
@@ -100,7 +112,7 @@ export function TabBar({ tabs, activeTabId, onTabChange, onCloseTab, onAddTab }:
         title="New Terminal Tab"
       >
         <Terminal size={16} />
-      </motion.button>
-    </motion.div>
+      </button>
+    </div>
   );
 }

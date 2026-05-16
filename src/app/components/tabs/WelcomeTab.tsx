@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 
 export function WelcomeTab() {
   const [showCursor, setShowCursor] = useState(true);
@@ -13,11 +12,7 @@ export function WelcomeTab() {
 
   return (
     <div className="mx-auto w-full max-w-5xl py-8 sm:py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div>
         <div className="mb-8 sm:mb-12">
           <h1
             className="mb-5"
@@ -61,7 +56,7 @@ export function WelcomeTab() {
             text="Grab coffee (virtual), collaborate, or just say hi."
           />
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

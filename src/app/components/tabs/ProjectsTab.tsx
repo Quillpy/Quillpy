@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { ArrowUpRight, FolderGit2, Sparkles } from 'lucide-react';
 
 interface Project {
@@ -94,16 +93,15 @@ export function ProjectsTab() {
         </p>
       </div>
 
-      <motion.a
+      <a
         href={featured.url}
         target="_blank"
         rel="noopener noreferrer"
         className="ui-hover ui-panel mb-4 block border p-5 sm:mb-5 sm:p-7"
-        whileHover={{ y: -4 }}
         style={{
           background: 'linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 96%, transparent) 0%, color-mix(in srgb, var(--surface-1) 96%, transparent) 100%)',
           borderColor: 'var(--brand)',
-          boxShadow: '0 18px 40px var(--shadow-color)',
+          boxShadow: '0 8px 20px var(--shadow-color)',
         }}
       >
         <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
@@ -132,23 +130,20 @@ export function ProjectsTab() {
           <ProjectMeta label="Type" value={featured.type} />
           <ProjectMeta label="Stack" value={featured.stack.join(' / ')} />
         </div>
-      </motion.a>
+      </a>
 
       <div className="grid gap-4 md:grid-cols-2">
         {remainingProjects.map((project, index) => (
-          <motion.a
+          <a
             key={project.title}
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
             className="ui-hover ui-panel-soft block border p-5"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08 * index, duration: 0.35 }}
-            whileHover={{ y: -3 }}
             style={{
               backgroundColor: 'var(--surface-1)',
               borderColor: 'var(--border)',
+              boxShadow: '0 4px 12px var(--shadow-color)',
             }}
           >
             <div className="mb-4 flex items-start justify-between gap-3">
@@ -182,7 +177,7 @@ export function ProjectsTab() {
             <div className="text-sm" style={{ color: 'var(--brand)' }}>
               {project.status}
             </div>
-          </motion.a>
+          </a>
         ))}
       </div>
     </div>
