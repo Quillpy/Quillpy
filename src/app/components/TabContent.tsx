@@ -66,7 +66,7 @@ export function TabContent({ activeTab, onSearch, bodyFontSize, onVoid }: TabCon
           {activeTab === 'support' && <SupportTab />}
           {activeTab === 'logs' && <LogsTab />}
           <div className="mt-2" style={{ color: 'var(--text-soft)', fontSize: '0.85rem' }}>
-            💡 {tips[tipIndex]}
+            Tip: {tips[tipIndex]}
           </div>
         </motion.div>
       </AnimatePresence>

@@ -175,7 +175,7 @@ export function TerminalTab({ onNavigate, onVoid }: TerminalTabProps) {
       if (target && PAGES.some((page) => page.cmd === target)) {
         output = navigateToPage(target);
       } else {
-        output = <div style={{ color: 'var(--destructive)' }}>{lowerCommand}: no such page: {target}</div>;
+        output = <div style={{ color: 'var(--destructive)' }}>{lower}: no such page: {target}</div>;
       }
     } else if (lower === 'cat') {
       output = renderCat((args[0] || '').toLowerCase());

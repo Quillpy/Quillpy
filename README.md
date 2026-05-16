@@ -1,22 +1,16 @@
-# Hi there, I'm Shubham 👋
+# Shubham Pandey
 
-A 16-year-old student from Delhi, India 🇮🇳
+16-year-old developer from India. I like building tools, breaking systems to understand them, and making things better.
 
-### About Me
-- Exploring programming, logic, and game systems
-- Interested in chess, problem-solving, and building tools
-- Philosophy: Learn → Build → Break → Repeat
+### Currently Building
+- **[Quillpy](https://github.com/Quillpy/Quillpy)** — A browser-style portfolio.
+- **[Chess Heaven](https://github.com/Quillpy/chess-heaven)** — A premium platform for chess enthusiasts.
+- **[FastCR](https://github.com/Quillpy/fastcr)** — Minimalist CLI tool for rapid code execution.
 
-### Projects
-- **[Chess Heaven](https://github.com/Quillpy/chess-heaven)** — A premium chess platform for enthusiasts
-- **[FastCR](https://github.com/Quillpy/fastcr)** — A lightweight CLI tool for running code quickly
-- **[Chess EloPredictor](https://github.com/Quillpy/chess-elo-predictor)** — ML model to predict chess ratings
-- **[Maggie-Man](https://github.com/Quillpy/Maggie-Man)** — Discord bot for chess tournament updates
-
-### Currently Learning
-- Deepening my understanding of C programming and how machines work under the hood
-
-[![My Awesome Stats](https://awesome-github-stats.azurewebsites.net/user-stats/Quillpy?cardType=github&theme=flag-india&fontFamily=Allerta&preferLogin=false)](https://git.io/awesome-stats-card)
+### Tech & Tools
+- **Languages:** Python, C, JavaScript, TypeScript
+- **Systems:** Linux (Kubuntu), Bash
+- **Interests:** Logic, UX Design, Philosophy
 
 ---
-*Always grinding new concepts 🚀*
+*Learn → Build → Break → Repeat*

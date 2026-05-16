@@ -445,7 +445,7 @@ export function Browser() {
           <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Linux</span>
           <span style={{ color: 'var(--text-soft)' }}>|</span>
-          <span>Making stuff since 2026</span>
+          <span>shubham@dev</span>
         </div>
         <div className="flex items-center gap-3">
           <span style={{ color: 'var(--text-soft)' }}>Hit ? for shortcuts</span>
@@ -471,7 +471,7 @@ export function Browser() {
             backdropFilter: 'blur(8px)',
           }}
         >
-          🎮 Konami code activated. You found it.
+          Konami code activated. You found it.
         </motion.div>
       )}
     </div>

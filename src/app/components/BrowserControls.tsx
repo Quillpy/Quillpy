@@ -37,10 +37,9 @@ interface BrowserControlsProps {
   theme: 'dark' | 'light';
   onThemeChange: (theme: 'dark' | 'light') => void;
   recentlyVisited: VisitedEntry[];
-  favicon?: string;
 }
 
-export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, onRefresh, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange, recentlyVisited, favicon }: BrowserControlsProps) {
+export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearch, onBack, onForward, onRefresh, canGoBack, canGoForward, bodyFontSize, onBodyFontSizeChange, theme, onThemeChange, recentlyVisited }: BrowserControlsProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [urlValue, setUrlValue] = useState('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -124,9 +123,6 @@ export function BrowserControls({ activeTab, onNavigate, onControlClick, onSearc
 
         <div className="mx-1 flex flex-1 items-center gap-2 sm:mx-2 min-w-0">
           <div className="relative flex-1">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-soft)' }}>
-              {favicon || ''}
-            </div>
             {isEditing ? (
               <input ref={inputRef} type="text" value={urlValue} onChange={(e) => setUrlValue(e.target.value)} onKeyDown={handleKeyDown} onBlur={() => { setIsEditing(false); setUrlValue(getUrl()); }} className="url-bar-input flex-1 border px-3 py-2 font-mono text-xs sm:text-sm outline-none" style={{ backgroundColor: urlBarBg, color: urlBarText, borderColor: urlBarBorder }} />
             ) : (

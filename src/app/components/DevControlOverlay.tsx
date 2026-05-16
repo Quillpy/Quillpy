@@ -128,7 +128,7 @@ function RunMode() {
       </motion.div>
 
       <div style={{ color: 'var(--text-soft)', fontSize: '0.75rem', fontFamily: 'monospace' }}>
-        {['[✓] react.js', '[✓] components.tsx', '[✓] styles.css', '[✓] animations.js'].map((item, index) => (
+        {['[OK] react.js', '[OK] components.tsx', '[OK] styles.css', '[OK] animations.js'].map((item, index) => (
           <motion.div
             key={item}
             initial={{ opacity: 0, x: -10 }}
@@ -147,7 +147,7 @@ function RunMode() {
         transition={{ delay: 1.3, duration: 0.3 }}
         style={{ color: 'var(--brand)', fontSize: '0.875rem', marginTop: '1rem' }}
       >
-        ✓ ready
+        READY
       </motion.div>
     </div>
   );

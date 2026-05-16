@@ -53,12 +53,6 @@ export function AboutTab() {
           I've got a health thing going on: my left kidney has been smaller since I was a kid, so I can't do heavy physical stuff. But I'm doing okay — still here, still going. Blood pressure acts up sometimes, but it's manageable.
         </AboutPanel>
         <AboutPanel>
-          First time I touched a computer was in school lab, class 3. Couldn't even use a mouse right (no joke). Those school computers were pretty bad anyway. Then in class 7 or 8, I got my own PC and things got fun. Started with online classes, but by class 9 I was exploring everything. Found programming and went full nerd mode. Took about a year to make my first real project. Class 10 happened and studying took over. After 10th, I did CS50, learned from YouTube, and here we are.
-        </AboutPanel>
-        <AboutPanel>
-          Right now I'm running Kubuntu 25.10 with KDE Plasma. It's a 2014 machine with an Intel i3, 4GB RAM (3.7GB usable, yep), and Intel HD Graphics. Yeah, it runs. Barely, but it runs. Waiting for class 11 to start so I can upgrade. Also moving to Delhi soon — stay tuned.
-        </AboutPanel>
-        <AboutPanel>
           First time I touched a computer was in school lab, class 3. Couldn't even use a mouse properly (true story). Now, I know that those computers on school were trash. Then, in class 7 or 8, I got my own PC and that's when things got interesting. Started with online classes, but by class 9 I was deep into exploring everything. I found programming and went full curious mode. Took about a year before I made my first project. Class 10 hit and studies happened. After 10th, I did CS50, YouTube'd my way through the rest, and here we are.
         </AboutPanel>
         <AboutPanel>
