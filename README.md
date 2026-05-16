@@ -16,7 +16,7 @@ A 16-year-old student from Delhi, India 🇮🇳
 ### Currently Learning
 - Deepening my understanding of C programming and how machines work under the hood
 
-[![My Awesome Stats](https://awesome-github-stats.azurewebsites.net/user-stats/Quillpy?cardType=github&theme=darcula&fontFamily=Allerta&preferLogin=false)](https://git.io/awesome-stats-card)
+[![My Awesome Stats](https://awesome-github-stats.azurewebsites.net/user-stats/Quillpy?cardType=github&theme=flag-india&fontFamily=Allerta&preferLogin=false)](https://git.io/awesome-stats-card)
 
 ---
 *Always grinding new concepts 🚀*
