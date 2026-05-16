@@ -38,22 +38,22 @@ export function WelcomeTab() {
             </span>
           </h1>
           <p className="max-w-2xl" style={{ color: 'var(--text-muted)', lineHeight: '1.9', fontSize: 'clamp(1rem, 2vw, 1.1rem)' }}>
-            16 year old builder from India. I break things to understand them, then build something better.
+            Hey! I'm a 16 year old from India who likes building stuff. I break things to figure out how they work, then make them better.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           <WelcomeCard
             title="Build"
-            text="Tools and projects that solve real problems, not just exercises."
+            text="Making tools and projects that actually help people, not just practice stuff."
           />
           <WelcomeCard
             title="Learn"
-            text="CS50, Linux, and digging into how things actually work under the hood."
+            text="CS50, Linux, and trying to figure out how things really work."
           />
           <WelcomeCard
             title="Connect"
-            text="Grab coffee (virtual), collaborate, or just say hi."
+            text="Let's chat, work together, or just say hi. I don't bite."
           />
         </div>
       </div>

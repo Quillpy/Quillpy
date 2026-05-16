@@ -41,16 +41,22 @@ export function AboutTab() {
             Shubham Pandey
           </h1>
           <p className="mt-3 max-w-xl" style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
-            16-year-old tinkerer from a small town in India. Born 29 Nov 2009. Yes, I'm that guy who breaks things to understand them.
+            16 year old from India. I like breaking stuff to see how it works, then putting it back together better.
           </p>
         </div>
       </div>
 
       <div className="space-y-4">
         <AboutPanel>
-          So here’s the deal — I grew up in a village so small it had less than 100 people. Before I turned 5, we moved to a slightly bigger town (still tiny by any normal standard).
+          So here's my story — I grew up in a tiny village with less than 100 people. Before I turned 5, we moved to a slightly bigger town (still pretty small though).
 
-          I’ve also got a bit of a health situation: my left kidney has been smaller and less functional than the right one since childhood, so I cannot go all out with heavy physical activities. But I mm doing fine overall — still here, still going. My blood pressure likes to fluctuate sometimes, but it is manageable.
+          I've got a health thing going on: my left kidney has been smaller since I was a kid, so I can't do heavy physical stuff. But I'm doing okay — still here, still going. Blood pressure acts up sometimes, but it's manageable.
+        </AboutPanel>
+        <AboutPanel>
+          First time I touched a computer was in school lab, class 3. Couldn't even use a mouse right (no joke). Those school computers were pretty bad anyway. Then in class 7 or 8, I got my own PC and things got fun. Started with online classes, but by class 9 I was exploring everything. Found programming and went full nerd mode. Took about a year to make my first real project. Class 10 happened and studying took over. After 10th, I did CS50, learned from YouTube, and here we are.
+        </AboutPanel>
+        <AboutPanel>
+          Right now I'm running Kubuntu 25.10 with KDE Plasma. It's a 2014 machine with an Intel i3, 4GB RAM (3.7GB usable, yep), and Intel HD Graphics. Yeah, it runs. Barely, but it runs. Waiting for class 11 to start so I can upgrade. Also moving to Delhi soon — stay tuned.
         </AboutPanel>
         <AboutPanel>
           First time I touched a computer was in school lab, class 3. Couldn't even use a mouse properly (true story). Now, I know that those computers on school were trash. Then, in class 7 or 8, I got my own PC and that's when things got interesting. Started with online classes, but by class 9 I was deep into exploring everything. I found programming and went full curious mode. Took about a year before I made my first project. Class 10 hit and studies happened. After 10th, I did CS50, YouTube'd my way through the rest, and here we are.
@@ -61,9 +67,9 @@ export function AboutTab() {
       </div>
 
       <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
-        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
-          Machine Specs (for the curious)
-        </div>
+          <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
+            My Machine (for the curious)
+          </div>
         <div className="grid gap-2 text-sm" style={{ color: 'var(--text-muted)' }}>
           <div className="flex justify-between border-b py-2" style={{ borderColor: 'var(--border)' }}>
             <span>OS</span>
@@ -94,7 +100,23 @@ export function AboutTab() {
 
       <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
         <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
-          Interests
+          GitHub Stats
+        </div>
+        <div className="flex justify-center">
+          <a href="https://awesome-github-stats.azurewebsites.net/index.html??cardType=github&theme=gotham&fontFamily=Allerta&preferLogin=false" target="_blank" rel="noopener noreferrer">
+            <img 
+              alt="Quillpy's GitHub Stats" 
+              src="https://awesome-github-stats.azurewebsites.net/user-stats/Quillpy?cardType=github&theme=gotham&fontFamily=Allerta&preferLogin=false" 
+              className="max-w-full"
+              style={{ borderRadius: '0' }}
+            />
+          </a>
+        </div>
+      </div>
+
+      <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
+        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
+          Things I Like
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
           {INTERESTS.map((interest) => (
@@ -106,9 +128,9 @@ export function AboutTab() {
       </div>
 
       <div className="mt-6 border px-5 py-5 ui-panel-soft" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-1)' }}>
-        <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
-          Skills & Tools
-        </div>
+          <div className="mb-4 text-sm uppercase tracking-[0.18em]" style={{ color: 'var(--brand)' }}>
+            Stuff I Know
+          </div>
         <div className="grid gap-4 sm:grid-cols-3">
           {SKILLS.map((skill) => (
             <div key={skill.category}>

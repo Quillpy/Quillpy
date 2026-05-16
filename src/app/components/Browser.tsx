@@ -445,10 +445,10 @@ export function Browser() {
           <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span>Linux</span>
           <span style={{ color: 'var(--text-soft)' }}>|</span>
-          <span>Building things since 2026</span>
+          <span>Making stuff since 2026</span>
         </div>
         <div className="flex items-center gap-3">
-          <span style={{ color: 'var(--text-soft)' }}>Press ? for shortcuts</span>
+          <span style={{ color: 'var(--text-soft)' }}>Hit ? for shortcuts</span>
           <span style={{ color: 'var(--text-soft)' }}>|</span>
           <span style={{ color: 'var(--text-soft)' }}>{zoom}%</span>
           <span style={{ color: 'var(--text-soft)' }}>|</span>

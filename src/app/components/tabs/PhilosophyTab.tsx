@@ -42,7 +42,7 @@ export function PhilosophyTab() {
           marginBottom: '2rem'
         }}
       >
-        Thoughts that shape how I see history, power, people, and the things I build.
+        Thoughts that shape how I see the world, people, and the stuff I build.
       </p>
 
       <div className="space-y-6 sm:space-y-8">
@@ -73,7 +73,7 @@ export function PhilosophyTab() {
           fontSize: '0.9rem'
         }}
       >
-        Built on curiosity, realism, design, and the belief that history and systems can be understood—and improved.
+        Just some thoughts I've picked up along the way. Built on curiosity, being real, and the belief that things can always be better.
       </p>
     </div>
   );

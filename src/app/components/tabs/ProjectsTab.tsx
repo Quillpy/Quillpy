@@ -12,7 +12,7 @@ interface Project {
 const projects: Project[] = [
   {
     title: 'Chess Heaven',
-    description: 'A premium chess platform for enthusiasts to play, learn, and compete in a high-quality environment.',
+    description: 'A chess site where people can play, learn, and compete. Made it nice because chess deserves a good home.',
     url: 'https://github.com/Quillpy/chess-heaven',
     status: 'Featured',
     type: 'Web App',
@@ -20,7 +20,7 @@ const projects: Project[] = [
   },
   {
     title: 'FastCR',
-    description: 'A lightweight CLI tool for running code quickly during learning and experiments.',
+    description: 'A quick CLI tool to run code fast when learning or testing stuff out.',
     url: 'https://github.com/Quillpy/fastcr',
     status: 'Building',
     type: 'Tools',
@@ -28,7 +28,7 @@ const projects: Project[] = [
   },
   {
     title: 'TruthGuard',
-    description: 'An AI-powered fact-checking tool designed to verify information and detect misinformation in real-time.',
+    description: 'An AI tool that checks if stuff you read online is actually true or just fake news.',
     url: 'https://github.com/Quillpy/TruthGuard',
     status: 'Development',
     type: 'AI Tool',
@@ -36,7 +36,7 @@ const projects: Project[] = [
   },
   {
     title: 'Chess EloPredictor',
-    description: 'Machine learning model to predict chess player ratings based on game history and performance metrics.',
+    description: 'A machine learning thing that guesses your chess rating based on how you play.',
     url: 'https://github.com/Quillpy/EloPredictor',
     status: 'Beta',
     type: 'ML',
@@ -44,7 +44,7 @@ const projects: Project[] = [
   },
   {
     title: 'Maggie-Man',
-    description: 'Discord bot that follows one Lichess broadcast per server and sends real-time updates.',
+    description: 'A Discord bot that watches Lichess chess games and tells everyone what is happening live.',
     url: 'https://github.com/Quillpy/Maggie-Man',
     status: 'Active',
     type: 'Bot',
@@ -52,7 +52,7 @@ const projects: Project[] = [
   },
   {
     title: 'Portfolio',
-    description: 'A browser-style personal space for sharing thoughts, projects, and experiments.',
+    description: 'This place! A browser-style site where I share my thoughts, projects, and random experiments.',
     url: 'https://github.com/Quillpy/Quillpy',
     status: 'Live',
     type: 'Web',
@@ -79,7 +79,7 @@ export function ProjectsTab() {
             lineHeight: '1.05',
           }}
         >
-          Small systems, experiments, and tools.
+          Stuff I've built.
         </h1>
         <p
           className="max-w-2xl"
@@ -89,7 +89,7 @@ export function ProjectsTab() {
             lineHeight: '1.8',
           }}
         >
-          A focused selection of projects that reflect how I learn: build something real, strip it down, then refine it until it feels useful.
+          Here's some projects I've worked on. I like building real things, taking them apart, and making them better until they're actually useful.
         </p>
       </div>
 

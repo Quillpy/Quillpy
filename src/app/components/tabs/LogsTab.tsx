@@ -11,17 +11,17 @@ const LOGS: LogEntry[] = [
   {
     date: '2025-02-11',
     title: 'Started Learning Python',
-    content: 'First time programming clicked. Started with Python in class 9 and realized writing code felt like solving puzzles.',
+    content: 'First time coding actually clicked. Started with Python in class 9 and realized writing code felt like solving puzzles.',
   },
   {
     date: '2025-12-25',
     title: 'Discovered CS50',
-    content: 'Started Harvard CS50 after 10th exams. It changed how I see computers — finally understanding what computer science is.',
+    content: 'Started Harvard CS50 after 10th exams. It changed how I see computers — finally got what computer science is about.',
   },
   {
     date: '2025-01',
     title: 'Created My GitHub Account',
-    content: 'Set up GitHub to store experiments and code. Felt like stepping into the real developer world.',
+    content: 'Set up GitHub to save my experiments and code. Felt like stepping into the real developer world for the first time.',
   },
   {
     date: '2025-03',
@@ -31,12 +31,12 @@ const LOGS: LogEntry[] = [
   {
     date: '2025-06',
     title: 'Linux Curiosity',
-    content: 'Got more interested in how computers actually work. Switched to Linux and started exploring lower-level ideas.',
+    content: 'Got more interested in how computers actually work. Switched to Linux and started digging into lower-level stuff.',
   },
   {
     date: '2025-10',
     title: 'Started This Portfolio',
-    content: 'Bought the domain and started building this space. First time building something for myself, not as exercise.',
+    content: 'Bought the domain and started building this space. First time making something for myself, not just as practice.',
   },
 ];
 
@@ -54,10 +54,10 @@ export function LogsTab() {
           Timeline
         </div>
         <h1 className="mb-3 text-3xl sm:text-5xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
-          Life logs
+          My journey so far
         </h1>
         <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
-          A linear record of the moments that moved me from curiosity into actual building.
+          Stuff that happened along the way — from just being curious to actually building things.
         </p>
       </div>
 

@@ -77,10 +77,10 @@ export function ConnectTab() {
           Connect
         </div>
         <h1 className="mb-3 text-3xl sm:text-4xl" style={{ color: 'var(--text-strong)', fontWeight: 300 }}>
-          Find me on the internet or send a message.
+          Let's talk.
         </h1>
         <p style={{ color: 'var(--text-muted)', lineHeight: '1.8' }}>
-          A minimal contact page with the links I use most and a simple message form.
+          Here's where you can find me online. Or just send me a message below — I'll get back to you when I can.
         </p>
       </div>
 
